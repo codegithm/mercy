@@ -1,0 +1,96 @@
+.mercy-logo {
+  width: 74px;
+  height: 74px;
+  margin: 0 !important;
+}
+
+.navbar {
+  background-color: rgb(11, 185, 185);
+  height: 80px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+@media screen and (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav {
+    flex-direction: row;
+    margin: 0 !important;
+  }
+  .navbar-expand-lg .navbar-collapse {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .navbar-collapse {
+    margin-top: 7px;
+    width: 100% !important;
+    background: rgb(238, 236, 236);
+    padding: 10px;
+  }
+  .navbar-light .navbar-nav .nav-link {
+    border-style: none;
+    border-width: 0px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background: white;
+    box-shadow: 2px 2px 2px 0px rgb(194, 191, 191);
+  }
+
+  .navbar > .container,
+  .navbar > .container-fluid,
+  .navbar > .container-lg,
+  .navbar > .container-md,
+  .navbar > .container-sm,
+  .navbar > .container-xl,
+  .navbar > .container-xxl {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    position: fixed;
+    top: 0 !important;
+  }
+
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block !important;
+  }
+  .btn-cont {
+    display: flex;
+  }
+}
+.mobile {
+  display: none;
+}
+
+.cart {
+  margin: 10px;
+  margin-right: 26px;
+}
+.cart-icon {
+  font-size: 20px;
+}
+.count {
+  background: red;
+  padding-left: 2px;
+  border-radius: 50%;
+  padding-right: 2px;
+  color: wheat;
+  font-size: 12px;
+  position: relative;
+  top: -10px;
+}
+.show {
+  display: block !important;
+}
+.hide {
+  display: none !important;
+}

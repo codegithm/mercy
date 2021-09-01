@@ -1,0 +1,39 @@
+.checkout-cont {
+  position: relative;
+  top: 126px;
+}
+.cart-empty {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.card-img-top-checkout {
+  width: 100px;
+  height: auto;
+}
+.card-checkout {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  background: whitesmoke !important;
+  margin: 10px;
+}
+.checkout {
+  height: auto;
+}
+.products-checkout {
+  position: relative;
+  top: 9px;
+  display: flex;
+  justify-content: center;
+}
+.proceed {
+  margin-bottom: 30px;
+}
+.checkoutTitle {
+  font-family: "Noto Sans TC", sans-serif;
+}

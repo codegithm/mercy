@@ -1,0 +1,23 @@
+.banner {
+  width: 100%;
+  height: 189px;
+  background-color: white;
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.mercy {
+  height: 200px;
+  width: 200px;
+  margin-bottom: 20px;
+}
+.banner-title {
+  margin-top: 40px;
+  margin-bottom: -15px;
+  font-family: "Noto Sans TC", sans-serif;
+}
