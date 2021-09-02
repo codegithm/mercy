@@ -94,3 +94,8 @@
 .hide {
   display: none !important;
 }
+.row {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}

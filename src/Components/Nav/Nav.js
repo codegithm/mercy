@@ -7,12 +7,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { PriceContext } from "../../PriceContext";
 
 const Nav = () => {
+  const history = useHistory();
   const { priceItem, cartItem } = useContext(PriceContext);
-
+  const changePath = (item) => {
+    history.push(item);
+  };
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
   const [show, setShow] = useState("show");
@@ -35,7 +38,12 @@ const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <a
+          onClick={() => {
+            changePath("/");
+          }}
+          className="navbar-brand btn"
+        >
           <img
             className="mercy-logo"
             alt="logoImg"
@@ -44,7 +52,12 @@ const Nav = () => {
         </a>
         <div className="btn-cont">
           <div className="cart mobile">
-            <a href="/checkout" className="btn position-relative">
+            <a
+              onClick={() => {
+                changePath("/checkout");
+              }}
+              className="btn position-relative"
+            >
               <FontAwesomeIcon
                 className="cart-icon"
                 icon={faCartArrowDown}
@@ -126,7 +139,12 @@ const Nav = () => {
           </ul>
         </div>
         <div className="cart desktop">
-          <a href="/checkout" className="btn position-relative">
+          <a
+            onClick={() => {
+              changePath("/checkout");
+            }}
+            className="btn position-relative"
+          >
             <FontAwesomeIcon
               className="cart-icon"
               icon={faCartArrowDown}

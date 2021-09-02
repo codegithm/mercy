@@ -3,18 +3,17 @@ import React, { Suspense } from "react";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
-import Nav from "./Components/Nav/Nav";
 import Items from "./Components/Items/Items";
 import Checkout from "./Components/Checkout/Checkout";
+import Nav from "./Components/Nav/Nav";
 import { PriceProvider } from "./PriceContext";
 
 function App() {
-  const [priceSum, setPriceSum] = React.useState(0);
   return (
     <PriceProvider>
       <div className="App">
-        <Nav />
         <Router>
+          <Nav />
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
               <Route exact path="/" component={Items} />

@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PriceContext } from "../../PriceContext";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const { priceItem, cartItem } = useContext(PriceContext);
@@ -15,17 +16,18 @@ const Checkout = () => {
     cart.splice(itemIndex, 1);
     setCart(cart);
     setPrice(price - item.price);
-    console.log(cart);
   };
 
   return (
     <div className="checkout">
       {price == 0 ? (
         <div className="cart-empty">
-          <p> Yor cart is empty </p>
-          <button type="button" className="btn btn-primary">
-            Continue shoppig
-          </button>
+          <p> Your cart is empty </p>
+          <Link to="/">
+            <button type="button" className="btn btn-primary">
+              Continue shoppig
+            </button>
+          </Link>
         </div>
       ) : (
         <div className="checkout-cont .container-fluid ">

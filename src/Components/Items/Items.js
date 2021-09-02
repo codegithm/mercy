@@ -17,10 +17,9 @@ const Items = () => {
   const addToCart = (item) => {
     cart.push(item);
     // setCart(itemsInCart);
-    console.log(cart);
   };
   return (
-    <div>
+    <div className="items-cont">
       <Banner />
       <div className="row products">
         {products.map((item) => (
