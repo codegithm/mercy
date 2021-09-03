@@ -1,0 +1,40 @@
+.product-name {
+  margin-top: 126px;
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.row {
+  margin: 0;
+}
+.add-to-cart-btn {
+  border-radius: 1px;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-to-cart-btn span {
+  margin-right: 10px;
+}
+.prod-img {
+  max-width: 283px !important;
+}
+.cart-btn {
+  width: 283px;
+}
+.size {
+  display: flex;
+  justify-content: center;
+}
+.size div {
+  margin: 10px;
+}
+.err-label {
+  width: 283px;
+  display: flex;
+  background: #dcdada;
+  justify-content: center;
+  color: red;
+  display: none;
+}

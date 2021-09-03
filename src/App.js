@@ -6,11 +6,12 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import Items from "./Components/Items/Items";
 import Checkout from "./Components/Checkout/Checkout";
 import Nav from "./Components/Nav/Nav";
-import { PriceProvider } from "./PriceContext";
+import AddToCart from "./Components/AddToCart/AddToCart";
+import { AppProvider } from "./AppContext";
 
 function App() {
   return (
-    <PriceProvider>
+    <AppProvider>
       <div className="App">
         <Router>
           <Nav />
@@ -18,11 +19,12 @@ function App() {
             <Switch>
               <Route exact path="/" component={Items} />
               <Route path="/checkout" component={Checkout} />
+              <Route path="/add" component={AddToCart} />
             </Switch>
           </Suspense>
         </Router>
       </div>
-    </PriceProvider>
+    </AppProvider>
   );
 }
 

@@ -37,3 +37,7 @@
 .checkoutTitle {
   font-family: "Noto Sans TC", sans-serif;
 }
+.sizeOfItem {
+  text-align: left;
+  font-weight: bolder;
+}

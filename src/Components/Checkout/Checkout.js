@@ -1,12 +1,12 @@
 import "./Checkout.css";
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PriceContext } from "../../PriceContext";
+import { AppContext } from "../../AppContext";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
-  const { priceItem, cartItem } = useContext(PriceContext);
+  const { priceItem, cartItem } = useContext(AppContext);
 
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
@@ -15,7 +15,7 @@ const Checkout = () => {
     const itemIndex = cart.indexOf(item);
     cart.splice(itemIndex, 1);
     setCart(cart);
-    setPrice(price - item.price);
+    setPrice(price - item.priceOfItem);
   };
 
   return (
@@ -34,7 +34,10 @@ const Checkout = () => {
           <h3 className="checkoutTitle">Checkout</h3>
           <div className="row products-checkout">
             {cart.map((item) => (
-              <div className="col-lg-3 col-md-4 col-sm-12 card-checkout card">
+              <div
+                key={item.id}
+                className="col-lg-3 col-md-4 col-sm-12 card-checkout card"
+              >
                 <img
                   className="img-fluid card-img-top-checkout "
                   alt="..."
@@ -42,7 +45,8 @@ const Checkout = () => {
                 />
                 <div className="card-body">
                   <h3 className="card-title">{item.name}</h3>
-                  <h3 className="card-title">R{item.price}</h3>
+                  <h3 className="card-title">R{item.priceOfItem}</h3>
+                  <p className="sizeOfItem">{item.sizeOfItem}</p>
                 </div>
                 <div className="delete">
                   <FontAwesomeIcon
@@ -56,7 +60,7 @@ const Checkout = () => {
             ))}
             <div className="proceed">
               <h4 className="checkoutTitle">R{price}</h4>
-              <button className="btn btn-primary">Checkout</button>
+              <button className="btn btn-success">Continue to payout</button>
             </div>
           </div>
         </div>

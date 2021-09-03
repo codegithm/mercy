@@ -99,3 +99,12 @@
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 991px) {
+  .navbar-light .navbar-nav .nav-link {
+    text-align: left;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}

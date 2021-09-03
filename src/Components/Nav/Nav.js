@@ -1,18 +1,18 @@
 import "./Nav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCartArrowDown,
+  faShoppingBag,
   faBars,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { PriceContext } from "../../PriceContext";
+import { AppContext } from "../../AppContext";
 
 const Nav = () => {
   const history = useHistory();
-  const { priceItem, cartItem } = useContext(PriceContext);
+  const { priceItem, cartItem } = useContext(AppContext);
   const changePath = (item) => {
     history.push(item);
   };
@@ -60,7 +60,7 @@ const Nav = () => {
             >
               <FontAwesomeIcon
                 className="cart-icon"
-                icon={faCartArrowDown}
+                icon={faShoppingBag}
               ></FontAwesomeIcon>
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {cart.length}
@@ -88,20 +88,6 @@ const Nav = () => {
         </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a
-                className="nav-link active"
-                aria-current="page"
-                href="facebook.com"
-              >
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="facebook.com">
-                Link
-              </a>
-            </li>
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -111,30 +97,44 @@ const Nav = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown
+                Collection
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                   <a className="dropdown-item" href="facebook.com">
-                    Action
+                    T-shirts
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="facebook.com">
-                    Action
+                    Pants
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="facebook.com">
-                    Action
+                    Hoodies
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="facebook.com">
-                    Action
+                    Shoes
                   </a>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href="facebook.com"
+              >
+                About
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link active" href="facebook.com">
+                Contact
+              </a>
             </li>
           </ul>
         </div>
@@ -147,7 +147,7 @@ const Nav = () => {
           >
             <FontAwesomeIcon
               className="cart-icon"
-              icon={faCartArrowDown}
+              icon={faShoppingBag}
             ></FontAwesomeIcon>
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               {cart.length}
