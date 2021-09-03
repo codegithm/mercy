@@ -181,9 +181,9 @@ const AddToCart = () => {
           type="button"
           className="cart-btn btn btn-success"
         >
-          <span>
-            <FontAwesomeIcon icon={faPlus} />
-            <FontAwesomeIcon icon={faShoppingBag} />
+          <span className="bag-btn-icons">
+            <FontAwesomeIcon className="bag-btn-icons" icon={faPlus} />
+            <FontAwesomeIcon className="bag-btn-icons" icon={faShoppingBag} />
           </span>
           Add to bag
         </button>
