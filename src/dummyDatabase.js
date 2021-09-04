@@ -2,6 +2,7 @@ const items = [
   {
     id: 1,
     name: "Mercy dodobird T-shirt",
+    type: "T-shirt",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 320.0,
@@ -11,6 +12,7 @@ const items = [
   {
     id: 2,
     name: "Mercy mean man T-shirt",
+    type: "Pants",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 349.0,
@@ -20,6 +22,7 @@ const items = [
   {
     id: 3,
     name: "Mercy dodobird T-shirt",
+    type: "T-shirt",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 320.0,
@@ -29,6 +32,7 @@ const items = [
   {
     id: 4,
     name: "Mercy mean man T-shirt",
+    type: "Hoodies",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 349.0,
@@ -38,6 +42,7 @@ const items = [
   {
     id: 5,
     name: "Mercy dodobird T-shirt",
+    type: "Shoes",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 320.0,
@@ -47,6 +52,7 @@ const items = [
   {
     id: 6,
     name: "Mercy mean man T-shirt",
+    type: "T-shirt",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 349.0,
@@ -56,6 +62,7 @@ const items = [
   {
     id: 7,
     name: "Mercy dodobird T-shirt",
+    type: "Hoodies",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 320.0,
@@ -65,6 +72,7 @@ const items = [
   {
     id: 8,
     name: "Mercy mean man T-shirt",
+    type: "Shoes",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 349.0,
@@ -73,6 +81,7 @@ const items = [
   {
     id: 9,
     name: "Mercy dodobird T-shirt",
+    type: "Pants",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 320.0,
@@ -82,6 +91,7 @@ const items = [
   {
     id: 10,
     name: "Mercy mean man T-shirt",
+    type: "T-shirt",
     description:
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 349.0,

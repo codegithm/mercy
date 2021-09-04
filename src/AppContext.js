@@ -7,6 +7,7 @@ export const AppProvider = (props) => {
   const [cart, setCart] = useState([]);
   const [viewItem, setViewItem] = useState();
   const [size, setSize] = useState();
+  const [type, setType] = useState("type");
 
   return (
     <AppContext.Provider
@@ -15,6 +16,7 @@ export const AppProvider = (props) => {
         cartItem: [cart, setCart],
         view: [viewItem, setViewItem],
         selectedSize: [size, setSize],
+        itemType: [type, setType],
       }}
     >
       {props.children}

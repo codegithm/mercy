@@ -12,14 +12,19 @@ import { AppContext } from "../../AppContext";
 
 const Nav = () => {
   const history = useHistory();
-  const { priceItem, cartItem } = useContext(AppContext);
+  const { priceItem, cartItem, itemType } = useContext(AppContext);
   const changePath = (item) => {
     history.push(item);
   };
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
+  const [type, setType] = itemType;
   const [show, setShow] = useState("show");
   const [hide, setHide] = useState("hide");
+
+  const changeType = (currentType) => {
+    setType(currentType);
+  };
 
   const handleIconChange = () => {
     if (show == "show") {
@@ -101,22 +106,42 @@ const Nav = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a className="dropdown-item" href="facebook.com">
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
+                      changeType("T-shirt");
+                    }}
+                  >
                     T-shirts
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="facebook.com">
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
+                      changeType("Pants");
+                    }}
+                  >
                     Pants
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="facebook.com">
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
+                      changeType("Hoodies");
+                    }}
+                  >
                     Hoodies
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="facebook.com">
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
+                      changeType("Shoes");
+                    }}
+                  >
                     Shoes
                   </a>
                 </li>
