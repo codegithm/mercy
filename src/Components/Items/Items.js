@@ -25,6 +25,14 @@ const Items = () => {
     <div className="items-cont">
       <Banner />
       <div className="row products">
+        {type != "type" ? (
+          <div className="prod-title">
+            <h5>{type}</h5>
+            <hr />
+          </div>
+        ) : (
+          ""
+        )}
         {products.map((item) => {
           if (type == "type") {
             return (

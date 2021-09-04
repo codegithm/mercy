@@ -34,3 +34,9 @@
 .card-img-top {
   width: 160px;
 }
+.prod-title {
+  text-align: left;
+}
+.prod-title h5 {
+  font-family: "Montserrat", sans-serif;
+}
