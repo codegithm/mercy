@@ -116,6 +116,7 @@ const Nav = () => {
                       changeType("type");
                       hideDropDown();
                       handleIconChange();
+                      changePath("/");
                     }}
                   >
                     All
@@ -128,6 +129,7 @@ const Nav = () => {
                       changeType("T-shirt");
                       hideDropDown();
                       handleIconChange();
+                      changePath("/");
                     }}
                   >
                     T-shirts
@@ -140,6 +142,7 @@ const Nav = () => {
                       changeType("Pants");
                       hideDropDown();
                       handleIconChange();
+                      changePath("/");
                     }}
                   >
                     Pants
@@ -152,6 +155,7 @@ const Nav = () => {
                       changeType("Hoodies");
                       hideDropDown();
                       handleIconChange();
+                      changePath("/");
                     }}
                   >
                     Hoodies
@@ -164,6 +168,7 @@ const Nav = () => {
                       changeType("Shoes");
                       hideDropDown();
                       handleIconChange();
+                      changePath("/");
                     }}
                   >
                     Shoes
