@@ -26,6 +26,10 @@ const Nav = () => {
     setType(currentType);
   };
 
+  const hideDropDown = () => {
+    document.getElementById("navbarSupportedContent").classList.remove("show");
+  };
+
   const handleIconChange = () => {
     if (show == "show") {
       setShow("hide");
@@ -109,7 +113,21 @@ const Nav = () => {
                   <a
                     className="dropdown-item"
                     onClick={() => {
+                      changeType("type");
+                      hideDropDown();
+                      handleIconChange();
+                    }}
+                  >
+                    All
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
                       changeType("T-shirt");
+                      hideDropDown();
+                      handleIconChange();
                     }}
                   >
                     T-shirts
@@ -120,6 +138,8 @@ const Nav = () => {
                     className="dropdown-item"
                     onClick={() => {
                       changeType("Pants");
+                      hideDropDown();
+                      handleIconChange();
                     }}
                   >
                     Pants
@@ -130,6 +150,8 @@ const Nav = () => {
                     className="dropdown-item"
                     onClick={() => {
                       changeType("Hoodies");
+                      hideDropDown();
+                      handleIconChange();
                     }}
                   >
                     Hoodies
@@ -140,6 +162,8 @@ const Nav = () => {
                     className="dropdown-item"
                     onClick={() => {
                       changeType("Shoes");
+                      hideDropDown();
+                      handleIconChange();
                     }}
                   >
                     Shoes
@@ -151,13 +175,22 @@ const Nav = () => {
               <a
                 className="nav-link active"
                 aria-current="page"
-                href="facebook.com"
+                onClick={() => {
+                  hideDropDown();
+                  handleIconChange();
+                }}
               >
                 About
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" href="facebook.com">
+              <a
+                className="nav-link active"
+                onClick={() => {
+                  hideDropDown();
+                  handleIconChange();
+                }}
+              >
                 Contact
               </a>
             </li>
