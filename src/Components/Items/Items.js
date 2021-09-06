@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Banner from "../Banner/Banner";
 import { AppContext } from "../../AppContext";
+import Footer from "../Footer/Footer";
 
 const Items = () => {
   const { priceItem, cartItem, view, selectedSize, itemType } =

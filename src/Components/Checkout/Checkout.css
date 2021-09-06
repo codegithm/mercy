@@ -24,6 +24,7 @@
 }
 .checkout {
   height: auto;
+  min-height: 100vh;
 }
 .products-checkout {
   position: relative;
@@ -40,4 +41,8 @@
 .sizeOfItem {
   text-align: left;
   font-weight: bolder;
+}
+
+.checkoutTitle span {
+  margin: 10px;
 }

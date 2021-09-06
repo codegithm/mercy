@@ -2,7 +2,7 @@ import "./Checkout.css";
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../../AppContext";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingBag, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
@@ -31,7 +31,12 @@ const Checkout = () => {
         </div>
       ) : (
         <div className="checkout-cont .container-fluid ">
-          <h3 className="checkoutTitle">Checkout</h3>
+          <h3 className="checkoutTitle">
+            Your bag
+            <span>
+              <FontAwesomeIcon icon={faShoppingBag} />
+            </span>
+          </h3>
           <div className="row products-checkout">
             {cart.map((item) => (
               <div

@@ -3,6 +3,8 @@
   height: auto;
   background: #ded6c7;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .row {
   background: #ded6c7;

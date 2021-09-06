@@ -77,6 +77,7 @@ const items = [
       "A premium product made from premium materials. Mercy will only provide quality and style to her customers",
     price: 349.0,
     img: "./mercy2.jpeg",
+    slide: ["./mercy1.jpeg", "./mercy1.jpeg", "./mercy1.jpeg"],
   },
   {
     id: 9,

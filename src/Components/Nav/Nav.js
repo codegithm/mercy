@@ -45,7 +45,7 @@ const Nav = () => {
     }
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a
           onClick={() => {
@@ -53,11 +53,7 @@ const Nav = () => {
           }}
           className="navbar-brand btn"
         >
-          <img
-            className="mercy-logo"
-            alt="logoImg"
-            src="./mercy color-02.png"
-          />
+          <img className="mercy-logo" alt="logoImg" src="./Untitled-1-02.png" />
         </a>
         <div className="btn-cont">
           <div className="cart mobile">
@@ -68,7 +64,7 @@ const Nav = () => {
               className="btn position-relative"
             >
               <FontAwesomeIcon
-                className="cart-icon"
+                className="cart-icon cart-icon-nav"
                 icon={faShoppingBag}
               ></FontAwesomeIcon>
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

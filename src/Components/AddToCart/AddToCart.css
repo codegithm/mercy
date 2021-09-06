@@ -22,6 +22,7 @@
 }
 .cart-btn {
   width: 283px;
+  margin: 5px;
 }
 .size {
   display: flex;
@@ -41,4 +42,22 @@
 .bag-btn-icons {
   margin-left: 5px;
   margin-right: 5px;
+}
+.accordion {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.accordion-item {
+  width: 283px;
+}
+.accordion-button {
+  height: 40px;
+}
+.accordion-button:focus {
+  z-index: 3;
+  border-color: #ded6c7 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem #ded6c7;
 }

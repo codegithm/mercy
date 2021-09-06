@@ -119,60 +119,208 @@ const AddToCart = () => {
         <div className="err-label">
           <label>Please select a size</label>
         </div>
-        <div className="size">
-          <div class="form-check">
-            <input
-              onClick={() => {
-                changeSelectedSize("S");
-              }}
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="small"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              S
-            </label>
+        {viewItem.type == "Shoes" ? (
+          <div className="size">
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("6");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="six"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                6
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("7");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="seven"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                7
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("8");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="eight"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                8
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("9");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="nine"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                9
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("10");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="ten"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                10
+              </label>
+            </div>
           </div>
-          <div class="form-check">
-            <input
-              onClick={() => {
-                changeSelectedSize("M");
-              }}
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="medium"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              M
-            </label>
+        ) : (
+          <div className="size">
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("S");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="small"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                S
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("M");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="medium"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                M
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                onClick={() => {
+                  changeSelectedSize("L");
+                }}
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="large"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                L
+              </label>
+            </div>
           </div>
-          <div class="form-check">
-            <input
-              onClick={() => {
-                changeSelectedSize("L");
-              }}
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="large"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              L
-            </label>
+        )}
+        <p>**Note this product can only be returned before 30 days</p>
+        <div className="accordion" id="accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingThree">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                Description
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">{viewItem.description}</div>
+            </div>
           </div>
         </div>
         <button
           onClick={() => {
-            if (
-              document.getElementById("small").checked ||
-              document.getElementById("medium").checked ||
-              document.getElementById("large").checked
-            ) {
-              addItemToCart(viewItem);
-              addTotalSum(viewItem.price);
-              goToHome();
+            if (viewItem.type != "Shoes") {
+              if (
+                document.getElementById("small").checked ||
+                document.getElementById("medium").checked ||
+                document.getElementById("large").checked
+              ) {
+                addItemToCart(viewItem);
+                addTotalSum(viewItem.price);
+                goToHome();
+              }
+            } else if (viewItem.type == "Shoes") {
+              if (
+                document.getElementById("six").checked ||
+                document.getElementById("seven").checked ||
+                document.getElementById("eight").checked ||
+                document.getElementById("nine").checked ||
+                document.getElementById("ten").checked
+              ) {
+                addItemToCart(viewItem);
+                addTotalSum(viewItem.price);
+                goToHome();
+              }
+            } else {
+              const err = document.querySelector(".err-label");
+              err.style.display = "block";
+            }
+          }}
+          type="button"
+          className="cart-btn btn btn-outline-dark"
+        >
+          Buy Now
+        </button>
+        <button
+          onClick={() => {
+            if (viewItem.type != "Shoes") {
+              if (
+                document.getElementById("small").checked ||
+                document.getElementById("medium").checked ||
+                document.getElementById("large").checked
+              ) {
+                addItemToCart(viewItem);
+                addTotalSum(viewItem.price);
+                goToHome();
+              }
+            } else if (viewItem.type == "Shoes") {
+              if (
+                document.getElementById("six").checked ||
+                document.getElementById("seven").checked ||
+                document.getElementById("eight").checked ||
+                document.getElementById("nine").checked ||
+                document.getElementById("ten").checked
+              ) {
+                addItemToCart(viewItem);
+                addTotalSum(viewItem.price);
+                goToHome();
+              }
             } else {
               const err = document.querySelector(".err-label");
               err.style.display = "block";

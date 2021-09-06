@@ -30,6 +30,8 @@
   flex-direction: column;
   align-items: center;
   padding: 5px;
+  background: #ded6c7;
+  margin-bottom: 206px;
 }
 .card-img-top {
   width: 160px;
@@ -39,4 +41,7 @@
 }
 .prod-title h5 {
   font-family: "Montserrat", sans-serif;
+}
+.footerItem {
+  background-color: white;
 }
