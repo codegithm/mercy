@@ -3,11 +3,14 @@ import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../../AppContext";
 import { faShoppingBag, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Checkout = () => {
   const { priceItem, cartItem } = useContext(AppContext);
-
+  const history = useHistory();
+  const pay = () => {
+    history.push("/pay");
+  };
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
 
@@ -24,7 +27,7 @@ const Checkout = () => {
         <div className="cart-empty">
           <p> Your cart is empty </p>
           <Link to="/">
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-dark">
               Continue shoppig
             </button>
           </Link>
@@ -65,7 +68,14 @@ const Checkout = () => {
             ))}
             <div className="proceed">
               <h4 className="checkoutTitle">R{price}</h4>
-              <button className="btn btn-success">Continue to payout</button>
+              <button
+                onClick={() => {
+                  pay();
+                }}
+                className="btn btn-dark"
+              >
+                Continue to payout
+              </button>
             </div>
           </div>
         </div>

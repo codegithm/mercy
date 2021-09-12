@@ -1,7 +1,3 @@
-.checkout-cont {
-  position: relative;
-  top: 126px;
-}
 .cart-empty {
   height: 100vh;
   display: flex;
@@ -22,10 +18,6 @@
   background: whitesmoke !important;
   margin: 10px;
 }
-.checkout {
-  height: auto;
-  min-height: 100vh;
-}
 .products-checkout {
   position: relative;
   top: 9px;
@@ -45,4 +37,9 @@
 
 .checkoutTitle span {
   margin: 10px;
+}
+.checkout {
+  height: auto;
+  min-height: 100vh;
+  margin-top: 105px;
 }

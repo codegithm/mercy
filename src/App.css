@@ -1,12 +1,23 @@
 .App {
   text-align: center;
   height: auto;
-  background: #ded6c7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 .row {
-  background: #ded6c7;
   height: auto;
+}
+.btn {
+  border-radius: 0 !important;
+}
+.btn:active {
+  color: white !important;
+}
+.btn-check:active + .btn-dark,
+.btn-check:checked + .btn-dark,
+.btn-dark.active,
+.btn-dark:active,
+.show > .btn-dark.dropdown-toggle {
+  border-color: black !important;
 }

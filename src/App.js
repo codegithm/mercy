@@ -8,6 +8,7 @@ import Checkout from "./Components/Checkout/Checkout";
 import Nav from "./Components/Nav/Nav";
 import AddToCart from "./Components/AddToCart/AddToCart";
 import Footer from "./Components/Footer/Footer";
+import Pay from "./Components/Pay/Pay";
 import { AppProvider } from "./AppContext";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route exact path="/" component={Items} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/add" component={AddToCart} />
+              <Route path="/pay" component={Pay} />
             </Switch>
             <Footer />
           </Suspense>

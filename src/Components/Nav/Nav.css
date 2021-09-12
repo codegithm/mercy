@@ -6,7 +6,6 @@
 
 .navbar-collapse {
   position: relative;
-  background: #3a4046;
   top: -13px;
 }
 
@@ -19,7 +18,14 @@
   width: 100%;
   z-index: 100;
 }
-
+.btn-secondary {
+  color: #fff;
+  background: transparent !important;
+  border-style: none !important;
+}
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0rem !important;
+}
 @media screen and (min-width: 992px) {
   .navbar-expand-lg .navbar-nav {
     flex-direction: row;

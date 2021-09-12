@@ -1,0 +1,19 @@
+.pay-cont {
+  margin-top: 119px;
+}
+.main-cont {
+  padding: 20px;
+}
+.bg-primary {
+  --bs-bg-opacity: 1;
+  background: black !important;
+}
+.text-primary {
+  --bs-text-opacity: 1;
+  color: black !important;
+}
+.redeem {
+  background: #212529 !important;
+  border-top-right-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+}

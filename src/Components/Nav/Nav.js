@@ -67,10 +67,14 @@ const Nav = () => {
                 className="cart-icon cart-icon-nav"
                 icon={faShoppingBag}
               ></FontAwesomeIcon>
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {cart.length}
-                <span className="visually-hidden">unread messages</span>
-              </span>
+              {cart.length == 0 ? (
+                ""
+              ) : (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {cart.length}
+                  <span className="visually-hidden">unread messages</span>
+                </span>
+              )}
             </a>
           </div>
           <button
@@ -172,6 +176,46 @@ const Nav = () => {
                 </li>
               </ul>
             </li>
+
+            <li className="nav-item">
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Brands
+                </button>
+                <ul
+                  className="dropdown-menu dropdown-menu-dark"
+                  aria-labelledby="dropdownMenuButton2"
+                >
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Mercy
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Adidas
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Nike
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Separated link
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
             <li className="nav-item">
               <a
                 className="nav-link active"
@@ -205,13 +249,17 @@ const Nav = () => {
             className="btn position-relative"
           >
             <FontAwesomeIcon
-              className="cart-icon"
+              className="cart-icon cart-icon-nav"
               icon={faShoppingBag}
             ></FontAwesomeIcon>
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              {cart.length}
-              <span className="visually-hidden">unread messages</span>
-            </span>
+            {cart.length == 0 ? (
+              ""
+            ) : (
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {cart.length}
+                <span className="visually-hidden">unread messages</span>
+              </span>
+            )}
           </a>
         </div>
       </div>
