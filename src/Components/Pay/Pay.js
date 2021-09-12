@@ -21,7 +21,8 @@ const Pay = () => {
     promoCodes.map((value) => {
       if (value.id == parseInt(e.target.value)) {
         let deduction =
-          (parseFloat(price) + parseFloat(inPay[0].price)) * (50 / 100);
+          (parseFloat(price) + parseFloat(inPay[0].price)) *
+          (value.deduct / 100);
         setDeduction(deduction);
 
         setTotal(parseFloat(price) + parseFloat(inPay[0].price) - deduction);
