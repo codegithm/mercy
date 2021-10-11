@@ -4,8 +4,7 @@ import { useHistory } from "react-router-dom";
 import promoCodes from "../../promoCode";
 import "./Pay.css";
 const Pay = () => {
-  const { priceItem, cartItem, view, selectedSize, itemType, itemInPay } =
-    useContext(AppContext);
+  const { priceItem, cartItem, itemInPay } = useContext(AppContext);
   const [inPay, setInPay] = itemInPay;
   const [cart, setCart] = cartItem;
   const [price, setPrice] = priceItem;
@@ -26,11 +25,7 @@ const Pay = () => {
         setDeduction(deduction);
 
         setTotal(parseFloat(price) + parseFloat(inPay[0].price) - deduction);
-        console.log(value);
         setPromo(value);
-        console.log(promo);
-      } else if (value.id != parseInt(e.target.value)) {
-        setPromo();
       }
     });
   };
@@ -39,22 +34,18 @@ const Pay = () => {
     if (redeemed == false) {
       setPrice(total);
     }
-    console.log(total);
-    console.log(price);
-    console.log(promo);
-    console.log(inPay[0].price);
   };
   return (
     <div className="main-cont">
       <div className="col-md-5 col-lg-4 order-md-last pay-cont">
         <h4 className="d-flex justify-content-between align-items-center mb-3">
-          <span className="text-primary">Your cart{promo}</span>
+          <span className="text-primary">Your cart</span>
           <span className="badge bg-primary rounded-pill">
             {cart.length + 1}
           </span>
         </h4>
         <ul className="list-group mb-3">
-          {cart.lenght != 0
+          {cart.lenght !== 0
             ? cart.map((item) => (
                 <li className="list-group-item d-flex justify-content-between lh-sm">
                   <div>
@@ -65,21 +56,26 @@ const Pay = () => {
                 </li>
               ))
             : ""}
-          {inPay.lenght != 0
-            ? inPay.map((item) => (
-                <li className="list-group-item d-flex justify-content-between lh-sm">
-                  <div>
-                    <h6 className="my-0">{item.name}</h6>
-                    <small className="text-muted">Brief description</small>
-                  </div>
-                  <span className="text-muted">R{item.price}</span>
-                </li>
-              ))
+          {inPay.lenght !== 0
+            ? inPay.map((item) => {
+                return (
+                  <li
+                    key={item.id}
+                    className="list-group-item d-flex justify-content-between lh-sm"
+                  >
+                    <div>
+                      <h6 className="my-0">{item.name}</h6>
+                      <small className="text-muted">Brief description</small>
+                    </div>
+                    <span className="text-muted">R{item.price}</span>
+                  </li>
+                );
+              })
             : ""}
           <li className="list-group-item d-flex justify-content-between bg-light">
             <div className="text-success">
               <h6 className="my-0">Promo code</h6>
-              <small>{promo != undefined ? promo[0].id : "No code"}</small>
+              <small>{promo != "No promo" ? promo.id : "No code"}</small>
             </div>
             <span className="text-success">−R{deduction}</span>
           </li>

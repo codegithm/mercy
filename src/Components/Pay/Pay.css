@@ -1,5 +1,6 @@
 .pay-cont {
   margin-top: 119px;
+  min-height: 100vh;
 }
 .main-cont {
   padding: 20px;

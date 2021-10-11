@@ -7,14 +7,24 @@ import { useHistory } from "react-router-dom";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 const AddToCart = () => {
-  const { priceItem, cartItem, view, selectedSize } = useContext(AppContext);
+  const { priceItem, cartItem, view, selectedSize, itemInPay } =
+    useContext(AppContext);
 
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
   const [viewItem, setViewItem] = view;
   const [size, setSize] = selectedSize;
+  const [inPay, setInPay] = itemInPay;
 
   const history = useHistory();
+
+  const addToInPay = (item) => {
+    setInPay([item]);
+  };
+
+  const pay = () => {
+    history.push("/pay");
+  };
 
   const goToHome = () => {
     history.push("/");
@@ -272,31 +282,49 @@ const AddToCart = () => {
         </div>
         <button
           onClick={() => {
+            if (viewItem.type !== "Shoes") {
+              if (
+                document.getElementById("small").checked ||
+                document.getElementById("medium").checked ||
+                document.getElementById("large").checked
+              ) {
+                addToInPay(viewItem);
+                pay();
+              }
+            }
+            if (viewItem.type === "Shoes") {
+              if (
+                document.getElementById("six").checked ||
+                document.getElementById("seven").checked ||
+                document.getElementById("eight").checked ||
+                document.getElementById("nine").checked ||
+                document.getElementById("ten").checked
+              ) {
+                addToInPay(viewItem);
+                pay();
+              }
+            }
+            if (viewItem.type === "Shoes") {
+              if (
+                document.getElementById("six").checked == false &&
+                document.getElementById("seven").checked == false &&
+                document.getElementById("eight").checked == false &&
+                document.getElementById("nine").checked == false &&
+                document.getElementById("ten").checked == false
+              ) {
+                const err = document.querySelector(".err-label");
+                err.style.display = "block";
+              }
+            }
             if (viewItem.type != "Shoes") {
               if (
-                document.getElementsByClassName("small").checked ||
-                document.getElementsByClassName("medium").checked ||
-                document.getElementsByClassName("large").checked
+                document.getElementById("small").checked == false &&
+                document.getElementById("medium").checked == false &&
+                document.getElementById("large").checked == false
               ) {
-                addItemToCart(viewItem);
-                addTotalSum(viewItem.price);
-                goToHome();
+                const err = document.querySelector(".err-label");
+                err.style.display = "block";
               }
-            } else if (viewItem.type == "Shoes") {
-              if (
-                document.getElementsByClassName("six").checked ||
-                document.getElementsByClassName("seven").checked ||
-                document.getElementsByClassName("eight").checked ||
-                document.getElementsByClassName("nine").checked ||
-                document.getElementsByClassName("ten").checked
-              ) {
-                addItemToCart(viewItem);
-                addTotalSum(viewItem.price);
-                goToHome();
-              }
-            } else {
-              const err = document.querySelector(".err-label");
-              err.style.display = "block";
             }
           }}
           type="button"

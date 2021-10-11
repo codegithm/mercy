@@ -4,10 +4,9 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Banner from "../Banner/Banner";
 import { AppContext } from "../../AppContext";
-import Footer from "../Footer/Footer";
 
 const Items = () => {
-  const { priceItem, cartItem, view, selectedSize, itemType, itemInPay } =
+  const { priceItem, cartItem, view, itemType, itemInPay } =
     useContext(AppContext);
   const history = useHistory();
   const [price, setPrice] = priceItem;
@@ -20,22 +19,16 @@ const Items = () => {
     setViewItem(item);
     // setCart(itemsInCart);
   };
-  const addToInPay = (item) => {
-    setInPay([item]);
-    // setCart(itemsInCart);
-  };
+
   const addItem = () => {
     history.push("/add");
   };
 
-  const pay = () => {
-    history.push("/pay");
-  };
   return (
     <div className="items-cont">
       <Banner />
       <div className="row products">
-        {type != "type" ? (
+        {type !== "type" ? (
           <div className="prod-title">
             <h5>{type}</h5>
             <hr />
@@ -44,7 +37,7 @@ const Items = () => {
           ""
         )}
         {products.map((item) => {
-          if (type == "type") {
+          if (type === "type") {
             return (
               <div
                 key={item.id}
@@ -69,8 +62,8 @@ const Items = () => {
                     type="button"
                     className="buy-now-item btn btn-outline-secondary"
                     onClick={() => {
-                      pay();
-                      addToInPay(item);
+                      addItem();
+                      addToView(item);
                     }}
                   >
                     Buy Now
@@ -79,7 +72,7 @@ const Items = () => {
               </div>
             );
           }
-          if (type == "Pants" && item.type == "Pants") {
+          if (type === "Pants" && item.type === "Pants") {
             return (
               <div
                 key={item.id}
@@ -104,8 +97,8 @@ const Items = () => {
                     type="button"
                     className="buy-now-item btn btn-outline-secondary"
                     onClick={() => {
-                      pay();
-                      addToInPay(item);
+                      addItem();
+                      addToView(item);
                     }}
                   >
                     Buy Now
@@ -115,7 +108,7 @@ const Items = () => {
             );
           }
 
-          if (type == "T-shirt" && item.type == "T-shirt") {
+          if (type === "T-shirt" && item.type === "T-shirt") {
             return (
               <div
                 key={item.id}
@@ -140,8 +133,8 @@ const Items = () => {
                     type="button"
                     className="buy-now-item btn btn-outline-secondary"
                     onClick={() => {
-                      pay();
-                      addToInPay(item);
+                      addItem();
+                      addToView(item);
                     }}
                   >
                     Buy Now
@@ -151,7 +144,7 @@ const Items = () => {
             );
           }
 
-          if (type == "Hoodies" && item.type == "Hoodies") {
+          if (type === "Hoodies" && item.type === "Hoodies") {
             return (
               <div
                 key={item.id}
@@ -176,8 +169,8 @@ const Items = () => {
                     type="button"
                     className="buy-now-item btn btn-outline-secondary"
                     onClick={() => {
-                      pay();
-                      addToInPay(item);
+                      addItem();
+                      addToView(item);
                     }}
                   >
                     Buy Now
@@ -187,7 +180,7 @@ const Items = () => {
             );
           }
 
-          if (type == "Shoes" && item.type == "Shoes") {
+          if (type === "Shoes" && item.type === "Shoes") {
             return (
               <div
                 key={item.id}
@@ -212,8 +205,8 @@ const Items = () => {
                     type="button"
                     className="buy-now-item btn btn-outline-secondary"
                     onClick={() => {
-                      pay();
-                      addToInPay(item);
+                      addItem();
+                      addToView(item);
                     }}
                   >
                     Buy Now

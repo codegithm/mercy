@@ -6,10 +6,14 @@ import { faShoppingBag, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 
 const Checkout = () => {
-  const { priceItem, cartItem } = useContext(AppContext);
+  const { priceItem, cartItem, itemInPay } = useContext(AppContext);
+  const [inPay, setInPay] = itemInPay;
   const history = useHistory();
   const pay = () => {
     history.push("/pay");
+  };
+  const emptyInPay = () => {
+    setInPay([]);
   };
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
@@ -71,6 +75,7 @@ const Checkout = () => {
               <button
                 onClick={() => {
                   pay();
+                  // emptyInPay();
                 }}
                 className="btn btn-dark"
               >

@@ -31,33 +31,33 @@ const Nav = () => {
   };
 
   const handleIconChange = () => {
-    if (show == "show") {
+    if (show === "show") {
       setShow("hide");
     }
-    if (show == "hide") {
+    if (show === "hide") {
       setShow("show");
     }
-    if (hide == "hide") {
+    if (hide === "hide") {
       setHide("show");
     }
-    if (hide == "show") {
+    if (hide === "show") {
       setHide("hide");
     }
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a
+        <div
           onClick={() => {
             changePath("/");
           }}
           className="navbar-brand btn"
         >
           <img className="mercy-logo" alt="logoImg" src="./Untitled-1-02.png" />
-        </a>
+        </div>
         <div className="btn-cont">
           <div className="cart mobile">
-            <a
+            <div
               onClick={() => {
                 changePath("/checkout");
               }}
@@ -67,7 +67,7 @@ const Nav = () => {
                 className="cart-icon cart-icon-nav"
                 icon={faShoppingBag}
               ></FontAwesomeIcon>
-              {cart.length == 0 ? (
+              {cart.length === 0 ? (
                 ""
               ) : (
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -75,7 +75,7 @@ const Nav = () => {
                   <span className="visually-hidden">unread messages</span>
                 </span>
               )}
-            </a>
+            </div>
           </div>
           <button
             className="navbar-toggler"
@@ -99,6 +99,7 @@ const Nav = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item dropdown">
               <a
+                href="/"
                 className="nav-link dropdown-toggle"
                 href="facebook.com"
                 id="navbarDropdown"
@@ -110,7 +111,7 @@ const Nav = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a
+                  <div
                     className="dropdown-item"
                     onClick={() => {
                       changeType("type");
@@ -120,10 +121,10 @@ const Nav = () => {
                     }}
                   >
                     All
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
+                  <div
                     className="dropdown-item"
                     onClick={() => {
                       changeType("T-shirt");
@@ -133,10 +134,10 @@ const Nav = () => {
                     }}
                   >
                     T-shirts
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
+                  <div
                     className="dropdown-item"
                     onClick={() => {
                       changeType("Pants");
@@ -146,10 +147,10 @@ const Nav = () => {
                     }}
                   >
                     Pants
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
+                  <div
                     className="dropdown-item"
                     onClick={() => {
                       changeType("Hoodies");
@@ -159,10 +160,10 @@ const Nav = () => {
                     }}
                   >
                     Hoodies
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
+                  <div
                     className="dropdown-item"
                     onClick={() => {
                       changeType("Shoes");
@@ -172,7 +173,7 @@ const Nav = () => {
                     }}
                   >
                     Shoes
-                  </a>
+                  </div>
                 </li>
               </ul>
             </li>
@@ -252,7 +253,7 @@ const Nav = () => {
               className="cart-icon cart-icon-nav"
               icon={faShoppingBag}
             ></FontAwesomeIcon>
-            {cart.length == 0 ? (
+            {cart.length === 0 ? (
               ""
             ) : (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
