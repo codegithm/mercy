@@ -21,9 +21,12 @@
   width: 97%;
   height: 100%;
 }
+.footer-content hr {
+  position: relative;
+  top: 15px;
+}
 .company-logo {
   text-align: center;
-  margin-top: -30px;
 }
 .company-details {
   margin-bottom: 83px;
@@ -31,10 +34,6 @@
 .company-details span {
   margin-left: -21px;
   color: gray;
-}
-.footer-content {
-  position: relative;
-  top: 20px;
 }
 .social-icon {
   font-size: 22px;

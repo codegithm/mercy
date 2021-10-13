@@ -24,7 +24,7 @@ function App() {
               <Route path="/add" component={AddToCart} />
               <Route path="/pay" component={Pay} />
             </Switch>
-            <Footer />
+            <Footer className="footer" />
           </Suspense>
         </Router>
       </div>

@@ -21,3 +21,7 @@
 .show > .btn-dark.dropdown-toggle {
   border-color: black !important;
 }
+.footer {
+  position: relative;
+  bottom: 0;
+}
