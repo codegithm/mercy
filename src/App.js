@@ -10,12 +10,14 @@ import AddToCart from "./Components/AddToCart/AddToCart";
 import Footer from "./Components/Footer/Footer";
 import Pay from "./Components/Pay/Pay";
 import { AppProvider } from "./AppContext";
+import ScrollToTop from "./Components/ScrolToTop";
 
 function App() {
   return (
     <AppProvider>
       <div className="App">
         <Router>
+          <ScrollToTop />
           <Nav />
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
