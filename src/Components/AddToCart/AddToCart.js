@@ -306,11 +306,11 @@ const AddToCart = () => {
             }
             if (viewItem.type === "Shoes") {
               if (
-                document.getElementById("six").checked == false &&
-                document.getElementById("seven").checked == false &&
-                document.getElementById("eight").checked == false &&
-                document.getElementById("nine").checked == false &&
-                document.getElementById("ten").checked == false
+                document.getElementById("six").checked === false &&
+                document.getElementById("seven").checked === false &&
+                document.getElementById("eight").checked === false &&
+                document.getElementById("nine").checked === false &&
+                document.getElementById("ten").checked === false
               ) {
                 const err = document.querySelector(".err-label");
                 err.style.display = "block";
@@ -318,9 +318,9 @@ const AddToCart = () => {
             }
             if (viewItem.type != "Shoes") {
               if (
-                document.getElementById("small").checked == false &&
-                document.getElementById("medium").checked == false &&
-                document.getElementById("large").checked == false
+                document.getElementById("small").checked === false &&
+                document.getElementById("medium").checked === false &&
+                document.getElementById("large").checked === false
               ) {
                 const err = document.querySelector(".err-label");
                 err.style.display = "block";
@@ -334,7 +334,7 @@ const AddToCart = () => {
         </button>
         <button
           onClick={() => {
-            if (viewItem.type != "Shoes") {
+            if (viewItem.type !== "Shoes") {
               if (
                 document.getElementById("small").checked ||
                 document.getElementById("medium").checked ||
@@ -345,7 +345,7 @@ const AddToCart = () => {
                 goToHome();
               }
             }
-            if (viewItem.type == "Shoes") {
+            if (viewItem.type === "Shoes") {
               if (
                 document.getElementById("six").checked ||
                 document.getElementById("seven").checked ||
@@ -358,23 +358,23 @@ const AddToCart = () => {
                 goToHome();
               }
             }
-            if (viewItem.type == "Shoes") {
+            if (viewItem.type === "Shoes") {
               if (
-                document.getElementById("six").checked == false &&
-                document.getElementById("seven").checked == false &&
-                document.getElementById("eight").checked == false &&
-                document.getElementById("nine").checked == false &&
-                document.getElementById("ten").checked == false
+                document.getElementById("six").checked === false &&
+                document.getElementById("seven").checked === false &&
+                document.getElementById("eight").checked === false &&
+                document.getElementById("nine").checked === false &&
+                document.getElementById("ten").checked === false
               ) {
                 const err = document.querySelector(".err-label");
                 err.style.display = "block";
               }
             }
-            if (viewItem.type != "Shoes") {
+            if (viewItem.type !== "Shoes") {
               if (
-                document.getElementById("small").checked == false &&
-                document.getElementById("medium").checked == false &&
-                document.getElementById("large").checked == false
+                document.getElementById("small").checked === false &&
+                document.getElementById("medium").checked === false &&
+                document.getElementById("large").checked === false
               ) {
                 const err = document.querySelector(".err-label");
                 err.style.display = "block";

@@ -17,7 +17,6 @@ const Items = () => {
 
   const addToView = (item) => {
     setViewItem(item);
-    // setCart(itemsInCart);
   };
 
   const addItem = () => {
