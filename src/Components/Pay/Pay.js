@@ -16,15 +16,18 @@ const Pay = () => {
   const pay = () => {
     history.push("/pay");
   };
+  const amountInPrice = () => {
+    return inPay == false ? 0 : inPay[0].Price
+  };
   const handleChange = (e) => {
     promoCodes.map((value) => {
       if (value.id == parseInt(e.target.value)) {
         let deduction =
-          (parseFloat(price) + parseFloat(inPay[0].price)) *
+          (parseFloat(price) + parseFloat(amountInPrice())) *
           (value.deduct / 100);
         setDeduction(deduction);
 
-        setTotal(parseFloat(price) + parseFloat(inPay[0].price) - deduction);
+        setTotal(parseFloat(price) + parseFloat(amountInPrice()) - deduction);
         setPromo(value);
       }
     });
@@ -41,7 +44,7 @@ const Pay = () => {
         <h4 className="d-flex justify-content-between align-items-center mb-3">
           <span className="text-primary">Your cart</span>
           <span className="badge bg-primary rounded-pill">
-            {cart.length + 1}
+            {cart.length + amountInPrice() == 0 ? 0 : 1}
           </span>
         </h4>
         <ul className="list-group mb-3">
@@ -50,13 +53,13 @@ const Pay = () => {
                 <li className="list-group-item d-flex justify-content-between lh-sm">
                   <div>
                     <h6 className="my-0">{item.name}</h6>
-                    <small className="text-muted">Brief description</small>
+                    <small className="text-muted">{item.description}</small>
                   </div>
                   <span className="text-muted">R{item.priceOfItem}</span>
                 </li>
               ))
             : ""}
-          {inPay.lenght !== 0
+          {inPay !== false
             ? inPay.map((item) => {
                 return (
                   <li
@@ -64,10 +67,10 @@ const Pay = () => {
                     className="list-group-item d-flex justify-content-between lh-sm"
                   >
                     <div>
-                      <h6 className="my-0">{item.name}</h6>
-                      <small className="text-muted">Brief description</small>
+                      <h6 className="my-0">{item.Brand}</h6>
+                      <small className="text-muted">{item.description}</small>
                     </div>
-                    <span className="text-muted">R{item.price}</span>
+                    <span className="text-muted">R{item.Price}</span>
                   </li>
                 );
               })
@@ -81,7 +84,7 @@ const Pay = () => {
           </li>
           <li className="list-group-item d-flex justify-content-between">
             <span>Total (ZAR)</span>
-            <strong>{total !== 0 ? total : price + inPay[0].price}</strong>
+            <strong>{total !== 0 ? total : price + amountInPrice()}</strong>
           </li>
         </ul>
 

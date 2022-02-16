@@ -9,8 +9,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, seterrorMessage] = useState('');
-    const { loggedIn } =
-    useContext(AppContext);
+    const { loggedIn } = useContext(AppContext);
 
     const [isSignedIn, setIsSignedIn] = loggedIn;
     const history = useHistory();

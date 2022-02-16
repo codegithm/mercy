@@ -4,9 +4,13 @@ import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Banner from "../Banner/Banner";
 import { AppContext } from "../../AppContext";
+import Nav from '../Nav/Nav'
+import Footer from "../Footer/Footer";
+import Loader from "../Loader/Loader";
+
 
 const Items = () => {
-  const { priceItem, cartItem, view, itemType, itemInPay } =
+  const { priceItem, cartItem, view, itemType, itemInPay, ItemInStore } =
     useContext(AppContext);
   const history = useHistory();
   const [price, setPrice] = priceItem;
@@ -14,7 +18,7 @@ const Items = () => {
   const [viewItem, setViewItem] = view;
   const [type, setType] = itemType;
   const [inPay, setInPay] = itemInPay;
-
+  const [itemsDb,setItemsDb] = ItemInStore;
   const addToView = (item) => {
     setViewItem(item);
   };
@@ -24,7 +28,14 @@ const Items = () => {
   };
 
   return (
-    <div className="items-cont">
+    <div>
+    {
+      itemsDb == "" ? (
+        <Loader />
+      ) : (
+        <div>
+      <Nav />
+      <div className="items-cont">
       <Banner />
       <div className="row products">
         {type !== "type" ? (
@@ -35,7 +46,8 @@ const Items = () => {
         ) : (
           ""
         )}
-        {products.map((item) => {
+        {
+        itemsDb.map((item) => {
           if (type === "type") {
             return (
               <div
@@ -44,17 +56,17 @@ const Items = () => {
               >
                 <img
                   className="img-fluid card-img-top"
-                  alt="..."
+                  alt="./no-image.jpeg"
                   onClick={() => {
                     addItem();
                     addToView(item);
                   }}
-                  src={item.img}
+                  src={item.Img}
                 />
                 <div className="card-body">
-                  <h3 className="card-title">{item.name}</h3>
+                  <h3 className="card-title">{item.Brand}</h3>
 
-                  <h3 className="card-title">R{item.price}</h3>
+                  <h3 className="card-title">R{item.Price}</h3>
                 </div>
                 <div className="buy-now-item-cont">
                   <button
@@ -71,7 +83,7 @@ const Items = () => {
               </div>
             );
           }
-          if (type === "Pants" && item.type === "Pants") {
+          if (type === "Pants" && item.Type === "Pants") {
             return (
               <div
                 key={item.id}
@@ -84,48 +96,12 @@ const Items = () => {
                 <img
                   className="img-fluid card-img-top"
                   alt="..."
-                  src={item.img}
+                  src={item.Img}
                 />
                 <div className="card-body">
-                  <h3 className="card-title">{item.name}</h3>
+                  <h3 className="card-title">{item.Brand}</h3>
 
-                  <h3 className="card-title">R{item.price}</h3>
-                </div>
-                <div className="buy-now-item-cont">
-                  <button
-                    type="button"
-                    className="buy-now-item btn btn-outline-secondary"
-                    onClick={() => {
-                      addItem();
-                      addToView(item);
-                    }}
-                  >
-                    Buy Now
-                  </button>
-                </div>
-              </div>
-            );
-          }
-
-          if (type === "T-shirt" && item.type === "T-shirt") {
-            return (
-              <div
-                key={item.id}
-                onClick={() => {
-                  addItem();
-                  addToView(item);
-                }}
-                className="col-lg-3 col-md-4 col-sm-6 card card-items"
-              >
-                <img
-                  className="img-fluid card-img-top"
-                  alt="..."
-                  src={item.img}
-                />
-                <div className="card-body">
-                  <h3 className="card-title">{item.name}</h3>
-
-                  <h3 className="card-title">R{item.price}</h3>
+                  <h3 className="card-title">R{item.Price}</h3>
                 </div>
                 <div className="buy-now-item-cont">
                   <button
@@ -143,7 +119,7 @@ const Items = () => {
             );
           }
 
-          if (type === "Hoodies" && item.type === "Hoodies") {
+          if (type === "T-shirt" && item.Type === "T-shirt") {
             return (
               <div
                 key={item.id}
@@ -156,12 +132,12 @@ const Items = () => {
                 <img
                   className="img-fluid card-img-top"
                   alt="..."
-                  src={item.img}
+                  src={item.Img}
                 />
                 <div className="card-body">
-                  <h3 className="card-title">{item.name}</h3>
+                  <h3 className="card-title">{item.Brand}</h3>
 
-                  <h3 className="card-title">R{item.price}</h3>
+                  <h3 className="card-title">R{item.Price}</h3>
                 </div>
                 <div className="buy-now-item-cont">
                   <button
@@ -179,7 +155,7 @@ const Items = () => {
             );
           }
 
-          if (type === "Shoes" && item.type === "Shoes") {
+          if (type === "Hoodies" && item.Type === "Hoodies") {
             return (
               <div
                 key={item.id}
@@ -192,12 +168,48 @@ const Items = () => {
                 <img
                   className="img-fluid card-img-top"
                   alt="..."
-                  src={item.img}
+                  src={item.Img}
                 />
                 <div className="card-body">
-                  <h3 className="card-title">{item.name}</h3>
+                  <h3 className="card-title">{item.Brand}</h3>
 
-                  <h3 className="card-title">R{item.price}</h3>
+                  <h3 className="card-title">R{item.Price}</h3>
+                </div>
+                <div className="buy-now-item-cont">
+                  <button
+                    type="button"
+                    className="buy-now-item btn btn-outline-secondary"
+                    onClick={() => {
+                      addItem();
+                      addToView(item);
+                    }}
+                  >
+                    Buy Now
+                  </button>
+                </div>
+              </div>
+            );
+          }
+
+          if (type === "Shoes" && item.Type === "Shoes") {
+            return (
+              <div
+                key={item.id}
+                onClick={() => {
+                  addItem();
+                  addToView(item);
+                }}
+                className="col-lg-3 col-md-4 col-sm-6 card card-items"
+              >
+                <img
+                  className="img-fluid card-img-top"
+                  alt="..."
+                  src={item.Img}
+                />
+                <div className="card-body">
+                  <h3 className="card-title">{item.Brand}</h3>
+
+                  <h3 className="card-title">R{item.Price}</h3>
                 </div>
                 <div className="buy-now-item-cont">
                   <button
@@ -216,6 +228,11 @@ const Items = () => {
           }
         })}
       </div>
+    </div>
+    <Footer className="footer" />
+    </div>
+      )
+    }
     </div>
   );
 };

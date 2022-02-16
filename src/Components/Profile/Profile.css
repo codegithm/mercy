@@ -1,0 +1,20 @@
+.logout{
+    position: relative;
+    height: 48px;
+    width: 100vw;
+    color: rgb(69, 69, 187);
+    top: 80px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-block-color: #e3e2e2;
+    background: #ffffff;
+}
+.profile-cont{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}

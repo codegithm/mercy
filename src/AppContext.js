@@ -8,9 +8,11 @@ export const AppProvider = (props) => {
   const [viewItem, setViewItem] = useState();
   const [size, setSize] = useState();
   const [type, setType] = useState("type");
-  const [inPay, setInPay] = useState([]);
+  const [inPay, setInPay] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState("");
-
+  const [itemsDb,setItemsDb] = useState("");
+  const [personal,setPersonal] = useState(false)
+  const [inUser,setInUser] = useState(false)
   return (
     <AppContext.Provider
       value={{
@@ -20,7 +22,10 @@ export const AppProvider = (props) => {
         selectedSize: [size, setSize],
         itemType: [type, setType],
         itemInPay: [inPay, setInPay],
-        loggedIn: [isSignedIn, setIsSignedIn]
+        loggedIn: [isSignedIn, setIsSignedIn],
+        ItemInStore: [itemsDb,setItemsDb],
+        personalInfo: [personal,setPersonal],
+        loggedInUser: [inUser,setInUser]
       }}
     >
       {props.children}

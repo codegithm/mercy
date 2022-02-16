@@ -35,7 +35,9 @@
     justify-content: flex-end;
   }
 }
-
+.desktop {
+  display: flex;
+}
 @media screen and (max-width: 991px) {
   .navbar-collapse {
     margin-top: 7px;
@@ -72,7 +74,7 @@
     display: none;
   }
   .mobile {
-    display: block !important;
+    display: flex !important;
   }
   .btn-cont {
     display: flex;
@@ -85,6 +87,7 @@
 .cart {
   margin: 10px;
   margin-right: 26px;
+  align-items: center;
 }
 .cart-icon {
   font-size: 20px;

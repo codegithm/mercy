@@ -4,16 +4,17 @@ import {
   faShoppingBag,
   faBars,
   faTimes,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../../AppContext";
-import { CgProfile } from "react-icons/cg";
+
 
 const Nav = () => {
   const history = useHistory();
-  const { priceItem, cartItem, itemType, loggedIn } = useContext(AppContext);
+  const { priceItem, cartItem, itemType } = useContext(AppContext);
   const changePath = (item) => {
     history.push(item);
   };
@@ -22,7 +23,6 @@ const Nav = () => {
   const [type, setType] = itemType;
   const [show, setShow] = useState("show");
   const [hide, setHide] = useState("hide");
-  const [isSignedIn, setIsSignedIn] = loggedIn;
 
   const changeType = (currentType) => {
     setType(currentType);
@@ -47,9 +47,8 @@ const Nav = () => {
     }
   };
 
-  const isLooged = isSignedIn == true ? "" : "signedIn";
   return (
-    <nav className={"navbar navbar-expand-lg navbar-dark bg-dark" + " " + isLooged}>
+    <nav className={"navbar navbar-expand-lg navbar-dark bg-dark"}>
       <div className="container-fluid">
         <div
           onClick={() => {
@@ -60,10 +59,16 @@ const Nav = () => {
           <img className="mercy-logo" alt="logoImg" src="./Untitled-1-02.png" />
         </div>
         <div className="btn-cont">
-        <div className="cart mobile">
-          <CgProfile />
-        </div>
+        
           <div className="cart mobile">
+          <div
+          onClick={() => {
+            changePath("/profile");
+          }}
+          >
+            <FontAwesomeIcon icon={faUser}
+            className="cart-icon cart-icon-nav"/>
+          </div>
             <div
               onClick={() => {
                 changePath("/checkout");
@@ -250,6 +255,14 @@ const Nav = () => {
           </ul>
         </div>
         <div className="cart desktop">
+        <div
+          onClick={() => {
+            changePath("/profile");
+          }}
+          >
+          <FontAwesomeIcon icon={faUser} 
+            className="cart-icon cart-icon-nav"/>
+          </div>
           <a
             onClick={() => {
               changePath("/checkout");

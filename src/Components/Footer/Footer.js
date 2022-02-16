@@ -3,15 +3,12 @@ import React, { useContext } from "react";
 import "./Footer.css";
 import { FiTwitter } from "react-icons/fi";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { AppContext } from "../../AppContext";
+
 
 const Footer = () => {
-  const { loggedIn } = useContext(AppContext);
 
-    const [isSignedIn, setIsSignedIn] = loggedIn;
-    const isLooged = isSignedIn == true ? "" : "signedIn";
   return (
-    <div className={"footer" + " " + isLooged}>
+    <div className="footer">
       <div className="footer-content">
         <hr />
         <div className="company-details">

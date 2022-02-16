@@ -20,6 +20,7 @@ const AddToCart = () => {
 
   const addToInPay = (item) => {
     setInPay([item]);
+    console.log(inPay)
   };
 
   const pay = () => {
@@ -35,11 +36,11 @@ const AddToCart = () => {
   const addItemToCart = (item) => {
     const itemObj = {
       id: item.id,
-      name: item.name,
-      description: item.description,
+      name: item.Brand,
+      description: item.Description,
       sizeOfItem: size,
-      priceOfItem: item.price,
-      img: item.img,
+      priceOfItem: item.Price,
+      img: item.Img,
     };
     cart.push(itemObj);
   };
@@ -49,7 +50,7 @@ const AddToCart = () => {
   };
   return (
     <div className="row">
-      <h3 className="product-name">{viewItem.name}</h3>
+      <h3 className="product-name">{viewItem.Brand}</h3>
       <div
         id="carouselExampleCaptions"
         className="carousel carousel-dark slide col-lg-4 col-md-4 col-sm-4"
@@ -124,7 +125,7 @@ const AddToCart = () => {
         </button>
       </div>
       <div className="add-to-cart-btn">
-        <p>Price: R{viewItem.price}</p>
+        <p>Price: R{viewItem.Price}</p>
         <div className="err-label">
           <label>Please select a size</label>
         </div>
@@ -276,13 +277,13 @@ const AddToCart = () => {
               aria-labelledby="headingThree"
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body">{viewItem.description}</div>
+              <div className="accordion-body">{viewItem.Description}</div>
             </div>
           </div>
         </div>
         <button
           onClick={() => {
-            if (viewItem.type !== "Shoes") {
+            if (viewItem.Type !== "Shoes") {
               if (
                 document.getElementById("small").checked ||
                 document.getElementById("medium").checked ||
@@ -292,7 +293,7 @@ const AddToCart = () => {
                 pay();
               }
             }
-            if (viewItem.type === "Shoes") {
+            if (viewItem.Type === "Shoes") {
               if (
                 document.getElementById("six").checked ||
                 document.getElementById("seven").checked ||
@@ -304,7 +305,7 @@ const AddToCart = () => {
                 pay();
               }
             }
-            if (viewItem.type === "Shoes") {
+            if (viewItem.Type === "Shoes") {
               if (
                 document.getElementById("six").checked === false &&
                 document.getElementById("seven").checked === false &&
@@ -316,7 +317,7 @@ const AddToCart = () => {
                 err.style.display = "block";
               }
             }
-            if (viewItem.type != "Shoes") {
+            if (viewItem.Type != "Shoes") {
               if (
                 document.getElementById("small").checked === false &&
                 document.getElementById("medium").checked === false &&
@@ -334,18 +335,18 @@ const AddToCart = () => {
         </button>
         <button
           onClick={() => {
-            if (viewItem.type !== "Shoes") {
+            if (viewItem.Type !== "Shoes") {
               if (
                 document.getElementById("small").checked ||
                 document.getElementById("medium").checked ||
                 document.getElementById("large").checked
               ) {
                 addItemToCart(viewItem);
-                addTotalSum(viewItem.price);
+                addTotalSum(viewItem.Price);
                 goToHome();
               }
             }
-            if (viewItem.type === "Shoes") {
+            if (viewItem.Type === "Shoes") {
               if (
                 document.getElementById("six").checked ||
                 document.getElementById("seven").checked ||
@@ -354,11 +355,11 @@ const AddToCart = () => {
                 document.getElementById("ten").checked
               ) {
                 addItemToCart(viewItem);
-                addTotalSum(viewItem.price);
+                addTotalSum(viewItem.Price);
                 goToHome();
               }
             }
-            if (viewItem.type === "Shoes") {
+            if (viewItem.Type === "Shoes") {
               if (
                 document.getElementById("six").checked === false &&
                 document.getElementById("seven").checked === false &&
@@ -370,7 +371,7 @@ const AddToCart = () => {
                 err.style.display = "block";
               }
             }
-            if (viewItem.type !== "Shoes") {
+            if (viewItem.Type !== "Shoes") {
               if (
                 document.getElementById("small").checked === false &&
                 document.getElementById("medium").checked === false &&

@@ -13,7 +13,7 @@ const Checkout = () => {
     history.push("/pay");
   };
   const emptyInPay = () => {
-    setInPay([]);
+    setInPay(false);
   };
   const [price, setPrice] = priceItem;
   const [cart, setCart] = cartItem;
@@ -75,7 +75,7 @@ const Checkout = () => {
               <button
                 onClick={() => {
                   pay();
-                  // emptyInPay();
+                  emptyInPay();
                 }}
                 className="btn btn-dark"
               >

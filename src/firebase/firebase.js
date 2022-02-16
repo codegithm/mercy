@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../AppContext';
 
 
 // Your web app's Firebase configuration
@@ -15,21 +17,47 @@ const firebaseConfig = {
   measurementId: "G-P01P2XT4FG"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore(app);
+
+export async function getItems() {
+  const itemsCol = collection(db, 'Itesms');
+  const itemsSnapshot = await getDocs(itemsCol);
+  const itemsList = itemsSnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}))
+  console.log(itemsList)
+  return itemsList;
+}
+export async function getPersonal() {
+  const personalCol = collection(db, 'Personal');
+  const personalSnapshot = await getDocs(personalCol);
+  const personalList = personalSnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}))
+  console.log(personalList)
+  return personalList;
+}
 
 export function signIn (email, password){       
     return signInWithEmailAndPassword(auth,email,password);
 }
 
+export async function logOff(){
+  return await signOut(auth).then((res)=>{console.log(res)}).catch((e)=>{console.log(e)})
+}
 //custom hook
 export function useAuth(){
   const [currentUser, setCurrentUser] = useState('');
+  const { loggedInUser } = useContext(AppContext);
+
+  const [inUser,setInUser] = loggedInUser;
   useEffect(()=>{
     onAuthStateChanged(auth, user =>{
-      setCurrentUser(user)
+      setCurrentUser(user);
+      setInUser(user);
+      console.log(inUser)
     })
   }, [])
   return currentUser;
 }
+

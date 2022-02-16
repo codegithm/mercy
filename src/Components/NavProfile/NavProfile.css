@@ -1,0 +1,12 @@
+.nav-profile{
+    padding-left: 6px;
+    height: 47px !important;
+}
+.email-profile{
+    margin-left: 10px;
+    color: white;
+}
+.profile-nav{
+    display: flex;
+    justify-content: flex-start;
+}
