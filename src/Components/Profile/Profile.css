@@ -1,9 +1,7 @@
 .logout{
-    position: relative;
     height: 48px;
     width: 100vw;
     color: rgb(69, 69, 187);
-    top: 80px;
     display: flex;
     align-items: center;
     padding-left: 10px;
@@ -17,4 +15,29 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+.personal{
+    margin-top: 74px;
+    min-height: 100vh;
+}
+.drop-cont{
+    border-bottom: solid #a5a1a1 0.2px;
+}
+.drop-title{
+    color: black;
+}
+.drop-title:focus{
+    color: black !important;
+    border-color: white !important;
+    box-shadow: none !important;
+}
+.drop-det{
+    width: 100%;
+}
+.values{
+    padding-left: 16px;
+}
+.drop-sub-title{
+    margin-bottom: 0 !important;
+    font-weight: 600;
 }

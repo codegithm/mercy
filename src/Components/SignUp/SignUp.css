@@ -8,6 +8,7 @@
 @media screen and (min-width: 464px) {   
     .signup-form{
         width: 400px;
+        height: 100vh;
     }
 }
 @media screen and (max-width: 464px) {   
@@ -15,11 +16,13 @@
         width: 100vw;
         padding-left: 10px;
         padding-right: 10px;
+        height: 100vh;
     }
 }
 .gmail{
     margin-top: 11px;
     background: #212529 !important;
+    color: white;
 }
 .sign-up-logo{
     width: 150px;

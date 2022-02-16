@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../AppContext';
@@ -40,6 +40,10 @@ export async function getPersonal() {
 
 export function signIn (email, password){       
     return signInWithEmailAndPassword(auth,email,password);
+}
+
+export function signUp (email, password){       
+  return createUserWithEmailAndPassword(auth,email,password);
 }
 
 export async function logOff(){

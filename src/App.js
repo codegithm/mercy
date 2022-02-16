@@ -6,7 +6,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import Items from "./Components/Items/Items";
 import Checkout from "./Components/Checkout/Checkout";
 import AddToCart from "./Components/AddToCart/AddToCart";
-import Footer from "./Components/Footer/Footer";
+import NewUser from './Components/SignUp/NewUser';
 import Pay from "./Components/Pay/Pay";
 import ScrollToTop from "./Components/ScrolToTop";
 import SignUp from "./Components/SignUp/SignUp";
@@ -45,8 +45,11 @@ function App() {
               <ProtectedRoute isAuthed={isSignedIn} isLoading={isSignedIn} path="/profile">
                 <Profile />
               </ProtectedRoute>
-              <Route isAuthed={isSignedIn} isLoading={isSignedIn} exact path="/">
+              <Route exact path="/">
                 <Items />
+              </Route>
+              <Route path="/newuser">
+                <NewUser />
               </Route>
               <Route path="/checkout" component={Checkout} />
               <Route  path="/add">

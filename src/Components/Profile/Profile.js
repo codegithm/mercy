@@ -25,7 +25,23 @@ const Profile = () =>{
             {personal === false ? (<button>Fill Personal Details</button>) : 
               personal.map((data)=>{
                 return(
-                  <div>{data.Name}</div>
+                  // <div>{data.Name}</div>
+                  <div class="dropdown drop-cont">
+                    <a class="btn btn-secondary dropdown-toggle drop-title" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      Personal details
+                    </a>
+
+                    <div class="dropdown-menu drop-det" aria-labelledby="dropdownMenuLink">
+                      <div>
+                        <h5 class="dropdown-item drop-sub-title">Name</h5>
+                        <p className="values">{data.Name}</p>
+                        <h5 class="dropdown-item drop-sub-title">Surname</h5>
+                        <p className="values">{data.Surname}</p>
+                        <h5 class="dropdown-item drop-sub-title">Cellnumber</h5>
+                        <p className="values">{data.Cellnumber}</p>
+                      </div>
+                    </div>
+                </div>
                 )
               })
             }
