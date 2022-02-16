@@ -3,14 +3,17 @@ import './Loader.css'
 const Loader = () =>{
     return(
         <div className='loader-cont'>
+            <div className='loader-logo'>
+                <img src="./Untitled-1-01.png" />
+            </div>
             <div id="load">
-                <div>.</div>
-                <div>.</div>
-                <div>Y</div>
-                <div>C</div>
-                <div>R</div>
-                <div>E</div>
-                <div>M</div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
             </div>
         </div>
     )
