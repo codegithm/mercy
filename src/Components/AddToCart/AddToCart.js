@@ -31,8 +31,15 @@ const AddToCart = () => {
     return totalAmount;
   };
   const addToInPay = (item) => {
-    setInPay([item]);
-    console.log(inPay);
+    const itemObj = {
+      id: item.id,
+      Brand: item.Brand,
+      Description: item.Description,
+      sizeOfItem: size,
+      Price: getNewPrice(item.Price),
+    };
+    setInPay([itemObj]);
+    console.log(item);
   };
 
   const pay = () => {

@@ -13,11 +13,9 @@ const Pay = () => {
   const [deduction, setDeduction] = useState();
   const [redeemed, setRedeemed] = useState(false);
   const history = useHistory();
-  const pay = () => {
-    history.push("/pay");
-  };
+
   const amountInPrice = () => {
-    return inPay == false ? 0 : inPay[0].Price
+    return inPay == false ? 0 : inPay[0].Price;
   };
   const handleChange = (e) => {
     promoCodes.map((value) => {
@@ -39,23 +37,23 @@ const Pay = () => {
     }
   };
   return (
-    <div className="main-cont">
-      <div className="col-md-5 col-lg-4 order-md-last pay-cont">
-        <h4 className="d-flex justify-content-between align-items-center mb-3">
-          <span className="text-primary">Your cart</span>
-          <span className="badge bg-primary rounded-pill">
+    <div className='main-cont'>
+      <div className='col-md-5 col-lg-4 order-md-last pay-cont'>
+        <h4 className='d-flex justify-content-between align-items-center mb-3'>
+          <span className='text-primary'>Your cart</span>
+          <span className='badge bg-primary rounded-pill'>
             {cart.length + amountInPrice() == 0 ? 0 : 1}
           </span>
         </h4>
-        <ul className="list-group mb-3">
+        <ul className='list-group mb-3'>
           {cart.lenght !== 0
             ? cart.map((item) => (
-                <li className="list-group-item d-flex justify-content-between lh-sm">
+                <li className='list-group-item d-flex justify-content-between lh-sm'>
                   <div>
-                    <h6 className="my-0">{item.name}</h6>
-                    <small className="text-muted">{item.description}</small>
+                    <h6 className='my-0'>{item.name}</h6>
+                    <small className='text-muted'>{item.description}</small>
                   </div>
-                  <span className="text-muted">R{item.priceOfItem}</span>
+                  <span className='text-muted'>R{item.priceOfItem}</span>
                 </li>
               ))
             : ""}
@@ -64,42 +62,42 @@ const Pay = () => {
                 return (
                   <li
                     key={item.id}
-                    className="list-group-item d-flex justify-content-between lh-sm"
+                    className='list-group-item d-flex justify-content-between lh-sm'
                   >
                     <div>
-                      <h6 className="my-0">{item.Brand}</h6>
-                      <small className="text-muted">{item.description}</small>
+                      <h6 className='my-0'>{item.Brand}</h6>
+                      <small className='text-muted'>{item.description}</small>
                     </div>
-                    <span className="text-muted">R{item.Price}</span>
+                    <span className='text-muted'>R{item.Price}</span>
                   </li>
                 );
               })
             : ""}
-          <li className="list-group-item d-flex justify-content-between bg-light">
-            <div className="text-success">
-              <h6 className="my-0">Promo code</h6>
+          <li className='list-group-item d-flex justify-content-between bg-light'>
+            <div className='text-success'>
+              <h6 className='my-0'>Promo code</h6>
               <small>{promo != "No promo" ? promo.id : "No code"}</small>
             </div>
-            <span className="text-success">−R{deduction}</span>
+            <span className='text-success'>−R{deduction}</span>
           </li>
-          <li className="list-group-item d-flex justify-content-between">
+          <li className='list-group-item d-flex justify-content-between'>
             <span>Total (ZAR)</span>
             <strong>{total !== 0 ? total : price + amountInPrice()}</strong>
           </li>
         </ul>
 
-        <form className="card p-2">
-          <div className="input-group">
+        <form className='card p-2'>
+          <div className='input-group'>
             <input
-              type="text"
-              className="form-control"
-              placeholder="Promo code"
+              type='text'
+              className='form-control'
+              placeholder='Promo code'
               onChange={handleChange}
             />
             <button
               onClick={checkPromo}
-              type="submit"
-              className="redeem btn btn-secondary"
+              type='submit'
+              className='redeem btn btn-secondary'
             >
               Redeem
             </button>

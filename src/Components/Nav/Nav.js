@@ -4,13 +4,12 @@ import {
   faShoppingBag,
   faBars,
   faTimes,
-  faUser
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../../AppContext";
-
 
 const Nav = () => {
   const history = useHistory();
@@ -49,54 +48,55 @@ const Nav = () => {
 
   return (
     <nav className={"navbar navbar-expand-lg navbar-dark bg-dark"}>
-      <div className="container-fluid">
+      <div className='container-fluid'>
         <div
           onClick={() => {
             changePath("/");
           }}
-          className="navbar-brand btn"
+          className='navbar-brand btn nav-mercy'
         >
-          <img className="mercy-logo" alt="logoImg" src="./Untitled-1-02.png" />
+          <img className='mercy-logo' alt='logoImg' src='./Untitled-1-02.png' />
         </div>
-        <div className="btn-cont">
-        
-          <div className="cart mobile">
-          <div
-          onClick={() => {
-            changePath("/profile");
-          }}
-          >
-            <FontAwesomeIcon icon={faUser}
-            className="cart-icon cart-icon-nav"/>
-          </div>
+        <div className='btn-cont'>
+          <div className='cart mobile'>
+            <div
+              onClick={() => {
+                changePath("/profile");
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faUser}
+                className='cart-icon cart-icon-nav'
+              />
+            </div>
             <div
               onClick={() => {
                 changePath("/checkout");
               }}
-              className="btn position-relative"
+              className='btn position-relative'
             >
               <FontAwesomeIcon
-                className="cart-icon cart-icon-nav"
+                className='cart-icon cart-icon-nav'
                 icon={faShoppingBag}
               ></FontAwesomeIcon>
               {cart.length === 0 ? (
                 ""
               ) : (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
                   {cart.length}
-                  <span className="visually-hidden">unread messages</span>
+                  <span className='visually-hidden'>unread messages</span>
                 </span>
               )}
             </div>
           </div>
           <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+            className='navbar-toggler'
+            type='button'
+            data-bs-toggle='collapse'
+            data-bs-target='#navbarSupportedContent'
+            aria-controls='navbarSupportedContent'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
             onClick={handleIconChange}
           >
             <div className={show}>
@@ -107,24 +107,24 @@ const Nav = () => {
             </div>
           </button>
         </div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item dropdown">
+        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
+          <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+            <li className='nav-item dropdown'>
               <a
-                href="/"
-                className="nav-link dropdown-toggle"
-                href="facebook.com"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                href='/'
+                className='nav-link dropdown-toggle'
+                href='facebook.com'
+                id='navbarDropdown'
+                role='button'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'
               >
                 Collection
               </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                 <li>
                   <div
-                    className="dropdown-item"
+                    className='dropdown-item'
                     onClick={() => {
                       changeType("type");
                       hideDropDown();
@@ -137,7 +137,7 @@ const Nav = () => {
                 </li>
                 <li>
                   <div
-                    className="dropdown-item"
+                    className='dropdown-item'
                     onClick={() => {
                       changeType("T-shirt");
                       hideDropDown();
@@ -150,7 +150,7 @@ const Nav = () => {
                 </li>
                 <li>
                   <div
-                    className="dropdown-item"
+                    className='dropdown-item'
                     onClick={() => {
                       changeType("Pants");
                       hideDropDown();
@@ -163,7 +163,7 @@ const Nav = () => {
                 </li>
                 <li>
                   <div
-                    className="dropdown-item"
+                    className='dropdown-item'
                     onClick={() => {
                       changeType("Hoodies");
                       hideDropDown();
@@ -176,7 +176,7 @@ const Nav = () => {
                 </li>
                 <li>
                   <div
-                    className="dropdown-item"
+                    className='dropdown-item'
                     onClick={() => {
                       changeType("Shoes");
                       hideDropDown();
@@ -190,38 +190,38 @@ const Nav = () => {
               </ul>
             </li>
 
-            <li className="nav-item">
-              <div className="dropdown">
+            <li className='nav-item'>
+              <div className='dropdown'>
                 <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  className='btn btn-secondary dropdown-toggle'
+                  type='button'
+                  id='dropdownMenuButton2'
+                  data-bs-toggle='dropdown'
+                  aria-expanded='false'
                 >
                   Brands
                 </button>
                 <ul
-                  className="dropdown-menu dropdown-menu-dark"
-                  aria-labelledby="dropdownMenuButton2"
+                  className='dropdown-menu dropdown-menu-dark'
+                  aria-labelledby='dropdownMenuButton2'
                 >
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className='dropdown-item' href='#'>
                       Mercy
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className='dropdown-item' href='#'>
                       Adidas
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className='dropdown-item' href='#'>
                       Nike
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className='dropdown-item' href='#'>
                       Separated link
                     </a>
                   </li>
@@ -229,10 +229,10 @@ const Nav = () => {
               </div>
             </li>
 
-            <li className="nav-item">
+            <li className='nav-item'>
               <a
-                className="nav-link active"
-                aria-current="page"
+                className='nav-link active'
+                aria-current='page'
                 onClick={() => {
                   hideDropDown();
                   handleIconChange();
@@ -241,9 +241,9 @@ const Nav = () => {
                 About
               </a>
             </li>
-            <li className="nav-item">
+            <li className='nav-item'>
               <a
-                className="nav-link active"
+                className='nav-link active'
                 onClick={() => {
                   hideDropDown();
                   handleIconChange();
@@ -254,31 +254,33 @@ const Nav = () => {
             </li>
           </ul>
         </div>
-        <div className="cart desktop">
-        <div
-          onClick={() => {
-            changePath("/profile");
-          }}
+        <div className='cart desktop'>
+          <div
+            onClick={() => {
+              changePath("/profile");
+            }}
           >
-          <FontAwesomeIcon icon={faUser} 
-            className="cart-icon cart-icon-nav"/>
+            <FontAwesomeIcon
+              icon={faUser}
+              className='cart-icon cart-icon-nav'
+            />
           </div>
           <a
             onClick={() => {
               changePath("/checkout");
             }}
-            className="btn position-relative"
+            className='btn position-relative'
           >
             <FontAwesomeIcon
-              className="cart-icon cart-icon-nav"
+              className='cart-icon cart-icon-nav'
               icon={faShoppingBag}
             ></FontAwesomeIcon>
             {cart.length === 0 ? (
               ""
             ) : (
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
                 {cart.length}
-                <span className="visually-hidden">unread messages</span>
+                <span className='visually-hidden'>unread messages</span>
               </span>
             )}
           </a>

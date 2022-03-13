@@ -1,43 +1,59 @@
-.logout{
-    height: 48px;
-    width: 100vw;
-    color: rgb(69, 69, 187);
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-block-color: #e3e2e2;
-    background: #ffffff;
+.logout {
+  height: 48px;
+  width: 100vw;
+  color: rgb(69, 69, 187);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-block-color: #e3e2e2;
+  background: #ffffff;
 }
-.profile-cont{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.info-cont {
+  margin-top: 47px;
+  padding-top: 40px;
+  height: 500px;
+  background-image: url(../../flat-mountains.svg);
 }
-.personal{
-    margin-top: 74px;
-    min-height: 100vh;
+.profile-cont {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-.drop-cont{
-    border-bottom: solid #a5a1a1 0.2px;
+.personal {
+  margin-top: 74px;
+  min-height: 100vh;
 }
-.drop-title{
-    color: black;
+.drop-cont {
+  border-bottom: solid #a5a1a1 0.2px;
 }
-.drop-title:focus{
-    color: black !important;
-    border-color: white !important;
-    box-shadow: none !important;
+.drop-title {
+  color: black;
 }
-.drop-det{
-    width: 100%;
+.drop-title:focus {
+  color: black !important;
+  border-color: white !important;
+  box-shadow: none !important;
 }
-.values{
-    padding-left: 16px;
+.drop-det {
+  width: 100%;
 }
-.drop-sub-title{
-    margin-bottom: 0 !important;
-    font-weight: 600;
+.values {
+  padding-left: 16px;
+}
+.drop-sub-title {
+  margin-bottom: 0 !important;
+  font-weight: 600;
+}
+.avatar {
+  width: 130px;
+  margin-bottom: 10px;
+}
+.avatar-cont {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  justify-content: center;
 }

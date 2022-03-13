@@ -7,7 +7,7 @@ import { AppContext } from "../../AppContext";
 import "./Profile.css";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
-import { Button } from "bootstrap/dist/js/bootstrap.bundle";
+import swal from "sweetalert";
 const Profile = () => {
   const { loggedIn, personalInfo, loggedInUser } = useContext(AppContext);
   const [isSignedIn, setIsSignedIn] = loggedIn;
@@ -34,85 +34,35 @@ const Profile = () => {
     }
   }, []);
 
+  const showPersonal = () => {
+    let personlObj = "";
+    personal.map((data) => {
+      if (data.id == inUser.uid) {
+        personlObj = {
+          name: data.name,
+          surname: data.surname,
+          cellnumber: data.cellnumber,
+        };
+      }
+    });
+
+    swal({
+      title: "Personal Details",
+      text: `Name: ${personlObj.name} \n Surname: ${personlObj.surname} \n Cellnumber: ${personlObj.cellnumber}`,
+      icon: "success",
+      button: "Ok",
+    });
+  };
   return (
     <div className='profile-cont'>
       <NavProile />
-      <div className='personal'>
-        {personal.map((data) => {
-          if (data.id == inUser.uid) {
-            console.log(data);
-            return (
-              // <div class='dropdown drop-cont'>
-              //   <a
-              //     class='btn btn-secondary dropdown-toggle drop-title'
-              //     href='#'
-              //     role='button'
-              //     id='dropdownMenuLink'
-              //     data-bs-toggle='dropdown'
-              //     aria-expanded='false'
-              //   >
-              //     Personal details
-              //   </a>
-
-              //   <div
-              //     class='dropdown-menu drop-det'
-              //     aria-labelledby='dropdownMenuLink'
-              //   >
-              //     <div>
-              //       <h5 class='dropdown-item drop-sub-title'>Name</h5>
-              //       <p className='values'>{data.name}</p>
-              //       <h5 class='dropdown-item drop-sub-title'>Surname</h5>
-              //       <p className='values'>{data.surname}</p>
-              //       <h5 class='dropdown-item drop-sub-title'>Cellnumber</h5>
-              //       <p className='values'>{data.cellnumber}</p>
-              //     </div>
-              //   </div>
-              // </div>
-
-              <div
-                id='collapseThree'
-                className='accordion-collapse collapse'
-                aria-labelledby='headingThree'
-                data-bs-parent='#accordionExample'
-              >
-                <div className='accordion-body'>
-                  <div>
-                    <h5>Name</h5>
-                    <h6>{data.name}</h6>
-                  </div>
-                  <div>
-                    <h5>Surnamme</h5>
-                    <h6>{data.surname}</h6>
-                  </div>
-                  <div>
-                    <h5>Cellnumber</h5>
-                    <h6>{data.cellnumber}</h6>
-                  </div>
-                </div>
-              </div>
-            );
-          } else {
-            let matched = false;
-            for (var item in personal) {
-              if (personal[item].id === inUser.uid) {
-                matched = true;
-              }
-              if (matched === false && item === personal.length - 1) {
-                return (
-                  <button
-                    onClick={() => {
-                      history.push("/personalDetails");
-                    }}
-                    type='button'
-                    className='btn btn-dark'
-                  >
-                    Fill Personal Details
-                  </button>
-                );
-              }
-            }
-          }
-        })}
+      <div className='info-cont'>
+        <div className='avatar-cont'>
+          <img className='avatar' src='./avatar-svgrepo-com.svg' />
+        </div>
+        <button type='button' className='btn btn-dark' onClick={showPersonal}>
+          Personal details
+        </button>
       </div>
       <div
         className='logout'

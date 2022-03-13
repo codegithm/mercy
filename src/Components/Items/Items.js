@@ -79,18 +79,6 @@ const Items = () => {
                           R{getNewPrice(item.Price)}
                         </h3>
                       </div>
-                      <div className='buy-now-item-cont'>
-                        <button
-                          type='button'
-                          className='buy-now-item btn btn-outline-secondary'
-                          onClick={() => {
-                            addItem();
-                            addToView(item);
-                          }}
-                        >
-                          Buy Now
-                        </button>
-                      </div>
                     </div>
                   );
                 }
@@ -115,18 +103,6 @@ const Items = () => {
                         <h3 className='card-title'>
                           R{getNewPrice(item.Price)}
                         </h3>
-                      </div>
-                      <div className='buy-now-item-cont'>
-                        <button
-                          type='button'
-                          className='buy-now-item btn btn-outline-secondary'
-                          onClick={() => {
-                            addItem();
-                            addToView(item);
-                          }}
-                        >
-                          Buy Now
-                        </button>
                       </div>
                     </div>
                   );
@@ -154,18 +130,6 @@ const Items = () => {
                           R{getNewPrice(item.Price)}
                         </h3>
                       </div>
-                      <div className='buy-now-item-cont'>
-                        <button
-                          type='button'
-                          className='buy-now-item btn btn-outline-secondary'
-                          onClick={() => {
-                            addItem();
-                            addToView(item);
-                          }}
-                        >
-                          Buy Now
-                        </button>
-                      </div>
                     </div>
                   );
                 }
@@ -192,18 +156,6 @@ const Items = () => {
                           R{getNewPrice(item.Price)}
                         </h3>
                       </div>
-                      <div className='buy-now-item-cont'>
-                        <button
-                          type='button'
-                          className='buy-now-item btn btn-outline-secondary'
-                          onClick={() => {
-                            addItem();
-                            addToView(item);
-                          }}
-                        >
-                          Buy Now
-                        </button>
-                      </div>
                     </div>
                   );
                 }
@@ -229,18 +181,6 @@ const Items = () => {
                         <h3 className='card-title'>
                           R{getNewPrice(item.Price)}
                         </h3>
-                      </div>
-                      <div className='buy-now-item-cont'>
-                        <button
-                          type='button'
-                          className='buy-now-item btn btn-outline-secondary'
-                          onClick={() => {
-                            addItem();
-                            addToView(item);
-                          }}
-                        >
-                          Buy Now
-                        </button>
                       </div>
                     </div>
                   );

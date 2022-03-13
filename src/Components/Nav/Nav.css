@@ -8,7 +8,9 @@
   position: relative;
   top: -13px;
 }
-
+.nav-mercy {
+  margin-left: -24px;
+}
 .navbar {
   height: 80px;
   display: flex;
