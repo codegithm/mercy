@@ -17,6 +17,12 @@
   height: 500px;
   background-image: url(../../flat-mountains.svg);
 }
+@media screen and (max-width: 765px) {
+  .info-cont {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
 .profile-cont {
   height: 100vh;
   display: flex;

@@ -111,7 +111,6 @@ const Nav = () => {
           <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
             <li className='nav-item dropdown'>
               <a
-                href='/'
                 className='nav-link dropdown-toggle'
                 href='facebook.com'
                 id='navbarDropdown'

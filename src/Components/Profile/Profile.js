@@ -7,7 +7,9 @@ import { AppContext } from "../../AppContext";
 import "./Profile.css";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { CgProfile } from "react-icons/cg";
 const Profile = () => {
   const { loggedIn, personalInfo, loggedInUser } = useContext(AppContext);
   const [isSignedIn, setIsSignedIn] = loggedIn;
@@ -46,12 +48,96 @@ const Profile = () => {
       }
     });
 
-    swal({
-      title: "Personal Details",
-      text: `Name: ${personlObj.name} \n Surname: ${personlObj.surname} \n Cellnumber: ${personlObj.cellnumber}`,
-      icon: "success",
-      button: "Ok",
+    // swal({
+    //   title: "Personal Details",
+    //   text: `Name: ${personlObj.name} \n Surname: ${personlObj.surname} \n Cellnumber: ${personlObj.cellnumber}`,
+    //   icon: "success",
+    //   button: "Ok",
+    // });
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
     });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Personal details",
+        text: `Name: ${personlObj.name} | Surname: ${personlObj.surname} | Cellnumber: ${personlObj.cellnumber}`,
+        imageUrl: "./avatar-svgrepo-com.svg",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        showCancelButton: true,
+        confirmButtonText: "Ok",
+        cancelButtonText: "Edit",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons
+            .fire({
+              input: "text",
+              inputLabel: "Your name",
+              inputPlaceholder: "Enter your name",
+              confirmButtonText: "Save",
+              inputValidator: (value) => {
+                if (!value) {
+                  return "You need to write something!";
+                }
+              },
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                swalWithBootstrapButtons
+                  .fire({
+                    input: "text",
+                    inputLabel: "Your surname",
+                    inputPlaceholder: "Enter your surname",
+                    confirmButtonText: "Save",
+                    inputValidator: (value) => {
+                      if (!value) {
+                        return "You need to write something!";
+                      }
+                    },
+                  })
+                  .then((result) => {
+                    if (result.isConfirmed) {
+                      swalWithBootstrapButtons
+                        .fire({
+                          input: "text",
+                          inputLabel: "Your cellnumber",
+                          inputPlaceholder: "Enter your cellnumber",
+                          confirmButtonText: "Save",
+                          inputValidator: (value) => {
+                            if (!value) {
+                              return "You need to write something!";
+                            }
+                          },
+                        })
+                        .then((result) => {
+                          if (result.isConfirmed) {
+                            Swal.fire({
+                              icon: "success",
+                              title: "Your work has been saved",
+                              showConfirmButton: false,
+                              timer: 1500,
+                            });
+                          }
+                        });
+                    }
+                  });
+              }
+            });
+        }
+      });
   };
   return (
     <div className='profile-cont'>
