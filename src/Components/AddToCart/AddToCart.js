@@ -17,10 +17,22 @@ const AddToCart = () => {
   const [inPay, setInPay] = itemInPay;
 
   const history = useHistory();
+  const getNewPrice = (n) => {
+    const basePrice = 10;
+    const baseAddedAmount = n <= 1000 ? 2 : 1;
+    const clientPrice = n;
 
+    const priceDifference = clientPrice - basePrice;
+    const priceGrowthPercentageFromBase = (priceDifference / basePrice) * 100;
+    const priceToBeAdded =
+      (priceGrowthPercentageFromBase / 100) * baseAddedAmount;
+    const totalAmount = n + priceToBeAdded;
+
+    return totalAmount;
+  };
   const addToInPay = (item) => {
     setInPay([item]);
-    console.log(inPay)
+    console.log(inPay);
   };
 
   const pay = () => {
@@ -39,7 +51,7 @@ const AddToCart = () => {
       name: item.Brand,
       description: item.Description,
       sizeOfItem: size,
-      priceOfItem: item.Price,
+      priceOfItem: getNewPrice(item.Price),
       img: item.Img,
     };
     cart.push(itemObj);
@@ -48,236 +60,237 @@ const AddToCart = () => {
   const changeSelectedSize = (size) => {
     setSize(size);
   };
+
   return (
-    <div className="row">
-      <h3 className="product-name">{viewItem.Brand}</h3>
+    <div className='row'>
+      <h3 className='product-name'>{viewItem.Brand}</h3>
       <div
-        id="carouselExampleCaptions"
-        className="carousel carousel-dark slide col-lg-4 col-md-4 col-sm-4"
-        data-bs-ride="carousel"
+        id='carouselExampleCaptions'
+        className='carousel carousel-dark slide col-lg-4 col-md-4 col-sm-4'
+        data-bs-ride='carousel'
       >
-        <div className="carousel-indicators">
+        <div className='carousel-indicators'>
           <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="0"
-            className="active"
-            aria-current="true"
-            aria-label="Slide 1"
+            type='button'
+            data-bs-target='#carouselExampleCaptions'
+            data-bs-slide-to='0'
+            className='active'
+            aria-current='true'
+            aria-label='Slide 1'
           ></button>
           <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
+            type='button'
+            data-bs-target='#carouselExampleCaptions'
+            data-bs-slide-to='1'
+            aria-label='Slide 2'
           ></button>
           <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
+            type='button'
+            data-bs-target='#carouselExampleCaptions'
+            data-bs-slide-to='2'
+            aria-label='Slide 3'
           ></button>
         </div>
-        <div className="carousel-inner">
-          <div className="carousel-item active">
+        <div className='carousel-inner'>
+          <div className='carousel-item active'>
             <img
               src={viewItem.slide[0]}
-              className="img-fluid prod-img"
-              alt="..."
+              className='img-fluid prod-img'
+              alt='...'
             />
           </div>
-          <div className="carousel-item">
+          <div className='carousel-item'>
             <img
               src={viewItem.slide[1]}
-              className="img-fluid prod-img"
-              alt="..."
+              className='img-fluid prod-img'
+              alt='...'
             />
           </div>
-          <div className="carousel-item">
+          <div className='carousel-item'>
             <img
               src={viewItem.slide[2]}
-              className="img-fluid prod-img"
-              alt="..."
+              className='img-fluid prod-img'
+              alt='...'
             />
           </div>
         </div>
         <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev"
+          className='carousel-control-prev'
+          type='button'
+          data-bs-target='#carouselExampleCaptions'
+          data-bs-slide='prev'
         >
-          <span className="slide">
+          <span className='slide'>
             <GrPrevious />
           </span>
-          <span className="visually-hidden">Previous</span>
+          <span className='visually-hidden'>Previous</span>
         </button>
         <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next"
+          className='carousel-control-next'
+          type='button'
+          data-bs-target='#carouselExampleCaptions'
+          data-bs-slide='next'
         >
-          <span className="slide">
+          <span className='slide'>
             <GrNext />
           </span>
-          <span className="visually-hidden">Next</span>
+          <span className='visually-hidden'>Next</span>
         </button>
       </div>
-      <div className="add-to-cart-btn">
-        <p>Price: R{viewItem.Price}</p>
-        <div className="err-label">
+      <div className='add-to-cart-btn'>
+        <p>Price: R{getNewPrice(viewItem.Price)}</p>
+        <div className='err-label'>
           <label>Please select a size</label>
         </div>
         {viewItem.type == "Shoes" ? (
-          <div className="size">
-            <div className="form-check form-check-inline">
+          <div className='size'>
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("6");
                 }}
-                className="form-check-input six"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="six"
+                className='form-check-input six'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='six'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 6
               </label>
             </div>
-            <div className="form-check form-check-inline">
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("7");
                 }}
-                className="form-check-input seven"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="seven"
+                className='form-check-input seven'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='seven'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 7
               </label>
             </div>
-            <div className="form-check form-check-inline">
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("8");
                 }}
-                className="form-check-input eight"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="eight"
+                className='form-check-input eight'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='eight'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 8
               </label>
             </div>
-            <div className="form-check form-check-inline">
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("9");
                 }}
-                className="form-check-input nine"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="nine"
+                className='form-check-input nine'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='nine'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 9
               </label>
             </div>
-            <div className="form-check form-check-inline">
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("10");
                 }}
-                className="form-check-input ten"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="ten"
+                className='form-check-input ten'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='ten'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 10
               </label>
             </div>
           </div>
         ) : (
-          <div className="size">
-            <div className="form-check form-check-inline">
+          <div className='size'>
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("S");
                 }}
-                className="form-check-input small"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="small"
+                className='form-check-input small'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='small'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 S
               </label>
             </div>
-            <div className="form-check form-check-inline">
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("M");
                 }}
-                className="form-check-input medium"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="medium"
+                className='form-check-input medium'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='medium'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 M
               </label>
             </div>
-            <div className="form-check form-check-inline">
+            <div className='form-check form-check-inline'>
               <input
                 onClick={() => {
                   changeSelectedSize("L");
                 }}
-                className="form-check-input large"
-                type="radio"
-                value=""
-                name="inlineRadioOptions"
-                id="large"
+                className='form-check-input large'
+                type='radio'
+                value=''
+                name='inlineRadioOptions'
+                id='large'
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className='form-check-label' for='flexCheckDefault'>
                 L
               </label>
             </div>
           </div>
         )}
         <p>**Note this product can only be returned before 30 days</p>
-        <div className="accordion" id="accordionExample">
-          <div className="accordion-item">
-            <h2 className="accordion-header" id="headingThree">
+        <div className='accordion' id='accordionExample'>
+          <div className='accordion-item'>
+            <h2 className='accordion-header' id='headingThree'>
               <button
-                className="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseThree"
-                aria-expanded="false"
-                aria-controls="collapseThree"
+                className='accordion-button collapsed'
+                type='button'
+                data-bs-toggle='collapse'
+                data-bs-target='#collapseThree'
+                aria-expanded='false'
+                aria-controls='collapseThree'
               >
                 Description
               </button>
             </h2>
             <div
-              id="collapseThree"
-              className="accordion-collapse collapse"
-              aria-labelledby="headingThree"
-              data-bs-parent="#accordionExample"
+              id='collapseThree'
+              className='accordion-collapse collapse'
+              aria-labelledby='headingThree'
+              data-bs-parent='#accordionExample'
             >
-              <div className="accordion-body">{viewItem.Description}</div>
+              <div className='accordion-body'>{viewItem.Description}</div>
             </div>
           </div>
         </div>
@@ -328,8 +341,8 @@ const AddToCart = () => {
               }
             }
           }}
-          type="button"
-          className="cart-btn btn btn-outline-dark"
+          type='button'
+          className='cart-btn btn btn-outline-dark'
         >
           Buy Now
         </button>
@@ -342,7 +355,7 @@ const AddToCart = () => {
                 document.getElementById("large").checked
               ) {
                 addItemToCart(viewItem);
-                addTotalSum(viewItem.Price);
+                addTotalSum(getNewPrice(viewItem.Price));
                 goToHome();
               }
             }
@@ -355,7 +368,7 @@ const AddToCart = () => {
                 document.getElementById("ten").checked
               ) {
                 addItemToCart(viewItem);
-                addTotalSum(viewItem.Price);
+                addTotalSum(getNewPrice(viewItem.Price));
                 goToHome();
               }
             }
@@ -382,12 +395,12 @@ const AddToCart = () => {
               }
             }
           }}
-          type="button"
-          className="cart-btn btn btn-dark"
+          type='button'
+          className='cart-btn btn btn-dark'
         >
-          <span className="bag-btn-icons">
-            <FontAwesomeIcon className="bag-btn-icons" icon={faPlus} />
-            <FontAwesomeIcon className="bag-btn-icons" icon={faShoppingBag} />
+          <span className='bag-btn-icons'>
+            <FontAwesomeIcon className='bag-btn-icons' icon={faPlus} />
+            <FontAwesomeIcon className='bag-btn-icons' icon={faShoppingBag} />
           </span>
           Add to bag
         </button>

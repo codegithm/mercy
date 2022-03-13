@@ -25,6 +25,10 @@
   position: relative;
   bottom: 0;
 }
-.signedIn{
+.signedIn {
   display: none !important;
+}
+.card {
+  max-width: 169px;
+  min-width: 169px;
 }

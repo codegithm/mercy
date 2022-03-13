@@ -1,0 +1,20 @@
+.error-cont {
+  margin: auto;
+  height: 60px;
+  max-width: 267px;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  background-color: #bf0d0d;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  border-color: #db2020;
+  border-style: solid;
+}
+
+.error-cont p {
+  margin-bottom: 0 !important;
+}

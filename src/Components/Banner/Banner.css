@@ -8,6 +8,7 @@
   align-content: center;
   justify-content: center;
   align-items: center;
+  background-image: url(../../flat-mountains.svg);
 }
 
 .mercy {
@@ -18,8 +19,7 @@
   animation-duration: 3s;
 }
 .banner-title {
-  margin-top: 40px;
-  margin-bottom: -15px;
+  color: wheat;
   font-family: "Noto Sans TC", sans-serif;
   animation-name: scaleIn;
   animation-duration: 3s;
