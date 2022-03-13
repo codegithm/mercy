@@ -8,32 +8,32 @@ import "./Profile.css";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import { CgProfile } from "react-icons/cg";
+
 const Profile = () => {
-  const { loggedIn, personalInfo, loggedInUser } = useContext(AppContext);
+  const { loggedIn, personalInfo, loggedInUser, checkProfileMatch } =
+    useContext(AppContext);
   const [isSignedIn, setIsSignedIn] = loggedIn;
   const [personal, setPersonal] = personalInfo;
   const [inUser, setInUser] = loggedInUser;
   const history = useHistory();
   const user = useAuth();
   const [userId, setUserId] = useState("");
-  const [profileMatch, setProileMatch] = useState(false);
+  const [profileMatch, setProfileMatch] = checkProfileMatch;
 
+  const isProfileMatched = () => {
+    for (var data in personal) {
+      if (personal[data].id == inUser.uid) {
+        setProfileMatch(true);
+      }
+    }
+  };
   useEffect(() => {
     async function getUserId() {
       const getId = await user;
       setUserId(getId);
     }
-    console.log(personal);
     getUserId();
-    for (var data in personal) {
-      if (personal[data].id == inUser.uid) {
-        setProileMatch(true);
-        console.log(profileMatch);
-      }
-      console.log(inUser.uid);
-    }
+    isProfileMatched();
   }, []);
 
   const showPersonal = () => {
@@ -47,13 +47,6 @@ const Profile = () => {
         };
       }
     });
-
-    // swal({
-    //   title: "Personal Details",
-    //   text: `Name: ${personlObj.name} \n Surname: ${personlObj.surname} \n Cellnumber: ${personlObj.cellnumber}`,
-    //   icon: "success",
-    //   button: "Ok",
-    // });
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -139,6 +132,10 @@ const Profile = () => {
         }
       });
   };
+
+  const goToPersonal = () => {
+    history.push("/personalDetails");
+  };
   return (
     <div className='profile-cont'>
       <NavProile />
@@ -146,9 +143,16 @@ const Profile = () => {
         <div className='avatar-cont'>
           <img className='avatar' src='./avatar-svgrepo-com.svg' />
         </div>
-        <button type='button' className='btn btn-dark' onClick={showPersonal}>
-          Personal details
-        </button>
+
+        {profileMatch === true ? (
+          <button type='button' className='btn btn-dark' onClick={showPersonal}>
+            Personal details
+          </button>
+        ) : (
+          <button type='button' className='btn btn-dark' onClick={goToPersonal}>
+            Fill in details
+          </button>
+        )}
       </div>
       <div
         className='logout'
@@ -156,7 +160,7 @@ const Profile = () => {
           logOff();
           setIsSignedIn("");
           history.push("/");
-          console.log(logOff());
+          setProfileMatch(false);
         }}
       >
         <FontAwesomeIcon icon={faDoorOpen} />

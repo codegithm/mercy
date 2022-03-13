@@ -1,11 +1,17 @@
-.personal-form{
-    max-width: 600px;
+.personal-form {
+  max-width: 600px;
 }
 
-.personal-form-cont{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.personal-form-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+@media screen and (max-width: 764px) {
+  .personal-form-cont {
+    min-height: 100vh;
+    margin-top: 75px;
+  }
 }
