@@ -128,3 +128,8 @@
 .cart-icon-nav {
   color: white;
 }
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    margin-top: 28px;
+  }
+}

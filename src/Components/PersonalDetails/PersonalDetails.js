@@ -34,6 +34,7 @@ function PersonalDetails() {
     province: province,
     cellnumber: cellNum,
     address: addres,
+    seller: false,
   };
   const history = useHistory();
   const submit = (e) => {

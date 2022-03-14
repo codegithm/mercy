@@ -15,6 +15,7 @@ import { getItems, getPersonal, useAuth } from "./firebase/firebase";
 import { AppContext } from "./AppContext";
 import Profile from "./Components/Profile/Profile";
 import PersonalDetails from "./Components/PersonalDetails/PersonalDetails";
+import Seller from "./Components/Seller/Seller";
 function App() {
   const {
     loggedIn,
@@ -76,6 +77,9 @@ function App() {
             <AddToCart />
           </Route>
           <Route path='/pay' component={Pay} />
+          <Route path='/seller'>
+            <Seller />
+          </Route>
         </Switch>
       </Router>
     </div>
