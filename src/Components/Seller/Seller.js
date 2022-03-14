@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "./Seller.css";
 
 function Seller() {
   const [steps, setSteps] = useState(false);
   const MySwal = withReactContent(Swal);
   const showSteps = () => {
     MySwal.fire({
-      imageUrl: "./ladders-steps-svgrepo-com.svg",
+      imageUrl: "./shopping-bag-2041.svg",
       imageWidth: 400,
       imageHeight: 200,
       confirmButtonText: "Next",
@@ -18,16 +19,16 @@ function Seller() {
         </div>
       ),
       showClass: {
-        popup: "animate__animated animate__fadeInDown",
+        popup: "swal2-show",
       },
       hideClass: {
-        popup: "animate__animated animate__fadeOutUp",
+        popup: "swal2-hide",
       },
     }).then((result) => {
       if (result.isConfirmed) {
         MySwal.fire({
-          imageUrl: "./PngItem_585400.png",
-          imageWidth: 221,
+          imageUrl: "./Untitled2.svg",
+          imageWidth: 300,
           imageHeight: 190,
           confirmButtonText: "Next",
           title: (
@@ -47,7 +48,7 @@ function Seller() {
         }).then((result) => {
           if (result.isConfirmed) {
             MySwal.fire({
-              imageUrl: "./svg-cloud-and-upload-icon-1.svg",
+              imageUrl: "./Untitled.svg",
               imageWidth: 221,
               imageHeight: 190,
               confirmButtonText: "Next",
