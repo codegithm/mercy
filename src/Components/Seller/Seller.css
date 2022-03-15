@@ -13,9 +13,5 @@
 @media screen and (max-width: 574px) {
   .seller-title {
     width: 100%;
-    background-image: url("../../bg-dash.svg");
-    background-repeat: no-repeat;
-    background-position-x: 0px;
-    background-position-y: -70px;
   }
 }
