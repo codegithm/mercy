@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import DashboardCard from "../DashboardCard/DashboardCard";
+import Insights from "../Insights/Insights";
+import Sidebar from "../Sidebar/Sidebar";
 import "./Seller.css";
 
 function Seller() {
@@ -11,6 +14,7 @@ function Seller() {
       imageUrl: "./shopping-bag-2041.svg",
       imageWidth: 400,
       imageHeight: 200,
+      allowOutsideClick: false,
       confirmButtonText: "Next",
       title: (
         <div>
@@ -30,6 +34,7 @@ function Seller() {
           imageUrl: "./Untitled2.svg",
           imageWidth: 300,
           imageHeight: 190,
+          allowOutsideClick: false,
           confirmButtonText: "Next",
           title: (
             <div>
@@ -40,7 +45,7 @@ function Seller() {
             </div>
           ),
           showClass: {
-            popup: "animate__animated animate__fadeInDown",
+            popup: "swal2-show",
           },
           hideClass: {
             popup: "animate__animated animate__fadeOutUp",
@@ -51,6 +56,7 @@ function Seller() {
               imageUrl: "./Untitled.svg",
               imageWidth: 221,
               imageHeight: 190,
+              allowOutsideClick: false,
               confirmButtonText: "Next",
               title: (
                 <div>
@@ -61,7 +67,7 @@ function Seller() {
                 </div>
               ),
               showClass: {
-                popup: "animate__animated animate__fadeInDown",
+                popup: "swal2-show",
               },
               hideClass: {
                 popup: "animate__animated animate__fadeOutUp",
@@ -80,9 +86,10 @@ function Seller() {
     showSteps();
   }, []);
   return (
-    <div>
+    <div className='seller-cont'>
+      <Sidebar />
       <div className='seller-title'>
-        <p></p>
+        <Insights />
       </div>
     </div>
   );

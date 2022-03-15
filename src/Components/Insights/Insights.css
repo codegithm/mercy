@@ -1,0 +1,17 @@
+.insights-cont {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.insights-cont .row {
+  width: 84%;
+  height: 259px;
+  text-align: left;
+  margin-top: 40px;
+}
+@media screen and (max-width: 574px) {
+  .insights-card {
+    margin-bottom: 10px;
+  }
+}
