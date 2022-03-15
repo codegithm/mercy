@@ -12,11 +12,12 @@
   height: auto;
   padding-left: 0;
   padding-right: 0;
+}
+.products .card {
   max-width: 169px;
   min-width: 169px;
   min-height: 321px;
 }
-
 .card-title {
   font-size: 13px;
   font-family: "Montserrat", sans-serif;

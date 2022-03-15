@@ -55,7 +55,7 @@ const Nav = () => {
           }}
           className='navbar-brand btn nav-mercy'
         >
-          <img className='mercy-logo' alt='logoImg' src='./Untitled-1-01.png' />
+          <img className='mercy-logo' alt='logoImg' src='./Untitled-1-02.png' />
         </div>
         <div className='btn-cont'>
           <div className='cart mobile'>
