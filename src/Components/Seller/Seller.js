@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import DashboardCard from "../DashboardCard/DashboardCard";
 import Insights from "../Insights/Insights";
 import Sidebar from "../Sidebar/Sidebar";
 import SideBoot from "../SideBoot/SideBoot";

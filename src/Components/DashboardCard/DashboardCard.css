@@ -17,13 +17,17 @@
 }
 .sales {
   background-color: #55cfcf;
+  margin-bottom: 10px;
 }
 .monthly {
   background-color: #2cb48b;
+  margin-bottom: 10px;
 }
 .returned {
   background-color: #484ac4;
+  margin-bottom: 10px;
 }
 .income {
   background-color: #53146b;
+  margin-bottom: 10px;
 }

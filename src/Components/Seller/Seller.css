@@ -5,6 +5,7 @@
   width: 81%;
   height: 100vh;
   transition: width 1s ease-in-out;
+  overflow-y: scroll;
 }
 .seller-cont {
   display: flex;

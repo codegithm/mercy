@@ -15,3 +15,8 @@
     margin-bottom: 10px;
   }
 }
+
+.chart-title {
+  text-decoration: underline;
+  margin-top: 25px;
+}

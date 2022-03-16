@@ -14,7 +14,7 @@
 .side-list {
   display: flex;
 }
-@media screen and (max-width: 574px) {
+@media screen and (max-width: 742px) {
   .side-boot {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -25,6 +25,9 @@
   .side-boot a {
     font-size: 36px;
     border-radius: 0 !important;
+  }
+  .side-boot hr {
+    width: 90%;
   }
   .side-boot a p {
     display: none;

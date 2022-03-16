@@ -1,6 +1,7 @@
 import React from "react";
 import "./Insights.css";
 import DashboardCard from "../DashboardCard/DashboardCard";
+import SalesChart from "../SalesChart/SalesChart";
 
 function Insights() {
   return (
@@ -20,6 +21,12 @@ function Insights() {
         </div>
         <div className='col-lg-6 col-md-6 col-sm-6'>
           <DashboardCard title='Items returned' figures='9' name='returned' />
+        </div>
+        <div className='col-12'>
+          <h2 className='chart-title'>Sales Chart</h2>
+        </div>
+        <div className='col-lg-12 col-md-12 col-sm-12'>
+          <SalesChart />
         </div>
       </div>
     </div>
