@@ -28,6 +28,12 @@ function Insights() {
         <div className='col-lg-12 col-md-12 col-sm-12'>
           <SalesChart />
         </div>
+        <div className='col-12'>
+          <h2 className='chart-title'>Sales Chart</h2>
+        </div>
+        <div className='col-lg-12 col-md-12 col-sm-12'>
+          <SalesChart />
+        </div>
       </div>
     </div>
   );
