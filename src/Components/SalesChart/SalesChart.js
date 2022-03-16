@@ -3,6 +3,22 @@ import Chart from "react-apexcharts";
 import "./SalesChart.css";
 
 function SalesChart() {
+  let currMonths = new Date().getMonth();
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let newSetOfMonths = months.slice(currMonths);
   return (
     <div className='chart'>
       <Chart
@@ -11,13 +27,13 @@ function SalesChart() {
             id: "basic-bar",
           },
           xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+            categories: newSetOfMonths,
           },
         }}
         series={[
           {
             name: "sales",
-            data: [30, 40, 45, 50, 49, 60, 70, 91],
+            data: [30, 40, 45, 50, 49, 60, 70, 91, 65, 45],
           },
         ]}
         type='line'
