@@ -2,6 +2,7 @@ import React from "react";
 import "./Insights.css";
 import DashboardCard from "../DashboardCard/DashboardCard";
 import SalesChart from "../SalesChart/SalesChart";
+import ItemsChart from "../ItemsChart/ItemsChart";
 
 function Insights() {
   return (
@@ -25,14 +26,11 @@ function Insights() {
         <div className='col-12'>
           <h2 className='chart-title'>Sales Chart</h2>
         </div>
-        <div className='col-lg-12 col-md-12 col-sm-12'>
+        <div className='col-lg-6 col-md-12 col-sm-12'>
           <SalesChart />
         </div>
-        <div className='col-12'>
-          <h2 className='chart-title'>Sales Chart</h2>
-        </div>
-        <div className='col-lg-12 col-md-12 col-sm-12'>
-          <SalesChart />
+        <div className='col-lg-6 col-md-12 col-sm-12'>
+          <ItemsChart />
         </div>
       </div>
     </div>

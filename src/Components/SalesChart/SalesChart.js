@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Chart from "react-apexcharts";
 import "./SalesChart.css";
 
@@ -19,6 +19,7 @@ function SalesChart() {
     "Dec",
   ];
   let newSetOfMonths = months.slice(currMonths);
+  const [width, setWidth] = useState(window.innerWidth);
   return (
     <div className='chart'>
       <Chart
@@ -33,11 +34,11 @@ function SalesChart() {
         series={[
           {
             name: "sales",
-            data: [30, 40, 45, 50, 49, 60, 70, 91, 65, 45],
+            data: [30, 40, 45, 50, 469, 60, 70, 91, 65, 445],
           },
         ]}
         type='line'
-        width='280'
+        width={width > 500 ? "350" : "280"}
       />
     </div>
   );
