@@ -14,7 +14,8 @@
 .info-cont {
   margin-top: 47px;
   padding-top: 40px;
-  height: 500px;
+  min-height: 100vh;
+  height: auto;
   /* background-image: url(../../flat-mountains.svg); */
 }
 @media screen and (max-width: 765px) {
@@ -24,7 +25,7 @@
   }
 }
 .profile-cont {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
