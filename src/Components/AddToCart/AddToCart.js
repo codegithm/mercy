@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
 import "./AddToCart.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faShoppingBag,
-  faPlus,
-  faArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faShoppingBag, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AppContext } from "../../AppContext";
 import { useHistory } from "react-router-dom";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import NewNav from "../NewNav/NewNav";
 
 const AddToCart = () => {
   const { priceItem, cartItem, view, selectedSize, itemInPay } =
@@ -41,9 +38,12 @@ const AddToCart = () => {
       Description: item.Description,
       sizeOfItem: size,
       Price: getNewPrice(item.Price),
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
+      img: item.Img,
     };
     setInPay([itemObj]);
-    console.log(item);
+    console.log(itemObj);
   };
 
   const pay = () => {
@@ -59,11 +59,13 @@ const AddToCart = () => {
   const addItemToCart = (item) => {
     const itemObj = {
       id: item.id,
-      name: item.Brand,
-      description: item.Description,
+      Brand: item.Brand,
+      Description: item.Description,
       sizeOfItem: size,
-      priceOfItem: getNewPrice(item.Price),
+      Price: getNewPrice(item.Price),
       img: item.Img,
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
     };
     cart.push(itemObj);
   };
@@ -75,21 +77,7 @@ const AddToCart = () => {
   return (
     <div>
       <div>
-        <nav className='navbar navbar-dark bg-dark nav-profile'>
-          <div className='container-fluid profile-nav'>
-            <a
-              className='navbar-brand'
-              onClick={() => {
-                history.push("/");
-              }}
-              href='#'
-            >
-              <div className='d-inline-block align-text-top'>
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </div>
-            </a>
-          </div>
-        </nav>
+        <NewNav />
       </div>
       <div className='row'>
         <h3 className='product-name'>{viewItem.Brand}</h3>
