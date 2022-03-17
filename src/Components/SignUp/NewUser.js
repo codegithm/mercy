@@ -76,9 +76,7 @@ const NewUser = () => {
         >
           Sign up
         </button>
-        <button className='w-100 btn btn-lg gmail' type='submit'>
-          Sign up with <SiGmail className='social-icon' />
-        </button>
+
         <p className='mt-5 mb-3 text-muted'>&copy; 2017–2021</p>
       </form>
     </main>

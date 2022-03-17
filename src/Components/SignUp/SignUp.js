@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { SiGmail } from "react-icons/si";
 import { useHistory } from "react-router-dom";
-import { signIn } from "../../firebase/firebase";
+import { signIn, singInWithGoogle, useAuth } from "../../firebase/firebase";
 import "./SignUp.css";
 import { AppContext } from "../../AppContext";
 import Error from "../Error/Error";
@@ -11,7 +11,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, seterrorMessage] = useState("");
   const { loggedIn } = useContext(AppContext);
-
+  const user = useAuth();
   const [isSignedIn, setIsSignedIn] = loggedIn;
   const history = useHistory();
   const changePassword = (e) => {
@@ -22,16 +22,32 @@ const SignUp = () => {
   };
   const onSignInCLicked = async (e) => {
     e.preventDefault();
+    setIsSignedIn(false);
     try {
       await signIn(email, password);
       setIsSignedIn(true);
-      history.push("/");
+      history.push("/profile");
       seterrorMessage("");
     } catch (e) {
       setIsSignedIn(false);
       seterrorMessage("Incorrect email/password");
       console.log(isSignedIn);
     }
+  };
+  const onSignInWithGoogleCLicked = async (e) => {
+    e.preventDefault();
+    setIsSignedIn(false);
+    singInWithGoogle()
+      .then(() => {
+        setIsSignedIn(true);
+        history.push("/profile");
+        seterrorMessage("");
+      })
+      .catch((e) => {
+        setIsSignedIn(false);
+        seterrorMessage("Incorrect email/password");
+        console.log(e);
+      });
   };
   return (
     <main className='form-signin signup-main'>
@@ -77,7 +93,11 @@ const SignUp = () => {
         >
           Sign in
         </button>
-        <button className='w-100 btn btn-lg gmail' type='submit'>
+        <button
+          onClick={onSignInWithGoogleCLicked}
+          className='w-100 btn btn-lg gmail'
+          type='submit'
+        >
           Sign in with <SiGmail className='social-icon' />
         </button>
         <button

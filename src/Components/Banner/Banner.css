@@ -1,6 +1,6 @@
 .banner {
   width: 100%;
-  height: 189px;
+  height: 89px;
   position: relative;
   top: 100px;
   display: flex;
@@ -19,8 +19,8 @@
   animation-duration: 3s;
 }
 .banner-title {
-  color: wheat;
-  font-family: "Noto Sans TC", sans-serif;
+  color: #ffff;
+  font-family: "Montserrat", sans-serif;
   animation-name: scaleIn;
   animation-duration: 3s;
 }

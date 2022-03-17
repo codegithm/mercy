@@ -12,16 +12,16 @@ function Insights() {
           <h2>Insights</h2>
         </div>
         <div className='col-lg-6 col-md-6 col-sm-6 insights-card'>
-          <DashboardCard title='Total income' figures='R 9000' name='income' />
+          <DashboardCard title='Total income' subtitle='R 9000' name='income' />
         </div>
         <div className='col-lg-6 col-md-6 col-sm-6 insights-card'>
-          <DashboardCard title='Overall sales' figures='9000' name='sales' />
+          <DashboardCard title='Overall sales' subtitle='9000' name='sales' />
         </div>
         <div className='col-lg-6 col-md-6 col-sm-6 insights-card'>
-          <DashboardCard title='Monthly sales' figures='R900' name='monthly' />
+          <DashboardCard title='Monthly sales' subtitle='R900' name='monthly' />
         </div>
         <div className='col-lg-6 col-md-6 col-sm-6'>
-          <DashboardCard title='Items returned' figures='9' name='returned' />
+          <DashboardCard title='Items returned' subtitle='9' name='returned' />
         </div>
         <div className='col-12'>
           <h2 className='chart-title'>Sales Chart</h2>

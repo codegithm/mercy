@@ -6,7 +6,7 @@ function DashboardCard(props) {
     <div>
       <div className={"dash-info" + " " + props.name}>
         <p>{props.title}</p>
-        <p>{props.figures}</p>
+        <p>{props.subtitle}</p>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@
   margin-top: 47px;
   padding-top: 40px;
   height: 500px;
-  background-image: url(../../flat-mountains.svg);
+  /* background-image: url(../../flat-mountains.svg); */
 }
 @media screen and (max-width: 765px) {
   .info-cont {
@@ -62,4 +62,12 @@
   align-items: center;
   width: 100vw;
   justify-content: center;
+  margin-bottom: 37px;
+  flex-direction: column;
+}
+.swal2-cancel {
+  margin: 4px;
+}
+.swal2-confirm {
+  margin: 4px;
 }

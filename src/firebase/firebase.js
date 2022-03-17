@@ -5,6 +5,8 @@ import {
   onAuthStateChanged,
   signOut,
   createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -14,6 +16,7 @@ import {
   doc,
 } from "firebase/firestore/lite";
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { AppContext } from "../AppContext";
 
 // Your web app's Firebase configuration
@@ -77,8 +80,8 @@ export async function logOff() {
 }
 //custom hook
 export function useAuth() {
-  const [currentUser, setCurrentUser] = useState("");
   const { loggedInUser } = useContext(AppContext);
+  const [currentUser, setCurrentUser] = useState("");
 
   const [inUser, setInUser] = loggedInUser;
   useEffect(() => {
@@ -88,4 +91,9 @@ export function useAuth() {
     });
   }, []);
   return currentUser;
+}
+
+export function singInWithGoogle() {
+  const google_provider = new GoogleAuthProvider();
+  return signInWithPopup(auth, google_provider);
 }

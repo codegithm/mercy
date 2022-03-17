@@ -8,6 +8,7 @@ import "./Profile.css";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
 import Swal from "sweetalert2";
+import DashboardCard from "../DashboardCard/DashboardCard";
 
 const Profile = () => {
   const { loggedIn, personalInfo, loggedInUser, checkProfileMatch } =
@@ -19,10 +20,12 @@ const Profile = () => {
   const user = useAuth();
   const [userId, setUserId] = useState("");
   const [profileMatch, setProfileMatch] = checkProfileMatch;
+  const [name, setName] = useState("");
 
   const isProfileMatched = () => {
     for (var data in personal) {
       if (personal[data].id == inUser.uid) {
+        setName(personal[data].name);
         setProfileMatch(true);
       }
     }
@@ -34,8 +37,43 @@ const Profile = () => {
     }
     getUserId();
     isProfileMatched();
+    console.log(inUser);
   }, []);
 
+  const showAddress = () => {
+    let addressObj = "";
+    personal.map((data) => {
+      if (data.id == inUser.uid) {
+        addressObj = {
+          address: data.address,
+          city: data.city,
+          province: data.province,
+          zip: data.zip,
+        };
+      }
+    });
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: "Physical address",
+      text: `Street name: ${addressObj.address} | City: ${addressObj.city} | Province: ${addressObj.province} | Postal address: ${addressObj.zip}`,
+      imageUrl: "./flat_location_logo.svg",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "Custom image",
+      showCancelButton: true,
+      confirmButtonText: "Ok",
+      cancelButtonText: "Edit",
+      reverseButtons: true,
+    });
+  };
   const showPersonal = () => {
     let personlObj = "";
     personal.map((data) => {
@@ -80,7 +118,9 @@ const Profile = () => {
               input: "text",
               inputLabel: "Your name",
               inputPlaceholder: "Enter your name",
+              showCancelButton: true,
               confirmButtonText: "Save",
+              cancelButtonText: "Next",
               inputValidator: (value) => {
                 if (!value) {
                   return "You need to write something!";
@@ -88,7 +128,7 @@ const Profile = () => {
               },
             })
             .then((result) => {
-              if (result.isConfirmed) {
+              if (result.isDismissed) {
                 swalWithBootstrapButtons
                   .fire({
                     input: "text",
@@ -142,13 +182,29 @@ const Profile = () => {
       <div className='info-cont'>
         <div className='avatar-cont'>
           <img className='avatar' src='./avatar-svgrepo-com.svg' />
+          <h3>{profileMatch === true ? name : ""}</h3>
         </div>
 
         {profileMatch === true ? (
-          <button type='button' className='btn btn-dark' onClick={showPersonal}>
-            Personal details
-          </button>
+          <div className='row'>
+            <div className='col-lg-3 col-md-3 col-s-3' onClick={showPersonal}>
+              <DashboardCard title='Personal details' name='income' />
+            </div>
+            <div className='col-lg-3 col-md-3 col-s-3' onClick={showAddress}>
+              <DashboardCard title='Physical Address' name='sales' />
+            </div>
+            <div className='col-lg-3 col-md-3 col-s-3'>
+              <DashboardCard
+                title='Orders'
+                onClick={showPersonal}
+                name='monthly'
+              />
+            </div>
+          </div>
         ) : (
+          // <button type='button' className='btn btn-dark' onClick={showPersonal}>
+          //   Personal details
+          // </button>
           <button type='button' className='btn btn-dark' onClick={goToPersonal}>
             Fill in details
           </button>
