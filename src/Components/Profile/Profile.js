@@ -2,13 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import NavProile from "../NavProfile/NavProfile";
-import { getPersonal, logOff } from "../../firebase/firebase";
+import { db, upDateName, logOff, auth } from "../../firebase/firebase";
 import { AppContext } from "../../AppContext";
 import "./Profile.css";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
 import Swal from "sweetalert2";
 import DashboardCard from "../DashboardCard/DashboardCard";
+
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDocs,
+} from "firebase/firestore/lite";
 
 const Profile = () => {
   const { loggedIn, personalInfo, loggedInUser, checkProfileMatch } =
@@ -20,12 +27,12 @@ const Profile = () => {
   const user = useAuth();
   const [userId, setUserId] = useState("");
   const [profileMatch, setProfileMatch] = checkProfileMatch;
-  const [name, setName] = useState("");
+  const [fName, setFName] = useState("");
 
   const isProfileMatched = () => {
     for (var data in personal) {
       if (personal[data].id == inUser.uid) {
-        setName(personal[data].name);
+        setFName(personal[data].name);
         setProfileMatch(true);
       }
     }
@@ -37,13 +44,12 @@ const Profile = () => {
     }
     getUserId();
     isProfileMatched();
-    console.log(inUser);
   }, []);
 
   const showAddress = () => {
     let addressObj = "";
     personal.map((data) => {
-      if (data.id == inUser.uid) {
+      if (data.id == auth.currentUser.uid) {
         addressObj = {
           address: data.address,
           city: data.city,
@@ -61,23 +67,203 @@ const Profile = () => {
       buttonsStyling: false,
     });
 
-    swalWithBootstrapButtons.fire({
-      title: "Physical address",
-      text: `Street name: ${addressObj.address} | City: ${addressObj.city} | Province: ${addressObj.province} | Postal address: ${addressObj.zip}`,
-      imageUrl: "./flat_location_logo.svg",
-      imageWidth: 400,
-      imageHeight: 200,
-      imageAlt: "Custom image",
-      showCancelButton: true,
-      confirmButtonText: "Ok",
-      cancelButtonText: "Edit",
-      reverseButtons: true,
-    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Physical address",
+        text: `Street name: ${addressObj.address} | City: ${addressObj.city} | Province: ${addressObj.province} | Postal address: ${addressObj.zip}`,
+        imageUrl: "./flat_location_logo.svg",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        showCancelButton: true,
+        confirmButtonText: "Ok",
+        cancelButtonText: "Edit",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons
+            .fire({
+              input: "text",
+              inputLabel: "Your address",
+              inputPlaceholder: "Enter your address",
+              inputValue: addressObj.address,
+              showCancelButton: true,
+              showCloseButton: true,
+              allowOutsideClick: false,
+              confirmButtonText: "Save",
+              cancelButtonText: "Next",
+              inputValidator: (value) => {
+                if (!value) {
+                  return "You need to write something!";
+                } else {
+                  let id =
+                    auth.currentUser.uid !== undefined
+                      ? auth.currentUser.uid.toString()
+                      : Error;
+                  upDateName(id, { address: value })
+                    .then(() => {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Your address has been saved",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    })
+                    .catch(() => {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                        footer: '<a href="">Check your internet connection</a>',
+                      });
+                    });
+                }
+              },
+            })
+            .then((result) => {
+              if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons
+                  .fire({
+                    input: "text",
+                    inputLabel: "Your city",
+                    inputValue: addressObj.city,
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    showCloseButton: true,
+                    showCloseButton: true,
+                    inputPlaceholder: "Enter your city",
+                    confirmButtonText: "Save",
+                    cancelButtonText: "Next",
+                    inputValidator: (value) => {
+                      if (!value) {
+                        return "You need to write something!";
+                      } else {
+                        let id =
+                          auth.currentUser.uid !== undefined
+                            ? auth.currentUser.uid.toString()
+                            : Error;
+                        upDateName(id, { city: value })
+                          .then(() => {
+                            Swal.fire({
+                              icon: "success",
+                              title: "Your city has been saved",
+                              showConfirmButton: false,
+                              timer: 1500,
+                            });
+                          })
+                          .catch(() => {
+                            Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Something went wrong!",
+                              footer:
+                                '<a href="">Check your internet connection</a>',
+                            });
+                          });
+                      }
+                    },
+                  })
+                  .then((result) => {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+                      swalWithBootstrapButtons
+                        .fire({
+                          input: "text",
+                          inputLabel: "Your province",
+                          inputPlaceholder: "Enter your province",
+                          inputValue: addressObj.province,
+                          allowOutsideClick: false,
+                          showCancelButton: true,
+                          showCloseButton: true,
+                          confirmButtonText: "Save",
+                          cancelButtonText: "Next",
+                          inputValidator: (value) => {
+                            if (!value) {
+                              return "You need to write something!";
+                            } else {
+                              let id =
+                                auth.currentUser.uid !== undefined
+                                  ? auth.currentUser.uid.toString()
+                                  : Error;
+                              upDateName(id, { province: value })
+                                .then(() => {
+                                  Swal.fire({
+                                    icon: "success",
+                                    title: "Your province has been saved",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                  });
+                                })
+                                .catch(() => {
+                                  Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something went wrong!",
+                                    footer:
+                                      '<a href="">Check your internet connection</a>',
+                                  });
+                                });
+                            }
+                          },
+                        })
+                        .then((result) => {
+                          if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons
+                              .fire({
+                                input: "text",
+                                inputLabel: "Your zip",
+                                inputValue: addressObj.zip,
+                                allowOutsideClick: false,
+                                showCloseButton: true,
+                                inputPlaceholder: "Enter your zip",
+                                confirmButtonText: "Save",
+                                inputValidator: (value) => {
+                                  if (!value) {
+                                    return "You need to write something!";
+                                  } else {
+                                    let id =
+                                      auth.currentUser.uid !== undefined
+                                        ? auth.currentUser.uid.toString()
+                                        : Error;
+                                    upDateName(id, { zip: value })
+                                      .then(() => {
+                                        Swal.fire({
+                                          icon: "success",
+                                          title: "Your zip has been saved",
+                                          showConfirmButton: false,
+                                          timer: 1500,
+                                        });
+                                      })
+                                      .catch(() => {
+                                        Swal.fire({
+                                          icon: "error",
+                                          title: "Oops...",
+                                          text: "Something went wrong!",
+                                          footer:
+                                            '<a href="">Check your internet connection</a>',
+                                        });
+                                      });
+                                  }
+                                },
+                              })
+                              .then((result) => {
+                                if (result.isConfirmed) {
+                                }
+                              });
+                          }
+                        });
+                    }
+                  });
+              }
+            });
+        }
+      });
   };
   const showPersonal = () => {
     let personlObj = "";
     personal.map((data) => {
-      if (data.id == inUser.uid) {
+      if (data.id == auth.currentUser.uid) {
         personlObj = {
           name: data.name,
           surname: data.surname,
@@ -103,6 +289,7 @@ const Profile = () => {
         imageHeight: 200,
         imageAlt: "Custom image",
         showCancelButton: true,
+        inputValue: personlObj.name,
         confirmButtonText: "Ok",
         cancelButtonText: "Edit",
         reverseButtons: true,
@@ -119,50 +306,125 @@ const Profile = () => {
               inputLabel: "Your name",
               inputPlaceholder: "Enter your name",
               showCancelButton: true,
+              showCloseButton: true,
+              allowOutsideClick: false,
               confirmButtonText: "Save",
               cancelButtonText: "Next",
               inputValidator: (value) => {
                 if (!value) {
                   return "You need to write something!";
+                } else {
+                  let id =
+                    auth.currentUser.uid !== undefined
+                      ? auth.currentUser.uid.toString()
+                      : Error;
+                  upDateName(id, { name: value })
+                    .then(() => {
+                      setFName(value);
+                      personlObj.name = value;
+                      Swal.fire({
+                        icon: "success",
+                        title: "Your name has been saved",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    })
+                    .catch(() => {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                        footer: '<a href="">Check your internet connection</a>',
+                      });
+                    });
                 }
               },
             })
             .then((result) => {
-              if (result.isDismissed) {
+              if (result.dismiss === Swal.DismissReason.cancel) {
                 swalWithBootstrapButtons
                   .fire({
                     input: "text",
                     inputLabel: "Your surname",
                     inputPlaceholder: "Enter your surname",
+                    inputValue: personlObj.surname,
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    showCloseButton: true,
                     confirmButtonText: "Save",
+                    cancelButtonText: "Next",
                     inputValidator: (value) => {
                       if (!value) {
                         return "You need to write something!";
+                      } else {
+                        let id =
+                          auth.currentUser.uid !== undefined
+                            ? auth.currentUser.uid.toString()
+                            : Error;
+                        upDateName(id, { surname: value })
+                          .then(() => {
+                            personlObj.name = value;
+                            Swal.fire({
+                              icon: "success",
+                              title: "Your surname has been saved",
+                              showConfirmButton: false,
+                              timer: 1500,
+                            });
+                          })
+                          .catch(() => {
+                            Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Something went wrong!",
+                              footer:
+                                '<a href="">Check your internet connection</a>',
+                            });
+                          });
                       }
                     },
                   })
                   .then((result) => {
-                    if (result.isConfirmed) {
+                    if (result.dismiss === Swal.DismissReason.cancel) {
                       swalWithBootstrapButtons
                         .fire({
                           input: "text",
                           inputLabel: "Your cellnumber",
+                          inputValue: personlObj.cellnumber,
+                          allowOutsideClick: false,
+                          showCloseButton: true,
                           inputPlaceholder: "Enter your cellnumber",
                           confirmButtonText: "Save",
                           inputValidator: (value) => {
                             if (!value) {
                               return "You need to write something!";
+                            } else {
+                              let id =
+                                auth.currentUser.uid !== undefined
+                                  ? auth.currentUser.uid.toString()
+                                  : Error;
+                              upDateName(id, { cellnumber: value })
+                                .then(() => {
+                                  Swal.fire({
+                                    icon: "success",
+                                    title: "Your cellnumber has been saved",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                  });
+                                })
+                                .catch(() => {
+                                  Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something went wrong!",
+                                    footer:
+                                      '<a href="">Check your internet connection</a>',
+                                  });
+                                });
                             }
                           },
                         })
                         .then((result) => {
                           if (result.isConfirmed) {
-                            Swal.fire({
-                              icon: "success",
-                              title: "Your work has been saved",
-                              showConfirmButton: false,
-                              timer: 1500,
-                            });
                           }
                         });
                     }
@@ -182,7 +444,7 @@ const Profile = () => {
       <div className='info-cont'>
         <div className='avatar-cont'>
           <img className='avatar' src='./avatar-svgrepo-com.svg' />
-          <h3>{profileMatch === true ? name : ""}</h3>
+          <h3>{profileMatch === true ? fName : ""}</h3>
         </div>
 
         {profileMatch === true ? (

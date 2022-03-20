@@ -77,9 +77,13 @@ function App() {
             <AddToCart />
           </Route>
           <Route path='/pay' component={Pay} />
-          <Route path='/seller'>
+          <ProtectedRoute
+            isAuthed={isSignedIn}
+            isLoading={isSignedIn}
+            path='/seller'
+          >
             <Seller />
-          </Route>
+          </ProtectedRoute>
         </Switch>
       </Router>
     </div>

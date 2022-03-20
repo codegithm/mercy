@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { BiHomeCircle } from "react-icons/bi";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { BsCalendar } from "react-icons/bs";
 import { RiProductHuntLine } from "react-icons/ri";
+import { AppContext } from "../../AppContext";
 import "./SideBoot.css";
+import { useHistory } from "react-router-dom";
 const SideBoot = () => {
-  const [home, setHome] = useState("active");
-  const [dash, setDash] = useState("");
-  const [orders, setOrders] = useState("");
-  const [products, setProducts] = useState("");
+  const { isHome, isDash, isOrders, isProducts } = useContext(AppContext);
+  const [home, setHome] = isHome;
+  const [dash, setDash] = isDash;
+  const [orders, setOrders] = isOrders;
+  const [products, setProducts] = isProducts;
+  const history = useHistory();
   return (
     <div
       className='d-flex flex-column flex-shrink-0 p-3 text-white bg-dark side-boot'
@@ -26,8 +30,8 @@ const SideBoot = () => {
         <li className='nav-item'>
           <a
             onClick={() => {
-              setHome("active");
-              setDash("");
+              history.push("/");
+              setDash("active");
               setOrders("");
               setProducts("");
             }}

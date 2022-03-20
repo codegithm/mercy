@@ -14,6 +14,10 @@ export const AppProvider = (props) => {
   const [personal, setPersonal] = useState(false);
   const [inUser, setInUser] = useState(false);
   const [profileMatch, setProfileMatch] = useState(false);
+  const [home, setHome] = useState("");
+  const [dash, setDash] = useState("active");
+  const [orders, setOrders] = useState("");
+  const [products, setProducts] = useState("");
   return (
     <AppContext.Provider
       value={{
@@ -28,6 +32,10 @@ export const AppProvider = (props) => {
         personalInfo: [personal, setPersonal],
         loggedInUser: [inUser, setInUser],
         checkProfileMatch: [profileMatch, setProfileMatch],
+        isHome: [home, setHome],
+        isDash: [dash, setDash],
+        isOrders: [orders, setOrders],
+        isProducts: [products, setProducts],
       }}
     >
       {props.children}

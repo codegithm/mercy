@@ -6,6 +6,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
 } from "firebase/auth";
 import {
@@ -13,7 +14,11 @@ import {
   collection,
   getDocs,
   addDoc,
+  updateDoc,
   doc,
+  query,
+  where,
+  setDoc,
 } from "firebase/firestore/lite";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -33,8 +38,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-const db = getFirestore(app);
+export const auth = getAuth();
+export const db = getFirestore(app);
 
 export async function getItems() {
   const itemsCol = collection(db, "Itesms");
@@ -46,8 +51,8 @@ export async function getItems() {
   console.log(itemsList);
   return itemsList;
 }
+const personalCol = collection(db, "Personal");
 export async function getPersonal() {
-  const personalCol = collection(db, "Personal");
   const personalSnapshot = await getDocs(personalCol);
   const personalList = personalSnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -57,9 +62,14 @@ export async function getPersonal() {
 }
 
 //Add data
-export async function addPersonlDetails(data) {
-  const colRe = await addDoc(collection(db, "Personal"), data);
+export async function addPersonlDetails(id, data) {
+  const colRe = await setDoc(doc(db, "Personal", id), data);
   return colRe;
+}
+export async function upDateName(id, data) {
+  let ref = doc(db, "Personal", id);
+
+  await updateDoc(ref, data);
 }
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
@@ -93,7 +103,18 @@ export function useAuth() {
   return currentUser;
 }
 
-export function singInWithGoogle() {
-  const google_provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, google_provider);
-}
+// export function useSingInWithGoogle(e) {
+//   const { loggedIn } = useContext(AppContext);
+//   const [isSignedIn, setIsSignedIn] = loggedIn;
+//   e.preventDefault();
+//   const google_provider = new GoogleAuthProvider();
+//   return signInWithRedirect(auth, google_provider)
+//     .then((res) => {
+//       setIsSignedIn(true);
+//       console.log(res);
+//     })
+//     .catch((e) => {
+//       setIsSignedIn(false);
+//       console.log(e);
+//     });
+// }

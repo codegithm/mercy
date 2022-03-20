@@ -1,9 +1,19 @@
 import React, { useContext, useState } from "react";
 import { SiGmail } from "react-icons/si";
 import { useHistory } from "react-router-dom";
-import { signIn, singInWithGoogle, useAuth } from "../../firebase/firebase";
+import { auth, signIn, useAuth } from "../../firebase/firebase";
 import "./SignUp.css";
 import { AppContext } from "../../AppContext";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import Error from "../Error/Error";
 
 const SignUp = () => {
@@ -20,6 +30,21 @@ const SignUp = () => {
   const changeEmail = (e) => {
     setEmail(e.target.value);
   };
+  async function useSingInWithGoogle(e) {
+    e.preventDefault();
+    const google_provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, google_provider)
+      .then((res) => {
+        setIsSignedIn(true);
+        console.log(res);
+        history.push("/profile");
+        seterrorMessage("");
+      })
+      .catch((e) => {
+        setIsSignedIn(false);
+        console.log(e);
+      });
+  }
   const onSignInCLicked = async (e) => {
     e.preventDefault();
     setIsSignedIn(false);
@@ -34,21 +59,16 @@ const SignUp = () => {
       console.log(isSignedIn);
     }
   };
-  const onSignInWithGoogleCLicked = async (e) => {
-    e.preventDefault();
-    setIsSignedIn(false);
-    singInWithGoogle()
-      .then(() => {
-        setIsSignedIn(true);
-        history.push("/profile");
-        seterrorMessage("");
-      })
-      .catch((e) => {
-        setIsSignedIn(false);
-        seterrorMessage("Incorrect email/password");
-        console.log(e);
-      });
-  };
+  // const googleSignInFire = useSingInWithGoogle();
+  // const onSignInWithGoogleCLicked = async (e) => {
+  //   e.preventDefault();
+  //   setIsSignedIn(false);
+  //   try {
+  //     googleSignInFire;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
   return (
     <main className='form-signin signup-main'>
       <form className='signup-form'>
@@ -94,7 +114,7 @@ const SignUp = () => {
           Sign in
         </button>
         <button
-          onClick={onSignInWithGoogleCLicked}
+          onClick={useSingInWithGoogle}
           className='w-100 btn btn-lg gmail'
           type='submit'
         >

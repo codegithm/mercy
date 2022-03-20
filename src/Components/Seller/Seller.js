@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AppContext } from "../../AppContext";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Insights from "../Insights/Insights";
@@ -8,6 +9,11 @@ import "./Seller.css";
 
 function Seller() {
   const [steps, setSteps] = useState(false);
+  const { isHome, isDash, isOrders, isProducts } = useContext(AppContext);
+  const [home, setHome] = isHome;
+  const [dash, setDash] = isDash;
+  const [orders, setOrders] = isOrders;
+  const [products, setProducts] = isProducts;
   const MySwal = withReactContent(Swal);
   const showSteps = () => {
     MySwal.fire({
@@ -89,9 +95,14 @@ function Seller() {
   return (
     <div className='seller-cont'>
       <SideBoot />
-      <div className='seller-title'>
-        <Insights />
-      </div>
+      {home === "active" ? "Home" : ""}
+      {dash === "active" ? (
+        <div className='seller-title'>
+          <Insights />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

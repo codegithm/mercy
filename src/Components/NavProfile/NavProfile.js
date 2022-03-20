@@ -14,7 +14,7 @@ const NavProile = () => {
           <a
             className='navbar-brand'
             onClick={() => {
-              history.goBack();
+              history.push("/");
             }}
           >
             <div className='d-inline-block align-text-top'>

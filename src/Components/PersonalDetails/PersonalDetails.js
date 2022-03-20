@@ -39,7 +39,7 @@ function PersonalDetails() {
   const history = useHistory();
   const submit = (e) => {
     e.preventDefault();
-    addPersonlDetails(personalDetails);
+    addPersonlDetails(uid, personalDetails);
     history.push("/profile");
     setProfileMatch(true);
   };
