@@ -1,0 +1,33 @@
+.upload-cont {
+  flex-direction: column !important;
+  width: 95% !important;
+  max-width: 400px !important;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  margin-left: 10px;
+  border-color: #cbc9c9;
+  text-align: left;
+}
+.upload-title {
+  text-align: left;
+}
+.prod-brand {
+  width: 100% !important;
+}
+.price-cont {
+  flex-direction: row !important;
+}
+.type-toggle {
+  width: 100%;
+  text-align: left;
+  color: #838b91;
+  border-color: #ced4da !important;
+}
+.center-cont {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

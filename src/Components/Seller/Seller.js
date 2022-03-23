@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import Insights from "../Insights/Insights";
 import Sidebar from "../Sidebar/Sidebar";
 import SideBoot from "../SideBoot/SideBoot";
+import Products from "../Products/Products";
 import "./Seller.css";
 
 function Seller() {
@@ -99,6 +100,13 @@ function Seller() {
       {dash === "active" ? (
         <div className='seller-title'>
           <Insights />
+        </div>
+      ) : (
+        ""
+      )}
+      {products === "active" ? (
+        <div className='seller-title'>
+          <Products />
         </div>
       ) : (
         ""

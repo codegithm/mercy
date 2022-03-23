@@ -11,7 +11,7 @@ const Footer = () => {
         <hr />
         <div className='company-details'>
           <div className='company-logo'>
-            <img className='footer-logo' src='./mercy color-02.png' />
+            <img className='footer-logo' src='./Untitled-1-02.png' />
             <span>© 2021 Mercy inc</span>
           </div>
           <div className='socials'>

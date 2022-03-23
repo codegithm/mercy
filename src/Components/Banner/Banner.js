@@ -1,9 +1,11 @@
 import "./Banner.css";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
 
 const Banner = () => {
   const history = useHistory();
+
   return (
     <div className='banner'>
       <h3 className='banner-title'>Become a seller on Mercy</h3>

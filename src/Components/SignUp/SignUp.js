@@ -17,6 +17,7 @@ import {
 import Error from "../Error/Error";
 
 const SignUp = () => {
+  const [width, setWidth] = useState(window.innerWidth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, seterrorMessage] = useState("");
@@ -30,10 +31,24 @@ const SignUp = () => {
   const changeEmail = (e) => {
     setEmail(e.target.value);
   };
+  const google_provider = new GoogleAuthProvider();
   async function useSingInWithGoogle(e) {
     e.preventDefault();
-    const google_provider = new GoogleAuthProvider();
     await signInWithPopup(auth, google_provider)
+      .then((res) => {
+        setIsSignedIn(true);
+        console.log(res);
+        history.push("/profile");
+        seterrorMessage("");
+      })
+      .catch((e) => {
+        setIsSignedIn(false);
+        console.log(e);
+      });
+  }
+  async function singInWithGoogleRedirect(e) {
+    e.preventDefault();
+    await signInWithRedirect(auth, google_provider)
       .then((res) => {
         setIsSignedIn(true);
         console.log(res);
@@ -113,13 +128,24 @@ const SignUp = () => {
         >
           Sign in
         </button>
-        <button
-          onClick={useSingInWithGoogle}
-          className='w-100 btn btn-lg gmail'
-          type='submit'
-        >
-          Sign in with <SiGmail className='social-icon' />
-        </button>
+        {width > 1200 ? (
+          <button
+            onClick={useSingInWithGoogle}
+            className='w-100 btn btn-lg gmail'
+            type='submit'
+          >
+            Sign in with <SiGmail className='social-icon' />
+          </button>
+        ) : (
+          ""
+          // <button
+          //   onClick={singInWithGoogleRedirect}
+          //   className='w-100 btn btn-lg gmail'
+          //   type='submit'
+          // >
+          //   Sign in with <SiGmail className='social-icon' />
+          // </button>
+        )}
         <button
           type='button'
           class='btn btn-link'
