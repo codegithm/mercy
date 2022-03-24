@@ -23,9 +23,7 @@ function Insights() {
         <div className='col-lg-6 col-md-6 col-sm-6'>
           <DashboardCard title='Items returned' subtitle='9' name='returned' />
         </div>
-        <div className='col-12'>
-          <h2 className='chart-title'>Sales Chart</h2>
-        </div>
+
         <div className='col-lg-6 col-md-12 col-sm-12'>
           <SalesChart />
         </div>

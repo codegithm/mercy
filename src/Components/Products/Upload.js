@@ -53,6 +53,14 @@ function Upload() {
           aria-describedby='addon-wrapping'
         />
         <br />
+        <input
+          type='text'
+          className='form-control prod-brand'
+          placeholder='Descriprion'
+          aria-label='Descriprion'
+          aria-describedby='addon-wrapping'
+        />
+        <br />
         <div className='dropdown'>
           <button
             className='btn btn-outline-secondary dropdown-toggle type-toggle'

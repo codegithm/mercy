@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactApexChart from "react-apexcharts";
 import Chart from "react-apexcharts";
 import "./ItemsChart.css";
 
@@ -8,6 +9,17 @@ function ItemsChart() {
     <div className='donut'>
       <Chart
         options={{
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  name: {},
+                  value: {},
+                },
+              },
+            },
+          },
           dataLabels: {
             enabled: true,
           },
