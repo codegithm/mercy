@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../../AppContext";
 
 function Upload() {
+  const { isUpload } = useContext(AppContext);
+  const [upload, setUpload] = isUpload;
   const [total, setTotal] = useState(0);
   const [type, setType] = useState("Type");
 
@@ -24,8 +27,12 @@ function Upload() {
   };
   return (
     <div className='center-cont'>
-      <h4 className='upload-title'>Upload new Item</h4>
       <div class='input-group flex-nowrap upload-cont'>
+        <div className='close-upload'>
+          <div className='close-upload-btn' onClick={() => setUpload(false)}>
+            close
+          </div>
+        </div>
         <br />
         <label for='formFile' className='form-label'>
           Main picture
@@ -50,6 +57,14 @@ function Upload() {
           className='form-control prod-brand'
           placeholder='Brand'
           aria-label='Brand'
+          aria-describedby='addon-wrapping'
+        />
+        <br />
+        <input
+          type='text'
+          className='form-control prod-brand'
+          placeholder='Name'
+          aria-label='Name'
           aria-describedby='addon-wrapping'
         />
         <br />
@@ -147,6 +162,9 @@ function Upload() {
         </div>
         <p>Total after additional cost: {total}</p>
       </div>
+      <button type='button' class='btn btn-primary btn-sm'>
+        Save
+      </button>
     </div>
   );
 }

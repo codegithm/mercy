@@ -18,6 +18,7 @@ export const AppProvider = (props) => {
   const [dash, setDash] = useState("active");
   const [orders, setOrders] = useState("");
   const [products, setProducts] = useState("");
+  const [upload, setUpload] = useState(false);
   return (
     <AppContext.Provider
       value={{
@@ -36,6 +37,7 @@ export const AppProvider = (props) => {
         isDash: [dash, setDash],
         isOrders: [orders, setOrders],
         isProducts: [products, setProducts],
+        isUpload: [upload, setUpload],
       }}
     >
       {props.children}
