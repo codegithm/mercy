@@ -1,14 +1,26 @@
 import React, { useState, useContext } from "react";
 import { AppContext } from "../../AppContext";
-
+import { addItem, auth, storage } from "../../firebase/firebase";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 function Upload() {
   const { isUpload } = useContext(AppContext);
   const [upload, setUpload] = isUpload;
   const [total, setTotal] = useState(0);
   const [type, setType] = useState("Type");
-
+  const [mainImage, setMainImage] = useState(null);
+  const [slide, setSlide] = useState(null);
+  const [slide2, setSlide2] = useState(null);
+  const [slide3, setSlide3] = useState(null);
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [brand, setBrand] = useState(null);
+  const [sizes, setSizes] = useState(null);
   const handlePriceChange = (e) => {
-    console.log(Math.round(parseFloat(e.target.value), 2));
+    setPrice(e.target.value);
     const getNewPrice = () => {
       let n = parseFloat(e.target.value);
       const basePrice = 10;
@@ -25,6 +37,29 @@ function Upload() {
     };
     setTotal(getNewPrice());
   };
+  const MySwal = withReactContent(Swal);
+  const loading = () => {
+    MySwal.fire({
+      title: "Uploading",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      showConfirmButton: false,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+    });
+  };
+  const success = () => {
+    MySwal.fire({
+      title: "Complete",
+      icon: "success",
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+    });
+  };
   return (
     <div className='center-cont'>
       <div class='input-group flex-nowrap upload-cont'>
@@ -37,22 +72,53 @@ function Upload() {
         <label for='formFile' className='form-label'>
           Main picture
         </label>
-        <input className='form-control prod-brand' type='file' id='formFile' />
+        <input
+          onChange={(event) => {
+            setMainImage(event.target.files);
+          }}
+          className='form-control prod-brand'
+          type='file'
+          id='formFile'
+        />
         <label for='formFile' className='form-label'>
           Slide picture
         </label>
-        <input className='form-control prod-brand' type='file' id='formFile' />
+        <input
+          onChange={(event) => {
+            setSlide(event.target.files);
+          }}
+          className='form-control prod-brand'
+          type='file'
+          id='formFile'
+        />
         <label for='formFile' className='form-label'>
           Slide picture 2
         </label>
-        <input className='form-control prod-brand' type='file' id='formFile' />
+        <input
+          onChange={(event) => {
+            setSlide2(event.target.files);
+          }}
+          className='form-control prod-brand'
+          type='file'
+          id='formFile'
+        />
         <label for='formFile' className='form-label'>
           Slide picture 3
         </label>
-        <input className='form-control prod-brand' type='file' id='formFile' />
+        <input
+          onChange={(event) => {
+            setSlide3(event.target.files);
+          }}
+          className='form-control prod-brand'
+          type='file'
+          id='formFile'
+        />
 
         <br />
         <input
+          onChange={(event) => {
+            setBrand(event.target.value);
+          }}
           type='text'
           className='form-control prod-brand'
           placeholder='Brand'
@@ -61,6 +127,9 @@ function Upload() {
         />
         <br />
         <input
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
           type='text'
           className='form-control prod-brand'
           placeholder='Name'
@@ -69,6 +138,9 @@ function Upload() {
         />
         <br />
         <input
+          onChange={(event) => {
+            setDescription(event.target.value);
+          }}
           type='text'
           className='form-control prod-brand'
           placeholder='Descriprion'
@@ -92,6 +164,7 @@ function Upload() {
                 className='dropdown-item'
                 onClick={() => {
                   setType("Pants");
+                  setSizes(null);
                 }}
               >
                 Pants
@@ -102,6 +175,7 @@ function Upload() {
                 className='dropdown-item'
                 onClick={() => {
                   setType("T-shirt");
+                  setSizes(null);
                 }}
               >
                 T-shirt
@@ -112,6 +186,7 @@ function Upload() {
                 className='dropdown-item'
                 onClick={() => {
                   setType("Jacket");
+                  setSizes(null);
                 }}
               >
                 Jacket
@@ -122,6 +197,7 @@ function Upload() {
                 className='dropdown-item'
                 onClick={() => {
                   setType("Hoodie");
+                  setSizes(null);
                 }}
               >
                 Hoodie
@@ -132,6 +208,7 @@ function Upload() {
                 className='dropdown-item'
                 onClick={() => {
                   setType("Dress");
+                  setSizes(null);
                 }}
               >
                 Dress
@@ -142,6 +219,7 @@ function Upload() {
                 className='dropdown-item'
                 onClick={() => {
                   setType("Shoes");
+                  setSizes(null);
                 }}
               >
                 Shoes
@@ -149,6 +227,456 @@ function Upload() {
             </li>
           </ul>
         </div>
+
+        <br />
+
+        {type === "Pants" ? (
+          <div className='dropdown'>
+            <button
+              className='btn btn-outline-secondary dropdown-toggle type-toggle'
+              type='button'
+              id='dropdownMenuButton1'
+              data-bs-toggle='dropdown'
+              aria-expanded='false'
+            >
+              Sizes
+            </button>
+            <ul
+              className='dropdown-menu size-drop'
+              aria-labelledby='dropdownMenuButton1'
+            >
+              <li>
+                <input
+                  name='26'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([26]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(26) < 0) {
+                      currentSize.push(26);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='26'>
+                  26
+                </label>
+              </li>
+              <li>
+                <input
+                  name='28'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([28]);
+                      console.log(sizes);
+                    }
+                    if (currentSize !== null && sizes.indexOf(28) < 0) {
+                      currentSize.push(28);
+                      setSizes(currentSize);
+                      console.log(sizes);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='28'>
+                  28
+                </label>
+              </li>
+              <li>
+                <input
+                  name='30'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([30]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(30) < 0) {
+                      currentSize.push(30);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='30'>
+                  30
+                </label>
+              </li>
+              <li>
+                <input
+                  name='32'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([32]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(32) < 0) {
+                      currentSize.push(32);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='32'>
+                  32
+                </label>
+              </li>
+              <li>
+                <input
+                  name='34'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([34]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(34) < 0) {
+                      currentSize.push(34);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='34'>
+                  34
+                </label>
+              </li>
+              <li>
+                <input
+                  name='36'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([36]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(36) < 0) {
+                      currentSize.push(36);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='36'>
+                  36
+                </label>
+              </li>
+              <li>
+                <input
+                  name='38'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([38]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(38) < 0) {
+                      currentSize.push(38);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='38'>
+                  38
+                </label>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {type === "Jacket" ||
+        type === "Dress" ||
+        type === "Hoodie" ||
+        type === "T-shirt" ? (
+          <div className='dropdown'>
+            <button
+              className='btn btn-outline-secondary dropdown-toggle type-toggle'
+              type='button'
+              id='dropdownMenuButton1'
+              data-bs-toggle='dropdown'
+              aria-expanded='false'
+            >
+              Sizes
+            </button>
+            <ul
+              className='dropdown-menu size-drop'
+              aria-labelledby='dropdownMenuButton1'
+            >
+              <li>
+                <input
+                  name='s'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes(["S"]);
+                    }
+                    if (currentSize !== null && sizes.indexOf("S") < 0) {
+                      currentSize.push("S");
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='s'>
+                  S
+                </label>
+              </li>
+              <li>
+                <input
+                  name='xs'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes(["XS"]);
+                    }
+                    if (currentSize !== null && sizes.indexOf("XS") < 0) {
+                      currentSize.push("XS");
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='xs'>
+                  XS
+                </label>
+              </li>
+              <li>
+                <input
+                  name='m'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes(["M"]);
+                    }
+                    if (currentSize !== null && sizes.indexOf("M") < 0) {
+                      currentSize.push("M");
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='m'>
+                  M
+                </label>
+              </li>
+              <li>
+                <input
+                  name='l'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes(["L"]);
+                    }
+                    if (currentSize !== null && sizes.indexOf("L") < 0) {
+                      currentSize.push("L");
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='L'>
+                  L
+                </label>
+              </li>
+              <li>
+                <input
+                  name='xl'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes(["XL"]);
+                    }
+                    if (currentSize !== null && sizes.indexOf("XL") < 0) {
+                      currentSize.push("XL");
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='XL'>
+                  XL
+                </label>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {type === "Shoes" ? (
+          <div className='dropdown'>
+            <button
+              className='btn btn-outline-secondary dropdown-toggle type-toggle'
+              type='button'
+              id='dropdownMenuButton1'
+              data-bs-toggle='dropdown'
+              aria-expanded='false'
+            >
+              Sizes
+            </button>
+            <ul
+              className='dropdown-menu size-drop'
+              aria-labelledby='dropdownMenuButton1'
+            >
+              <li>
+                <input
+                  name='4'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([4]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(4) < 0) {
+                      currentSize.push(4);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='4'>
+                  4
+                </label>
+              </li>
+              <li>
+                <input
+                  name='5'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([5]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(5) < 0) {
+                      currentSize.push(5);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='5'>
+                  5
+                </label>
+              </li>
+              <li>
+                <input
+                  name='6'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([6]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(6) < 0) {
+                      currentSize.push(6);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='6'>
+                  6
+                </label>
+              </li>
+              <li>
+                <input
+                  name='7'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([7]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(7) < 0) {
+                      currentSize.push(7);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='7'>
+                  7
+                </label>
+              </li>
+              <li>
+                <input
+                  name='8'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([8]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(8) < 0) {
+                      currentSize.push(8);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='8'>
+                  8
+                </label>
+              </li>
+              <li>
+                <input
+                  name='9'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([9]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(9) < 0) {
+                      currentSize.push(9);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='9'>
+                  9
+                </label>
+              </li>
+              <li>
+                <input
+                  name='10'
+                  type='checkbox'
+                  className='form-check-input'
+                  onClick={() => {
+                    let currentSize = sizes;
+                    if (currentSize === null) {
+                      setSizes([10]);
+                    }
+                    if (currentSize !== null && sizes.indexOf(10) < 0) {
+                      currentSize.push(10);
+                      setSizes(currentSize);
+                    }
+                  }}
+                />
+                <label class='form-check-label' for='10'>
+                  10
+                </label>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
 
         <br />
         <div className='input-group mb-3 price-cont'>
@@ -162,7 +690,82 @@ function Upload() {
         </div>
         <p>Total after additional cost: {total}</p>
       </div>
-      <button type='button' class='btn btn-primary btn-sm'>
+      <br />
+      <button
+        onClick={() => {
+          let itemObj = {
+            Id: auth.currentUser.uid,
+            Brand: brand,
+            Name: name,
+            Description: description,
+            Img: mainImage,
+            Price: price,
+            Type: type,
+            slide: [slide, slide2, slide3],
+            size: sizes,
+          };
+          if (
+            mainImage != null &&
+            total != 0 &&
+            type != "Type" &&
+            slide != null &&
+            slide2 != null &&
+            slide3 != null &&
+            brand != null &&
+            price != null &&
+            name != null &&
+            description != null &&
+            sizes !== null
+          ) {
+            const imgRefMain = ref(
+              storage,
+              `items/${mainImage[0].name + v4()}`
+            );
+            const imgRefSlide = ref(storage, `items/${slide[0].name + v4()}`);
+            const imgRefSlide2 = ref(storage, `items/${slide2[0].name + v4()}`);
+            const imgRefSlide3 = ref(storage, `items/${slide3[0].name + v4()}`);
+            uploadBytes(imgRefMain, mainImage[0])
+              .then((res) => {
+                loading();
+                console.log(res.metadata.fullPath);
+                itemObj.Img = res.metadata.fullPath;
+                uploadBytes(imgRefSlide, slide[0])
+                  .then((res) => {
+                    console.log(res.metadata.fullPath);
+                    itemObj.slide[0] = res.metadata.fullPath;
+                    uploadBytes(imgRefSlide2, slide2[0])
+                      .then((res) => {
+                        console.log(res.metadata.fullPath);
+                        itemObj.slide[1] = res.metadata.fullPath;
+                        uploadBytes(imgRefSlide3, slide3[0])
+                          .then((res) => {
+                            console.log(res.metadata.fullPath);
+                            itemObj.slide[2] = res.metadata.fullPath;
+                            console.log(itemObj);
+                            addItem(v4(), itemObj);
+                            Swal.close();
+                            success();
+                          })
+                          .catch((e) => {
+                            return `Error Message: ${e}`;
+                          });
+                      })
+                      .catch((e) => {
+                        return `Error Message: ${e}`;
+                      });
+                  })
+                  .catch((e) => {
+                    return `Error Message: ${e}`;
+                  });
+              })
+              .catch((e) => {
+                return `Error Message: ${e}`;
+              });
+          }
+        }}
+        type='button'
+        class='btn btn-primary btn-sm'
+      >
         Save
       </button>
     </div>

@@ -10,9 +10,13 @@
 }
 .side-spacer {
   margin-right: 4px;
+  cursor: pointer;
 }
 .side-list {
   display: flex;
+}
+.side-list-cont li {
+  cursor: pointer;
 }
 @media screen and (max-width: 742px) {
   .side-boot {

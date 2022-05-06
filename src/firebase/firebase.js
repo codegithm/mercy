@@ -20,6 +20,7 @@ import {
   where,
   setDoc,
 } from "firebase/firestore/lite";
+import { getStorage } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../AppContext";
@@ -40,6 +41,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export async function getItems() {
   const itemsCol = collection(db, "Itesms");
@@ -48,7 +50,7 @@ export async function getItems() {
     id: doc.id,
     ...doc.data(),
   }));
-  console.log(itemsList);
+
   return itemsList;
 }
 const personalCol = collection(db, "Personal");
@@ -64,6 +66,11 @@ export async function getPersonal() {
 //Add data
 export async function addPersonlDetails(id, data) {
   const colRe = await setDoc(doc(db, "Personal", id), data);
+  return colRe;
+}
+
+export async function addItem(id, data) {
+  const colRe = await setDoc(doc(db, "Items", id), data);
   return colRe;
 }
 export async function upDateName(id, data) {

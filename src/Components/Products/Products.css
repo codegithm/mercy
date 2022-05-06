@@ -48,3 +48,8 @@
   text-align: right;
   cursor: pointer;
 }
+.size-drop li {
+  width: 50px !important;
+  margin: 0;
+  padding-left: 10px;
+}

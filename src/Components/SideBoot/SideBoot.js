@@ -26,7 +26,7 @@ const SideBoot = () => {
         <span className='fs-4'>Mercy</span>
       </a>
       <hr />
-      <ul className='nav nav-pills flex-column mb-auto'>
+      <ul className='nav nav-pills flex-column mb-auto side-list-cont'>
         <li className='nav-item'>
           <a
             onClick={() => {
