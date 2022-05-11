@@ -1,10 +1,16 @@
 import React, { useState, useContext } from "react";
 import { AppContext } from "../../AppContext";
-import { addItem, auth, storage } from "../../firebase/firebase";
+import { addItem, app, auth, storage } from "../../firebase/firebase";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { v4 } from "uuid";
+import { async } from "@firebase/util";
 function Upload() {
   const { isUpload } = useContext(AppContext);
   const [upload, setUpload] = isUpload;
@@ -47,7 +53,6 @@ function Upload() {
       },
       showConfirmButton: false,
       timerProgressBar: true,
-      allowOutsideClick: false,
     });
   };
   const success = () => {
@@ -56,8 +61,14 @@ function Upload() {
       icon: "success",
       timerProgressBar: true,
       allowOutsideClick: false,
+    });
+  };
+  const fail = () => {
+    MySwal.fire({
+      title: "Opps...",
+      icon: "error",
       timerProgressBar: true,
-      allowOutsideClick: false,
+      allowOutsideClick: true,
     });
   };
   return (
@@ -699,7 +710,7 @@ function Upload() {
             Name: name,
             Description: description,
             Img: mainImage,
-            Price: price,
+            Price: parseFloat(price),
             Type: type,
             slide: [slide, slide2, slide3],
             size: sizes,
@@ -717,6 +728,7 @@ function Upload() {
             description != null &&
             sizes !== null
           ) {
+            //File ref
             const imgRefMain = ref(
               storage,
               `items/${mainImage[0].name + v4()}`
@@ -724,42 +736,64 @@ function Upload() {
             const imgRefSlide = ref(storage, `items/${slide[0].name + v4()}`);
             const imgRefSlide2 = ref(storage, `items/${slide2[0].name + v4()}`);
             const imgRefSlide3 = ref(storage, `items/${slide3[0].name + v4()}`);
-            uploadBytes(imgRefMain, mainImage[0])
+
+            //Upload using file ref
+            uploadBytesResumable(imgRefMain, mainImage[0])
               .then((res) => {
                 loading();
-                console.log(res.metadata.fullPath);
-                itemObj.Img = res.metadata.fullPath;
+
+                //Set downloadable url
+                const mainRef = ref(storage, res.metadata.fullPath);
+                getDownloadURL(mainRef).then((url) => {
+                  itemObj.Img = url;
+                });
+                //Upload slide pic
                 uploadBytes(imgRefSlide, slide[0])
                   .then((res) => {
-                    console.log(res.metadata.fullPath);
-                    itemObj.slide[0] = res.metadata.fullPath;
+                    const secRef = ref(storage, res.metadata.fullPath);
+                    getDownloadURL(secRef).then((url) => {
+                      itemObj.slide[0] = url;
+                    });
                     uploadBytes(imgRefSlide2, slide2[0])
                       .then((res) => {
-                        console.log(res.metadata.fullPath);
-                        itemObj.slide[1] = res.metadata.fullPath;
+                        console.log(slide2[0]);
+                        const thirdRef = ref(storage, res.metadata.fullPath);
+                        getDownloadURL(thirdRef).then((url) => {
+                          itemObj.slide[1] = url;
+                        });
                         uploadBytes(imgRefSlide3, slide3[0])
                           .then((res) => {
-                            console.log(res.metadata.fullPath);
-                            itemObj.slide[2] = res.metadata.fullPath;
-                            console.log(itemObj);
+                            console.log(slide3[0]);
+                            const fourthRef = ref(
+                              storage,
+                              res.metadata.fullPath
+                            );
+                            getDownloadURL(fourthRef).then((url) => {
+                              console.log(url);
+                              itemObj.slide[2] = url;
+                            });
                             addItem(v4(), itemObj);
                             Swal.close();
                             success();
                           })
                           .catch((e) => {
-                            return `Error Message: ${e}`;
+                            Swal.close();
+                            fail();
                           });
                       })
                       .catch((e) => {
-                        return `Error Message: ${e}`;
+                        Swal.close();
+                        fail();
                       });
                   })
                   .catch((e) => {
-                    return `Error Message: ${e}`;
+                    Swal.close();
+                    fail();
                   });
               })
               .catch((e) => {
-                return `Error Message: ${e}`;
+                Swal.close();
+                fail();
               });
           }
         }}

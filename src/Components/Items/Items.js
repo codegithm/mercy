@@ -7,6 +7,7 @@ import { AppContext } from "../../AppContext";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import Loader from "../Loader/Loader";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 const Items = () => {
   const { priceItem, cartItem, view, itemType, itemInPay, ItemInStore } =

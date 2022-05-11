@@ -38,13 +38,14 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);
+//Storage ref
 export const storage = getStorage(app);
 
 export async function getItems() {
-  const itemsCol = collection(db, "Itesms");
+  const itemsCol = collection(db, "Items");
   const itemsSnapshot = await getDocs(itemsCol);
   const itemsList = itemsSnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -53,6 +54,7 @@ export async function getItems() {
 
   return itemsList;
 }
+
 const personalCol = collection(db, "Personal");
 export async function getPersonal() {
   const personalSnapshot = await getDocs(personalCol);
