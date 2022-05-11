@@ -59,3 +59,9 @@
 .buy-now-item-cont {
   margin-bottom: 20px;
 }
+@media screen and (max-width: 388px) {
+  .products .card {
+    max-width: 145px;
+    min-width: 145px;
+  }
+}

@@ -62,7 +62,7 @@ const Items = () => {
                   return (
                     <div
                       key={item.id}
-                      className='col-lg-3 col-md-4 col-sm-12 card card-items'
+                      className='col-lg-3 col-md-4 col-sm-6 card card-items'
                     >
                       <img
                         className='img-fluid card-img-top'
