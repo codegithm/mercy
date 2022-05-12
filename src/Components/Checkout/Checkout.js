@@ -5,6 +5,7 @@ import { AppContext } from "../../AppContext";
 import { faShoppingBag, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 import NewNav from "../NewNav/NewNav";
+import { v4 } from "uuid";
 
 const Checkout = () => {
   const { priceItem, cartItem, itemInPay } = useContext(AppContext);
@@ -50,7 +51,7 @@ const Checkout = () => {
             <div className='row products-checkout'>
               {cart.map((item) => (
                 <div
-                  key={item.id}
+                  key={v4()}
                   className='col-lg-3 col-md-4 col-sm-12 card-checkout card'
                 >
                   <img

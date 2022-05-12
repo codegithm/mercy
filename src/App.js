@@ -23,12 +23,14 @@ function App() {
     personalInfo,
     loggedInUser,
     checkProfileMatch,
+    itemUpdated,
   } = useContext(AppContext);
   const [isSignedIn, setIsSignedIn] = loggedIn;
   const [itemsDb, setItemsDb] = ItemInStore;
   const [personal, setPersonal] = personalInfo;
   const [inUser, setInUser] = loggedInUser;
   const [profileMatch, setProfileMatch] = checkProfileMatch;
+  const [updateitem, setUpdateitem] = itemUpdated;
   async function getTheData() {
     let data = await getItems();
     setItemsDb(data);
@@ -40,7 +42,7 @@ function App() {
   }
   useEffect(() => {
     getTheData();
-  }, []);
+  }, [updateitem]);
 
   useEffect(() => {
     personalData();

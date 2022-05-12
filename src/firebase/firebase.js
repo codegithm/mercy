@@ -10,6 +10,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import {
+  deleteDoc,
   getFirestore,
   collection,
   getDocs,
@@ -24,6 +25,8 @@ import { getStorage } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../AppContext";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -44,8 +47,8 @@ export const db = getFirestore(app);
 //Storage ref
 export const storage = getStorage(app);
 
+const itemsCol = collection(db, "Items");
 export async function getItems() {
-  const itemsCol = collection(db, "Items");
   const itemsSnapshot = await getDocs(itemsCol);
   const itemsList = itemsSnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -63,6 +66,48 @@ export async function getPersonal() {
     ...doc.data(),
   }));
   return personalList;
+}
+
+//Delete data
+const MySwal = withReactContent(Swal);
+export function deleteData(id) {
+  Swal.fire({
+    icon: "warning",
+    title: "Do you want to save the changes?",
+    showCancelButton: true,
+    confirmButtonText: "Delete",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      //Show loadign
+      MySwal.fire({
+        title: "Deleting",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        showConfirmButton: false,
+        timerProgressBar: true,
+      });
+
+      //Delete
+      const docRef = doc(db, "Items", id);
+      deleteDoc(docRef)
+        .then(() => {
+          Swal.fire("Saved!", "", "success");
+        })
+        .catch(() => {
+          MySwal.fire({
+            title: "Opps...",
+            icon: "error",
+            timerProgressBar: true,
+            allowOutsideClick: true,
+          });
+        });
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+    }
+  });
 }
 
 //Add data

@@ -10,9 +10,10 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { v4 } from "uuid";
-import { async } from "@firebase/util";
+
 function Upload() {
-  const { isUpload } = useContext(AppContext);
+  const { isUpload, itemUpdated } = useContext(AppContext);
+  const [updateitem, setUpdateitem] = itemUpdated;
   const [upload, setUpload] = isUpload;
   const [total, setTotal] = useState(0);
   const [type, setType] = useState("Type");
@@ -712,7 +713,7 @@ function Upload() {
             Img: mainImage,
             Price: parseFloat(price),
             Type: type,
-            slide: [slide, slide2, slide3],
+            slide: [mainImage, slide, slide2, slide3],
             size: sizes,
           };
           if (
@@ -746,20 +747,21 @@ function Upload() {
                 const mainRef = ref(storage, res.metadata.fullPath);
                 getDownloadURL(mainRef).then((url) => {
                   itemObj.Img = url;
+                  itemObj.slide[0] = url;
                 });
                 //Upload slide pic
                 uploadBytes(imgRefSlide, slide[0])
                   .then((res) => {
                     const secRef = ref(storage, res.metadata.fullPath);
                     getDownloadURL(secRef).then((url) => {
-                      itemObj.slide[0] = url;
+                      itemObj.slide[1] = url;
                     });
                     uploadBytes(imgRefSlide2, slide2[0])
                       .then((res) => {
                         console.log(slide2[0]);
                         const thirdRef = ref(storage, res.metadata.fullPath);
                         getDownloadURL(thirdRef).then((url) => {
-                          itemObj.slide[1] = url;
+                          itemObj.slide[2] = url;
                         });
                         uploadBytes(imgRefSlide3, slide3[0])
                           .then((res) => {
@@ -770,11 +772,12 @@ function Upload() {
                             );
                             getDownloadURL(fourthRef).then((url) => {
                               console.log(url);
-                              itemObj.slide[2] = url;
                             });
+                            itemObj.slide[3] = res.metadata.fullPath;
                             addItem(v4(), itemObj);
                             Swal.close();
                             success();
+                            setUpdateitem(!!updateitem);
                           })
                           .catch((e) => {
                             Swal.close();
