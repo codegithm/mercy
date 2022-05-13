@@ -61,7 +61,12 @@
 }
 @media screen and (max-width: 388px) {
   .products .card {
-    max-width: 145px;
-    min-width: 145px;
+    max-width: 135px !important;
+    min-width: 135px !important;
+    min-height: 240px;
+  }
+  .card-img-top {
+    max-height: 168.75px !important;
+    min-height: 168.75px !important;
   }
 }

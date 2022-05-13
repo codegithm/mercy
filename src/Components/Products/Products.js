@@ -47,9 +47,11 @@ function Products() {
                 <div className='delete'>
                   <FontAwesomeIcon
                     onClick={async () => {
-                      await deleteData(item.id);
-                      setUpdateitem(!!updateitem);
-                      console.log(updateitem);
+                      deleteData(item.id);
+                      getItems().then(() => {
+                        setUpdateitem(!!updateitem);
+                        console.log(updateitem);
+                      });
                     }}
                     icon={faTrashAlt}
                   />

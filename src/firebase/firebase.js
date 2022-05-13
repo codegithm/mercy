@@ -27,6 +27,7 @@ import { useHistory } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { async } from "@firebase/util";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -93,19 +94,23 @@ export function deleteData(id) {
       //Delete
       const docRef = doc(db, "Items", id);
       deleteDoc(docRef)
-        .then(() => {
+        .then((res) => {
           Swal.fire("Saved!", "", "success");
+          return res;
         })
-        .catch(() => {
+        .catch((e) => {
           MySwal.fire({
             title: "Opps...",
             icon: "error",
             timerProgressBar: true,
             allowOutsideClick: true,
           });
+
+          return "Error " + e;
         });
     } else if (result.isDenied) {
       Swal.fire("Changes are not saved", "", "info");
+      return "Denied";
     }
   });
 }

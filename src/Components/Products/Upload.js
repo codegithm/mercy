@@ -774,10 +774,11 @@ function Upload() {
                               console.log(url);
                             });
                             itemObj.slide[3] = res.metadata.fullPath;
-                            addItem(v4(), itemObj);
+                            addItem(v4(), itemObj).then(() => {
+                              setUpdateitem(v4());
+                            });
                             Swal.close();
                             success();
-                            setUpdateitem(!!updateitem);
                           })
                           .catch((e) => {
                             Swal.close();

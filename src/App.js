@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
     personalData();
   }, []);
-  const user = useAuth();
+
   return (
     <div className='App'>
       <Router>
