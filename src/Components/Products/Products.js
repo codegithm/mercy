@@ -2,13 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Products.css";
 import Upload from "./Upload";
 import { AppContext } from "../../AppContext";
-import { auth, db } from "../../firebase/firebase";
+import { auth, db, storage } from "../../firebase/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { deleteDoc, doc } from "firebase/firestore/lite";
 import { v4 } from "uuid";
+import { ref, deleteObject } from "firebase/storage";
 
 function Products() {
   const { isUpload, ItemInStore, itemUpdated } = useContext(AppContext);
@@ -43,7 +44,6 @@ function Products() {
         deleteDoc(docRef)
           .then((res) => {
             setUpdateitem(v4());
-            console.log(updateitem);
             Swal.fire("Saved!", "", "success");
             return res;
           })
@@ -99,6 +99,66 @@ function Products() {
                   <FontAwesomeIcon
                     onClick={async () => {
                       deleteData(item.id);
+                      const firstRef = ref(storage, item.meta[0]);
+                      const secRef = ref(storage, item.meta[1]);
+                      const thirdRef = ref(storage, item.meta[2]);
+                      const fourthRef = ref(storage, item.meta[3]);
+
+                      deleteObject(firstRef)
+                        .then(() => {
+                          MySwal.fire({
+                            title: "Deleting Images",
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                              Swal.showLoading();
+                            },
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                          });
+                          deleteObject(secRef)
+                            .then(() => {
+                              deleteObject(thirdRef)
+                                .then(() => {
+                                  deleteObject(fourthRef)
+                                    .then(() => {
+                                      Swal.close();
+                                      Swal.fire("Saved!", "", "success");
+                                    })
+                                    .catch(() => {
+                                      MySwal.fire({
+                                        title: "Opps...",
+                                        icon: "error",
+                                        timerProgressBar: true,
+                                        allowOutsideClick: true,
+                                      });
+                                    });
+                                })
+                                .catch(() => {
+                                  MySwal.fire({
+                                    title: "Opps...",
+                                    icon: "error",
+                                    timerProgressBar: true,
+                                    allowOutsideClick: true,
+                                  });
+                                });
+                            })
+                            .catch(() => {
+                              MySwal.fire({
+                                title: "Opps...",
+                                icon: "error",
+                                timerProgressBar: true,
+                                allowOutsideClick: true,
+                              });
+                            });
+                        })
+                        .catch(() => {
+                          MySwal.fire({
+                            title: "Opps...",
+                            icon: "error",
+                            timerProgressBar: true,
+                            allowOutsideClick: true,
+                          });
+                        });
                     }}
                     icon={faTrashAlt}
                   />

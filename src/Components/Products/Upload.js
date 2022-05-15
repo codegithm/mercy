@@ -26,6 +26,21 @@ function Upload() {
   const [price, setPrice] = useState(null);
   const [brand, setBrand] = useState(null);
   const [sizes, setSizes] = useState(null);
+
+  const resetForm = () => {
+    setUpload(false);
+    setTotal(0);
+    setType("Type");
+    setMainImage(null);
+    setSlide(null);
+    setSlide2(null);
+    setSlide3(null);
+    setName(null);
+    setDescription(null);
+    setPrice(null);
+    setBrand(null);
+    setSizes(null);
+  };
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
     const getNewPrice = () => {
@@ -48,6 +63,17 @@ function Upload() {
   const loading = () => {
     MySwal.fire({
       title: "Uploading",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      showConfirmButton: false,
+      timerProgressBar: true,
+    });
+  };
+  const wait = () => {
+    MySwal.fire({
+      title: "Please wait",
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -715,6 +741,7 @@ function Upload() {
             Type: type,
             slide: [mainImage, slide, slide2, slide3],
             size: sizes,
+            meta: [],
           };
           if (
             mainImage != null &&
@@ -729,6 +756,7 @@ function Upload() {
             description != null &&
             sizes !== null
           ) {
+            wait();
             //File ref
             const imgRefMain = ref(
               storage,
@@ -741,8 +769,9 @@ function Upload() {
             //Upload using file ref
             uploadBytesResumable(imgRefMain, mainImage[0])
               .then((res) => {
+                Swal.close();
                 loading();
-
+                itemObj.meta.push(res.metadata.fullPath);
                 //Set downloadable url
                 const mainRef = ref(storage, res.metadata.fullPath);
                 getDownloadURL(mainRef).then((url) => {
@@ -752,20 +781,21 @@ function Upload() {
                 //Upload slide pic
                 uploadBytes(imgRefSlide, slide[0])
                   .then((res) => {
+                    itemObj.meta.push(res.metadata.fullPath);
                     const secRef = ref(storage, res.metadata.fullPath);
                     getDownloadURL(secRef).then((url) => {
                       itemObj.slide[1] = url;
                     });
                     uploadBytes(imgRefSlide2, slide2[0])
                       .then((res) => {
-                        console.log(slide2[0]);
+                        itemObj.meta.push(res.metadata.fullPath);
                         const thirdRef = ref(storage, res.metadata.fullPath);
                         getDownloadURL(thirdRef).then((url) => {
                           itemObj.slide[2] = url;
                         });
                         uploadBytes(imgRefSlide3, slide3[0])
                           .then((res) => {
-                            console.log(slide3[0]);
+                            itemObj.meta.push(res.metadata.fullPath);
                             const fourthRef = ref(
                               storage,
                               res.metadata.fullPath
@@ -774,12 +804,13 @@ function Upload() {
                               console.log(url);
                             });
                             itemObj.slide[3] = res.metadata.fullPath;
+                            console.log(itemObj);
                             addItem(v4(), itemObj).then(() => {
                               setUpdateitem(v4());
+                              resetForm();
                             });
                             Swal.close();
                             success();
-                            console.log(updateitem);
                           })
                           .catch((e) => {
                             Swal.close();
