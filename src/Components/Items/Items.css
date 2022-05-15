@@ -59,7 +59,7 @@
 .buy-now-item-cont {
   margin-bottom: 20px;
 }
-@media screen and (max-width: 388px) {
+@media screen and (max-width: 370px) {
   .products .card {
     max-width: 135px !important;
     min-width: 135px !important;
@@ -68,5 +68,17 @@
   .card-img-top {
     max-height: 168.75px !important;
     min-height: 168.75px !important;
+  }
+}
+
+@media screen and (min-width: 370px) and (max-width: 388px) {
+  .products .card {
+    max-width: 160px !important;
+    min-width: 160px !important;
+    min-height: 240px;
+  }
+  .card-img-top {
+    max-height: 193.75px !important;
+    min-height: 193.75px !important;
   }
 }

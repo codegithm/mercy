@@ -779,6 +779,7 @@ function Upload() {
                             });
                             Swal.close();
                             success();
+                            console.log(updateitem);
                           })
                           .catch((e) => {
                             Swal.close();

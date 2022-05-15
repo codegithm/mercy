@@ -2,9 +2,12 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Products.css";
 import Upload from "./Upload";
 import { AppContext } from "../../AppContext";
-import { auth, deleteData, getItems } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBag, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { deleteDoc, doc } from "firebase/firestore/lite";
 import { v4 } from "uuid";
 
 function Products() {
@@ -12,6 +15,54 @@ function Products() {
   const [upload, setUpload] = isUpload;
   const [itemsDb, setItemsDb] = ItemInStore;
   const [updateitem, setUpdateitem] = itemUpdated;
+
+  //Delete data
+  const MySwal = withReactContent(Swal);
+  function deleteData(id) {
+    Swal.fire({
+      icon: "warning",
+      title: "Do you want to save the changes?",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        //Show loadign
+        MySwal.fire({
+          title: "Deleting",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+
+        //Delete
+        const docRef = doc(db, "Items", id);
+        deleteDoc(docRef)
+          .then((res) => {
+            setUpdateitem(v4());
+            console.log(updateitem);
+            Swal.fire("Saved!", "", "success");
+            return res;
+          })
+          .catch((e) => {
+            MySwal.fire({
+              title: "Opps...",
+              icon: "error",
+              timerProgressBar: true,
+              allowOutsideClick: true,
+            });
+
+            return "Error " + e;
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+        return "Denied";
+      }
+    });
+  }
 
   return (
     <div className='load'>
@@ -48,10 +99,6 @@ function Products() {
                   <FontAwesomeIcon
                     onClick={async () => {
                       deleteData(item.id);
-                      getItems().then(() => {
-                        setUpdateitem(!!updateitem);
-                        console.log(updateitem);
-                      });
                     }}
                     icon={faTrashAlt}
                   />

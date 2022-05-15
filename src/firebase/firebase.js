@@ -69,52 +69,6 @@ export async function getPersonal() {
   return personalList;
 }
 
-//Delete data
-const MySwal = withReactContent(Swal);
-export function deleteData(id) {
-  Swal.fire({
-    icon: "warning",
-    title: "Do you want to save the changes?",
-    showCancelButton: true,
-    confirmButtonText: "Delete",
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      //Show loadign
-      MySwal.fire({
-        title: "Deleting",
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-        showConfirmButton: false,
-        timerProgressBar: true,
-      });
-
-      //Delete
-      const docRef = doc(db, "Items", id);
-      deleteDoc(docRef)
-        .then((res) => {
-          Swal.fire("Saved!", "", "success");
-          return res;
-        })
-        .catch((e) => {
-          MySwal.fire({
-            title: "Opps...",
-            icon: "error",
-            timerProgressBar: true,
-            allowOutsideClick: true,
-          });
-
-          return "Error " + e;
-        });
-    } else if (result.isDenied) {
-      Swal.fire("Changes are not saved", "", "info");
-      return "Denied";
-    }
-  });
-}
-
 //Add data
 export async function addPersonlDetails(id, data) {
   const colRe = await setDoc(doc(db, "Personal", id), data);
