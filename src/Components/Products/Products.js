@@ -19,7 +19,11 @@ function Products() {
 
   //Delete data
   const MySwal = withReactContent(Swal);
-  function deleteData(id) {
+  function deleteData(id, item) {
+    const firstRef = ref(storage, item.meta[0]);
+    const secRef = ref(storage, item.meta[1]);
+    const thirdRef = ref(storage, item.meta[2]);
+    const fourthRef = ref(storage, item.meta[3]);
     Swal.fire({
       icon: "warning",
       title: "Do you want to save the changes?",
@@ -39,23 +43,69 @@ function Products() {
           timerProgressBar: true,
         });
 
-        //Delete
-        const docRef = doc(db, "Items", id);
-        deleteDoc(docRef)
-          .then((res) => {
-            setUpdateitem(v4());
-            Swal.fire("Saved!", "", "success");
-            return res;
+        //Delete Images
+        deleteObject(firstRef)
+          .then(() => {
+            deleteObject(secRef)
+              .then(() => {
+                deleteObject(thirdRef)
+                  .then(() => {
+                    deleteObject(fourthRef)
+                      .then(() => {
+                        //Delete
+                        const docRef = doc(db, "Items", id);
+                        deleteDoc(docRef)
+                          .then((res) => {
+                            setUpdateitem(v4());
+
+                            Swal.close();
+                            Swal.fire("Saved!", "", "success");
+                          })
+                          .catch((e) => {
+                            MySwal.fire({
+                              title: "Opps...",
+                              icon: "error",
+                              timerProgressBar: true,
+                              allowOutsideClick: true,
+                            });
+
+                            return "Error " + e;
+                          });
+                      })
+                      .catch(() => {
+                        MySwal.fire({
+                          title: "Opps...",
+                          icon: "error",
+                          timerProgressBar: true,
+                          allowOutsideClick: true,
+                        });
+                      });
+                  })
+                  .catch(() => {
+                    MySwal.fire({
+                      title: "Opps...",
+                      icon: "error",
+                      timerProgressBar: true,
+                      allowOutsideClick: true,
+                    });
+                  });
+              })
+              .catch(() => {
+                MySwal.fire({
+                  title: "Opps...",
+                  icon: "error",
+                  timerProgressBar: true,
+                  allowOutsideClick: true,
+                });
+              });
           })
-          .catch((e) => {
+          .catch(() => {
             MySwal.fire({
               title: "Opps...",
               icon: "error",
               timerProgressBar: true,
               allowOutsideClick: true,
             });
-
-            return "Error " + e;
           });
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
@@ -98,67 +148,7 @@ function Products() {
                 <div className='delete'>
                   <FontAwesomeIcon
                     onClick={async () => {
-                      deleteData(item.id);
-                      const firstRef = ref(storage, item.meta[0]);
-                      const secRef = ref(storage, item.meta[1]);
-                      const thirdRef = ref(storage, item.meta[2]);
-                      const fourthRef = ref(storage, item.meta[3]);
-
-                      deleteObject(firstRef)
-                        .then(() => {
-                          MySwal.fire({
-                            title: "Deleting Images",
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                              Swal.showLoading();
-                            },
-                            showConfirmButton: false,
-                            timerProgressBar: true,
-                          });
-                          deleteObject(secRef)
-                            .then(() => {
-                              deleteObject(thirdRef)
-                                .then(() => {
-                                  deleteObject(fourthRef)
-                                    .then(() => {
-                                      Swal.close();
-                                      Swal.fire("Saved!", "", "success");
-                                    })
-                                    .catch(() => {
-                                      MySwal.fire({
-                                        title: "Opps...",
-                                        icon: "error",
-                                        timerProgressBar: true,
-                                        allowOutsideClick: true,
-                                      });
-                                    });
-                                })
-                                .catch(() => {
-                                  MySwal.fire({
-                                    title: "Opps...",
-                                    icon: "error",
-                                    timerProgressBar: true,
-                                    allowOutsideClick: true,
-                                  });
-                                });
-                            })
-                            .catch(() => {
-                              MySwal.fire({
-                                title: "Opps...",
-                                icon: "error",
-                                timerProgressBar: true,
-                                allowOutsideClick: true,
-                              });
-                            });
-                        })
-                        .catch(() => {
-                          MySwal.fire({
-                            title: "Opps...",
-                            icon: "error",
-                            timerProgressBar: true,
-                            allowOutsideClick: true,
-                          });
-                        });
+                      deleteData(item.id, item);
                     }}
                     icon={faTrashAlt}
                   />

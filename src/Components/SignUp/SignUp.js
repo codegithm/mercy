@@ -137,14 +137,13 @@ const SignUp = () => {
             Sign in with <SiGmail className='social-icon' />
           </button>
         ) : (
-          ""
-          // <button
-          //   onClick={singInWithGoogleRedirect}
-          //   className='w-100 btn btn-lg gmail'
-          //   type='submit'
-          // >
-          //   Sign in with <SiGmail className='social-icon' />
-          // </button>
+          <button
+            onClick={useSingInWithGoogle}
+            className='w-100 btn btn-lg gmail'
+            type='submit'
+          >
+            Sign in with <SiGmail className='social-icon' />
+          </button>
         )}
         <button
           type='button'
