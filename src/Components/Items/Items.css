@@ -59,7 +59,7 @@
 .buy-now-item-cont {
   margin-bottom: 20px;
 }
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 340px) {
   .products .card {
     max-width: 135px !important;
     min-width: 135px !important;
@@ -71,7 +71,7 @@
   }
 }
 
-@media screen and (min-width: 370px) and (max-width: 388px) {
+@media screen and (min-width: 340px) and (max-width: 388px) {
   .products .card {
     max-width: 160px !important;
     min-width: 160px !important;
