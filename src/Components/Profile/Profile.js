@@ -16,10 +16,16 @@ import {
   doc,
   getDocs,
 } from "firebase/firestore/lite";
+import { v4 } from "uuid";
 
 const Profile = () => {
-  const { loggedIn, personalInfo, loggedInUser, checkProfileMatch } =
-    useContext(AppContext);
+  const {
+    loggedIn,
+    personalInfo,
+    loggedInUser,
+    checkProfileMatch,
+    personalUpdate,
+  } = useContext(AppContext);
   const [isSignedIn, setIsSignedIn] = loggedIn;
   const [personal, setPersonal] = personalInfo;
   const [inUser, setInUser] = loggedInUser;
@@ -27,6 +33,7 @@ const Profile = () => {
   const user = useAuth();
   const [userId, setUserId] = useState("");
   const [profileMatch, setProfileMatch] = checkProfileMatch;
+  const [updatePersonal, setUpdatePersonal] = personalUpdate;
   const [fName, setFName] = useState("");
 
   const isProfileMatched = () => {
@@ -104,6 +111,7 @@ const Profile = () => {
                       : Error;
                   upDateName(id, { address: value })
                     .then(() => {
+                      setUpdatePersonal(v4());
                       Swal.fire({
                         icon: "success",
                         title: "Your address has been saved",
@@ -146,6 +154,7 @@ const Profile = () => {
                             : Error;
                         upDateName(id, { city: value })
                           .then(() => {
+                            setUpdatePersonal(v4());
                             Swal.fire({
                               icon: "success",
                               title: "Your city has been saved",
@@ -188,6 +197,7 @@ const Profile = () => {
                                   : Error;
                               upDateName(id, { province: value })
                                 .then(() => {
+                                  setUpdatePersonal(v4());
                                   Swal.fire({
                                     icon: "success",
                                     title: "Your province has been saved",
@@ -228,6 +238,7 @@ const Profile = () => {
                                         : Error;
                                     upDateName(id, { zip: value })
                                       .then(() => {
+                                        setUpdatePersonal(v4());
                                         Swal.fire({
                                           icon: "success",
                                           title: "Your zip has been saved",
@@ -260,6 +271,7 @@ const Profile = () => {
         }
       });
   };
+
   const showPersonal = () => {
     let personlObj = "";
     personal.map((data) => {
@@ -321,6 +333,7 @@ const Profile = () => {
                   upDateName(id, { name: value })
                     .then(() => {
                       setFName(value);
+                      setUpdatePersonal(v4());
                       personlObj.name = value;
                       Swal.fire({
                         icon: "success",
@@ -363,7 +376,7 @@ const Profile = () => {
                             : Error;
                         upDateName(id, { surname: value })
                           .then(() => {
-                            personlObj.name = value;
+                            setUpdatePersonal(v4());
                             Swal.fire({
                               icon: "success",
                               title: "Your surname has been saved",
@@ -404,6 +417,7 @@ const Profile = () => {
                                   : Error;
                               upDateName(id, { cellnumber: value })
                                 .then(() => {
+                                  setUpdatePersonal(v4());
                                   Swal.fire({
                                     icon: "success",
                                     title: "Your cellnumber has been saved",

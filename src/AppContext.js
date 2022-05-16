@@ -20,6 +20,7 @@ export const AppProvider = (props) => {
   const [products, setProducts] = useState("");
   const [upload, setUpload] = useState(false);
   const [updateitem, setUpdateitem] = useState(false);
+  const [updatePersonal, setUpdatePersonal] = useState(false);
   return (
     <AppContext.Provider
       value={{
@@ -40,6 +41,7 @@ export const AppProvider = (props) => {
         isProducts: [products, setProducts],
         isUpload: [upload, setUpload],
         itemUpdated: [updateitem, setUpdateitem],
+        personalUpdate: [updatePersonal, setUpdatePersonal],
       }}
     >
       {props.children}
