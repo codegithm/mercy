@@ -10,6 +10,8 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { v4 } from "uuid";
+import Error from "../Error/Error";
+import { MdErrorOutline } from "react-icons/md";
 
 function Upload() {
   const { isUpload, itemUpdated } = useContext(AppContext);
@@ -26,6 +28,7 @@ function Upload() {
   const [price, setPrice] = useState(null);
   const [brand, setBrand] = useState(null);
   const [sizes, setSizes] = useState(null);
+  const [error, setError] = useState(false);
 
   const resetForm = () => {
     setUpload(false);
@@ -729,6 +732,17 @@ function Upload() {
         <p>Total after additional cost: {total}</p>
       </div>
       <br />
+      {error === true ? (
+        <div className='error-cont error-cont-upload'>
+          <div className='error-icon'>
+            <MdErrorOutline />
+          </div>
+          <p>Please make sure there is no empty field(s) </p>
+        </div>
+      ) : (
+        ""
+      )}
+      <br />
       <button
         onClick={() => {
           let itemObj = {
@@ -756,6 +770,7 @@ function Upload() {
             description != null &&
             sizes !== null
           ) {
+            setError(false);
             wait();
             //File ref
             const imgRefMain = ref(
@@ -804,7 +819,6 @@ function Upload() {
                               console.log(url);
                             });
                             itemObj.slide[3] = res.metadata.fullPath;
-                            console.log(itemObj);
                             addItem(v4(), itemObj).then(() => {
                               setUpdateitem(v4());
                               resetForm();
@@ -831,6 +845,8 @@ function Upload() {
                 Swal.close();
                 fail();
               });
+          } else {
+            setError(true);
           }
         }}
         type='button'

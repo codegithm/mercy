@@ -2,7 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import NavProile from "../NavProfile/NavProfile";
-import { db, upDateName, logOff, auth } from "../../firebase/firebase";
+import {
+  db,
+  upDateName,
+  logOff,
+  auth,
+  getPersonal,
+} from "../../firebase/firebase";
 import { AppContext } from "../../AppContext";
 import "./Profile.css";
 import { useHistory } from "react-router-dom";
@@ -35,7 +41,13 @@ const Profile = () => {
   const [profileMatch, setProfileMatch] = checkProfileMatch;
   const [updatePersonal, setUpdatePersonal] = personalUpdate;
   const [fName, setFName] = useState("");
-
+  async function personalData() {
+    let personal = await getPersonal();
+    setPersonal(personal);
+  }
+  useEffect(() => {
+    personalData();
+  }, [updatePersonal]);
   const isProfileMatched = () => {
     for (var data in personal) {
       if (personal[data].id == inUser.uid) {

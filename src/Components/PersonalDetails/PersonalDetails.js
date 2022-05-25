@@ -1,14 +1,12 @@
 import React, { useContext, useState } from "react";
-import { addPersonlDetails } from "../../firebase/firebase";
+import { addPersonlDetails, auth } from "../../firebase/firebase";
 import { AppContext } from "../../AppContext";
 import "./PersonalDetails.css";
 import { useHistory } from "react-router-dom";
 import NavProile from "../NavProfile/NavProfile";
-
-// import PlacesAutocomplete, {
-//   geocodeByAddress,
-//   getLatLng,
-// } from "react-places-autocomplete";
+import { MdErrorOutline } from "react-icons/md";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function PersonalDetails() {
   // const [addres, setAddress] = useState("");
@@ -20,11 +18,11 @@ function PersonalDetails() {
   const [province, setProvince] = useState("");
   const [cellNum, setCellNum] = useState("");
   const [addres, setAddress] = useState("");
-
+  const [error, setError] = useState(false);
   const { loggedInUser, checkProfileMatch } = useContext(AppContext);
   const [profileMatch, setProfileMatch] = checkProfileMatch;
   const [inUser, setInUser] = loggedInUser;
-  const uid = inUser.uid;
+  const uid = auth.currentUser.uid;
   const personalDetails = {
     id: uid,
     name: name,
@@ -36,12 +34,62 @@ function PersonalDetails() {
     address: addres,
     seller: false,
   };
+  const MySwal = withReactContent(Swal);
+  const loading = () => {
+    MySwal.fire({
+      title: "Saving",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      showConfirmButton: false,
+      timerProgressBar: true,
+    });
+  };
+
+  const success = () => {
+    MySwal.fire({
+      title: "Complete",
+      icon: "success",
+      timerProgressBar: true,
+      allowOutsideClick: false,
+    });
+  };
+
+  const fail = () => {
+    MySwal.fire({
+      title: "Opps...",
+      icon: "error",
+      timerProgressBar: true,
+      allowOutsideClick: true,
+    });
+  };
   const history = useHistory();
   const submit = (e) => {
     e.preventDefault();
-    addPersonlDetails(uid, personalDetails);
-    history.push("/profile");
-    setProfileMatch(true);
+    if (
+      name !== "" &&
+      surname !== "" &&
+      city !== "" &&
+      zip !== "" &&
+      province !== "" &&
+      cellNum !== "" &&
+      addres !== ""
+    ) {
+      setError(false);
+      loading();
+      addPersonlDetails(auth.currentUser.uid, personalDetails)
+        .then(() => {
+          success();
+          history.push("/profile");
+          setProfileMatch(true);
+        })
+        .catch(() => {
+          fail();
+        });
+    } else {
+      setError(true);
+    }
   };
   const changeName = (e) => {
     setName(e.target.value);
@@ -158,6 +206,20 @@ function PersonalDetails() {
               onChange={changeZip}
             />
           </div>
+          {error === true ? (
+            <div>
+              <br />
+              <div className='error-cont error-cont-upload'>
+                <div className='error-icon'>
+                  <MdErrorOutline />
+                </div>
+                <p>Please make sure there is no empty field(s) </p>
+              </div>
+              <br />
+            </div>
+          ) : (
+            ""
+          )}
           <div className='col-12'>
             <button type='submit' onClick={submit} className='btn btn-dark'>
               Save

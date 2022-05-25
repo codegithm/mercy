@@ -45,12 +45,10 @@ function App() {
   useEffect(() => {
     getTheData();
   }, [updateitem]);
+
   useEffect(() => {
     personalData();
   }, []);
-  useEffect(() => {
-    personalData();
-  }, [updatePersonal]);
 
   return (
     <div className='App'>
